@@ -1,4 +1,3 @@
 include ':nimplefacebook', ':nimplegreendaogenerator'
 include ':nimplezxing'
 include ':nimpleandroid'
-include ':nimpleandroidtest'
