@@ -1,0 +1,30 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/screen"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <de.nimple.ui.parts.PagerSlidingTabStrip
+        android:id="@+id/tabs"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:background="#ededed"
+        android:fontFamily="sans-serif-light"
+        android:textColor="#616161"
+        android:textSize="16sp"
+        app:pstsDividerColor="@color/transparent"
+        app:pstsIndicatorColor="#e41a4f"
+        app:pstsIndicatorHeight="4dp"
+        app:pstsShouldExpand="true"
+        app:pstsTextAllCaps="false"
+        app:pstsUnderlineColor="#e41a4f"
+        app:pstsUnderlineHeight="1dp" />
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ededed" />
+
+</LinearLayout>

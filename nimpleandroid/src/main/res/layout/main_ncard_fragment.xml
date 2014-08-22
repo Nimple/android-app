@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:layout_marginEnd="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginStart="20dp"
+        android:background="@drawable/card_frame_selector"
+        android:gravity="center"
+        android:padding="10dp" >
+
+        <RelativeLayout
+            android:id="@+id/ncard_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minHeight="210dp" >
+
+            <ImageView
+                android:id="@+id/edit_nimple_card"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:padding="10dp"
+                android:src="@drawable/ic_action_edit" />
+
+            <TextView
+                android:id="@+id/nameTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/ncard_name"
+                android:textAppearance="@style/NimpleTextHeading"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/phoneIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/nameTextView"
+                android:layout_below="@+id/nameTextView"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/ic_nimple_phone" />
+
+            <TextView
+                android:id="@+id/phoneTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/phoneIcon"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="-2dp"
+                android:layout_toRightOf="@+id/phoneIcon"
+                android:text="@string/ncard_phone"
+                android:textAppearance="@style/NimpleTextDefault" />
+
+            <ImageView
+                android:id="@+id/mailIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/phoneIcon"
+                android:layout_below="@+id/phoneTextView"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/ic_nimple_email" />
+
+            <TextView
+                android:id="@+id/mailTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/phoneTextView"
+                android:layout_alignTop="@+id/mailIcon"
+                android:layout_marginTop="-2dp"
+                android:text="@string/ncard_mail"
+                android:textAppearance="@style/NimpleTextDefault" />
+
+            <ImageView
+                android:id="@+id/companyIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/mailIcon"
+                android:layout_below="@+id/mailTextView"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/ic_nimple_company" />
+
+            <TextView
+                android:id="@+id/companyTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/mailTextView"
+                android:layout_alignTop="@+id/companyIcon"
+                android:layout_marginTop="-2dp"
+                android:text="@string/ncard_company"
+                android:textAppearance="@style/NimpleTextDefault" />
+
+            <ImageView
+                android:id="@+id/jobIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/companyIcon"
+                android:layout_below="@+id/companyTextView"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/ic_nimple_job" />
+
+            <TextView
+                android:id="@+id/jobTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/companyTextView"
+                android:layout_alignTop="@+id/jobIcon"
+                android:layout_marginTop="-2dp"
+                android:text="@string/ncard_job"
+                android:textAppearance="@style/NimpleTextDefault" />
+
+            <ImageView
+                android:id="@+id/websiteIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/jobIcon"
+                android:layout_alignStart="@+id/jobIcon"
+                android:layout_below="@+id/jobTextView"
+                android:layout_marginTop="10dp"
+                android:contentDescription="@string/ncard_website"
+                android:src="@drawable/ic_nimple_website" />
+
+            <TextView
+                android:id="@+id/websiteTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/jobTextView"
+                android:layout_alignStart="@+id/jobTextView"
+                android:layout_alignTop="@+id/websiteIcon"
+                android:layout_marginTop="-2dp"
+                android:text="@string/ncard_website"
+                android:textAppearance="@style/NimpleTextDefault" />
+
+            <ImageView
+                android:id="@+id/addressIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/websiteIcon"
+                android:layout_alignStart="@+id/websiteIcon"
+                android:layout_below="@+id/websiteTextView"
+                android:layout_marginTop="10dp"
+                android:contentDescription="@string/ncard_address"
+                android:src="@drawable/ic_nimple_address" />
+
+            <TextView
+                android:id="@+id/addressStreetTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/websiteTextView"
+                android:layout_alignStart="@+id/websiteTextView"
+                android:layout_alignTop="@+id/addressIcon"
+                android:layout_marginTop="-2dp"
+                android:text="@string/ncard_address"
+                android:textAppearance="@style/NimpleTextDefault" />
+
+            <TextView
+                android:id="@+id/addressCityTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/addressStreetTextView"
+                android:layout_alignStart="@+id/addressStreetTextView"
+                android:layout_below="@+id/addressStreetTextView"
+                android:textAppearance="@style/NimpleTextDefault" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ncard_layout"
+            android:layout_marginLeft="10dp"
+            android:orientation="horizontal"
+            android:paddingBottom="10dp" >
+
+            <ImageView
+                android:id="@+id/facebookRoundIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_round_facebook" />
+
+            <ImageView
+                android:id="@+id/twitterRoundIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/ic_round_twitter" />
+
+            <ImageView
+                android:id="@+id/xingRoundIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/ic_round_xing" />
+
+            <ImageView
+                android:id="@+id/linkedinRoundIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/ic_round_linkedin" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/ncard_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:padding="10dp"
+        android:paddingBottom="10dp"
+        android:text="@string/ncard_footer"
+        android:textAppearance="@style/NimpleTextAnnotation" />
+
+</RelativeLayout>

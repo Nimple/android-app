@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Default de-strings -->
+    <!-- Form validation -->
+    <string name="form_error_firstname">Bitte deinen Vornamen eingeben.</string>
+    <string name="form_error_lastname">Bitte deinen Nachnamen eingeben.</string>
+    <string name="form_error_mail_invalid">E-Mail-Adresse ist ungültig.</string>
+
+    <!-- Actionbar -->
+    <string name="ab_delete">Löschen</string>
+    <string name="ab_finish">Fertig</string>
+    <string name="ab_add">Hinzufügen</string>
+    <string name="ab_share">Teilen</string>
+    <string name="ab_feedback">Feedback</string>
+    <string name="ab_about">Über</string>
+    <string name="ab_discard">Verwerfen</string>
+    <string name="ab_done">Fertig</string>
+
+    <!-- Titles -->
+    <string name="ncard_title">Karte</string>
+    <string name="ncode_title">Code</string>
+    <string name="contacts_title">Kontakte</string>
+    <string name="about_title">Über</string>
+    <string name="edit_title">Karte editieren</string>
+    <string name="social_title">Social</string>
+
+    <!-- Bootstrap -->
+    <string name="bootstrap_first_contact">Nimple App - Dein erster Kontakt</string>
+    <string name="created_note">Erstellt mit nimple.de</string>
+
+    <!-- Hints -->
+    <string name="checkbox_info_hint">Über Checkboxen stellst du die Sichtbarkeit auf deiner Nimple-Card ein.</string>
+    <string name="add_to_address_book">Zum Adressbuch hinzufügen</string>
+
+    <!-- About -->
+    <string name="about_faq">FAQ</string>
+    <string name="about_imprint">Impressum</string>
+    <string name="about_terms">AGB</string>
+    <string name="about_disclaimer">Datenschutz</string>
+    <string name="about_facebook">Besuche Facebook</string>
+    <string name="about_twitter">Besuche Twitter</string>
+
+    <!-- Socialism -->
+    <string name="social_connected">Verbunden, klicke um das Profil zu entfernen.</string>
+    <string name="social_disconnected">Klicke um das Profil hinzuzufügen.</string>
+    <string name="no_internet_connection">Keine Internetverbindung.</string>
+    <string name="social_connected_toast">Deine nimple-card ist nun mit %s verbunden.</string>
+    <string name="social_disconnected_toast">Deine nimple-card ist nicht mehr mit %s verbunden.</string>
+
+    <!-- Dialogs -->
+    <string name="button_save">Speichern</string>
+    <string name="button_ok">OK</string>
+    <string name="button_cancel">Abbrechen</string>
+    <string name="delete_contact_dialog">Willst du den Kontakt %s wirklich löschen?</string>
+    <string name="contact_picker_fail">Der Kontakt hat keinen Namen.</string>
+    <string name="contact_scan_failed">Der nimple-code konnte nicht gescannt werden.</string>
+    <string name="contact_scan_duplicated">%s existiert bereits in deiner Kontaktliste&#8230;</string>
+    <string name="save_contact_question">Soll der Kontakt ins Adressbuch übertragen werden?</string>
+
+    <!-- Feedback -->
+    <string name="send_mail">E-Mail senden&#8230;</string>
+    <string name="feedback_chooser">E-Mail senden mit:</string>
+    <string name="feedback_email">feedback.android@nimple.de</string>
+    <string name="feedback_subject">[Feedback] Android App</string>
+    <string name="feedback_text">Eure App gefällt/gefällt mir nicht, weil</string>
+
+    <!-- Share APP -->
+    <string name="share_app_chooser">Teile mit:</string>
+    <string name="share_app_subject">Nimple - Die Zukunft des Networkings</string>
+    <string name="share_app_text">Ich networke simple mit der Nimple-App. Probiere sie aus und lade sie dir direkt herunter: www.nimple.de</string>
+
+    <!-- Home Screen w/o contacts -->
+    <string name="add_contact_hint">Scanne über\nneue Kontakte ein</string>
+    <string name="swype_left_hint">Wische nach links um\ndeine Karte zu bearbeiten</string>
+    <string name="swype_right_hint">Wische nach rechts um\ndeine Kontakte zu sehen</string>
+
+    <!-- User Input Personal -->
+    <string name="personal_input_firstname">Vorname</string>
+    <string name="personal_input_lastname">Nachname</string>
+    <string name="personal_input_phone">Telefonnummer</string>
+    <string name="personal_input_mail">E-Mail-Adresse</string>
+
+    <!-- User Input Business -->
+    <string name="business_input_company">Unternehmen/Uni/Schule</string>
+    <string name="business_input_job">Job/Position</string>
+
+    <!-- User Input Others -->
+	<string name="ncard_edit_website">Webseite</string>
+	<string name="ncard_edit_address_street">Straße</string>
+	<string name="ncard_edit_address_postal">PLZ</string>
+	<string name="ncard_edit_address_city">Ort</string>
+	
+    <!-- nimple-card fragement -->
+    <string name="ncard_name">Name</string>
+    <string name="ncard_phone">Telefonnummer</string>
+    <string name="ncard_mail">E-Mail-Adresse</string>
+    <string name="ncard_company">Unternehmen/Uni/Schule</string>
+    <string name="ncard_job">Job/Position</string>
+    <string name="ncard_website">Webseite</string>
+    <string name="ncard_address">Adresse</string>
+    <string name="ncard_footer">Deine Nimple-Card wird per Scannen deines Nimple-Codes übertragen.</string>
+
+    <!-- nimple-code fragement -->
+    <string name="ncode_footer">Lass jemanden deinen Nimple-Code einscannen und übertrage deine Daten.</string>
+
+    <!-- contacts fragement -->
+    <string name="contact_added_toast">Ein neuer Kontakt wurde hinzugefügt.</string>
+    <string name="contacts_delete">Klicke länger auf einen Kontakt, um ihn zu löschen.</string>
+    <string name="contacts_save">Hier kannst du einen geknüpften Kontakt direkt in deinem Adressbuch abspeichern.</string>
+
+    <!-- contact details -->
+    <string name="note_hint">Notizen</string>
+    <string name="contact_facebook">Kein Facebook-Profil</string>
+    <string name="contact_twitter">Kein Twitter-Profil</string>
+    <string name="contact_xing">Kein Xing-Profil</string>
+    <string name="contact_linkedin">Kein LinkedIn-Profil</string>
+    <string name="button_delete">Löschen</string>
+
+</resources>
