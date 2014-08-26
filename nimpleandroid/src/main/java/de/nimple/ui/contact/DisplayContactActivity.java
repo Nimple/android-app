@@ -321,28 +321,28 @@ public class DisplayContactActivity extends SherlockActivity {
 
 	private void fillSocialUi() {
 		if (contact.getFacebookUrl().length() != 0) {
-			facebookProfile.setText(cleanThatURL(contact.getFacebookUrl()));
+			facebookProfile.setText(contact.getFacebookUrl());
 			facebookImageView.setAlpha(255);
 		} else {
 			facebookImageView.setAlpha(30);
 		}
 
 		if (contact.getTwitterUrl().length() != 0) {
-			twitterProfile.setText(cleanThatURL(contact.getTwitterUrl()));
+			twitterProfile.setText(contact.getTwitterUrl());
 			twitterImageView.setAlpha(255);
 		} else {
 			twitterImageView.setAlpha(30);
 		}
 
 		if (contact.getXingUrl().length() != 0) {
-			xingProfile.setText(cleanThatURL(contact.getXingUrl()));
+			xingProfile.setText(contact.getXingUrl());
 			xingImageView.setAlpha(255);
 		} else {
 			xingImageView.setAlpha(30);
 		}
 
 		if (contact.getLinkedinUrl().length() != 0) {
-			linkedinProfile.setText(cleanThatURL(contact.getLinkedinUrl()));
+			linkedinProfile.setText(contact.getLinkedinUrl());
 			linkedinImageView.setAlpha(255);
 		} else {
 			linkedinImageView.setAlpha(30);
