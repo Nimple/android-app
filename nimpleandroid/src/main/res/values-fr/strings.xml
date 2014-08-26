@@ -11,7 +11,7 @@
 	<!-- Form validation -->
 	<string name="form_error_firstname">Entrer votre prénom.</string>
 	<string name="form_error_lastname">Entrer votre nom.</string>
-	<string name="form_error_mail_invalid">Adresse e-mail n'est pas valide.</string>
+	<string name="form_error_mail_invalid">Adresse e-mail n\'est pas valide.</string>
 
 	<!-- Actionbar -->
 	<string name="ab_delete">Supprimer</string>
@@ -59,7 +59,7 @@
 	<string name="button_ok">OK</string>
 	<string name="button_cancel">Annuler</string>
 	<string name="delete_contact_dialog">Supprimer le contact %s?</string>
-	<string name="contact_picker_fail">Contact n'a pas de nom.</string>
+	<string name="contact_picker_fail">Contact n\'a pas de nom.</string>
 	<string name="contact_scan_failed">Nimple ne peut pas lire le code.</string>
 	<string name="contact_scan_duplicated">Le contact %s est ajouté à vos contacts.</string>
 	<string name="save_contact_question">Enregistrer ce contact dans vos contacts?</string>
@@ -69,12 +69,12 @@
 	<string name="feedback_chooser">Envoyer un mail avec:</string>
 	<string name="feedback_email">feedback.android@nimple.de</string>
 	<string name="feedback_subject">[Feedback] Android App</string>
-	<string name="feedback_text">J'aime votre application...</string>
+	<string name="feedback_text">J\'aime votre application…</string>
 
 	<!-- Share APP -->
 	<string name="share_app_chooser">Recommander Nimple avec:</string>
 	<string name="share_app_subject">Nimple - Networking Simple application</string>
-	<string name="share_app_text">J'utilise l'application Nimple - Networking Simple. Téléchargement: www.nimpleapp.com</string>
+	<string name="share_app_text">J\'utilise l\'application Nimple - Networking Simple. Téléchargement: www.nimpleapp.com</string>
 
 	<!-- Home Screen w/o user input -->
 	<string name="add_contact_hint">Scanner avec\nun nouveau contact</string>
@@ -112,7 +112,7 @@
 
 	<!-- contacts fragement -->
 	<string name="contact_added_toast">Vous avez un nouveau contact.</string>
-	<string name="at_string/no_contacts_text">Scanner avec + un nouveau contact</string>
+	<string name="no_contacts_text">Scanner avec + un nouveau contact</string>
 
 	<!-- contact details -->
 	<string name="note_hint">Notes</string>

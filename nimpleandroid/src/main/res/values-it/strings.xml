@@ -74,7 +74,7 @@
 	<!-- Share APP -->
 	<string name="share_app_chooser">Condividi Nimple con:</string>
 	<string name="share_app_subject">Nimple - Networking Simple App</string>
-	<string name="share_app_text">Io uso l'app Nimple - Networking Simple. Download: www.nimpleapp.com</string>
+	<string name="share_app_text">Io uso l\'app Nimple - Networking Simple. Download: www.nimpleapp.com</string>
 
 	<!-- Home Screen w/o user input -->
 	<string name="add_contact_hint">Scansione con\nun nuovo contatto</string>
@@ -112,7 +112,7 @@
 
 	<!-- contacts fragement -->
 	<string name="contact_added_toast">Hai un nuovo contatto.</string>
-	<string name="at_string/no_contacts_text">Scansione con + un nuovo contatto</string>
+	<string name="no_contacts_text">Scansione con + un nuovo contatto</string>
 
 	<!-- contact details -->
 	<string name="note_hint">Note</string>

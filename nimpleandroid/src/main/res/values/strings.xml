@@ -120,7 +120,7 @@
 
 	<!-- contacts fragement -->
 	<string name="contact_added_toast">You have got a new contact.</string>
-	<string name="at_string/no_contacts_text">Scan via + new contacts</string>
+	<string name="no_contacts_text">Scan via + new contacts</string>
 
 	<!-- contact details -->
 	<string name="note_hint">Notes</string>
