@@ -152,7 +152,7 @@ public class EditNimpleCodeActivity extends SherlockActivity {
                     @Override
                     public void onClick(View v) {
                         // "Cancel"
-                        onDestroy();
+                        finish();
                     }
                 });
         // Show the custom action bar view and hide the normal Home icon and title.
@@ -166,7 +166,7 @@ public class EditNimpleCodeActivity extends SherlockActivity {
                         ViewGroup.LayoutParams.MATCH_PARENT,
                         ViewGroup.LayoutParams.MATCH_PARENT));
         // END_INCLUDE (inflate_set_custom_view)
-        setContentView(R.layout.actionbar_done_cancel);
+        //setContentView(R.layout.actionbar_done_cancel);
     }
 
 	public void onEvent(SocialConnectedEvent ev) {
@@ -250,8 +250,7 @@ public class EditNimpleCodeActivity extends SherlockActivity {
 		}
 	}
 
-	@OnClick({ R.id.edit_ncode_save, R.id.actionbar_done })
-	public void onClickSave() {
+	private void onClickSave() {
 		if (performFormValidation())
 			return;
 		save();
