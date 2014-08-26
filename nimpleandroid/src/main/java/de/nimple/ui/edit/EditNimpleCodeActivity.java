@@ -3,24 +3,15 @@ package de.nimple.ui.edit;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-import butterknife.ButterKnife;
-import butterknife.InjectView;
-import butterknife.OnClick;
 
-import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.view.Window;
 import com.facebook.Request;
 import com.facebook.Response;
@@ -28,6 +19,9 @@ import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.model.GraphUser;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 import de.nimple.R;
 import de.nimple.enums.SocialNetwork;
@@ -37,13 +31,12 @@ import de.nimple.events.SocialDisconnectedEvent;
 import de.nimple.ui.edit.social.SocialLinkedinActivity;
 import de.nimple.ui.edit.social.SocialTwitterActivity;
 import de.nimple.ui.edit.social.SocialXingActivity;
+import de.nimple.ui.parts.ActionBarDoneCancel;
 import de.nimple.util.logging.Lg;
 import de.nimple.util.nimplecode.Address;
 import de.nimple.util.nimplecode.NimpleCodeHelper;
 
-public class EditNimpleCodeActivity extends SherlockActivity {
-	private Context ctx;
-
+public class EditNimpleCodeActivity extends SherlockActivity implements ActionBarDoneCancel.ActionBarDoneCancelCallback {
 	// personal information
 	@InjectView(R.id.firstnameEditText)
 	public EditText firstname;
@@ -53,28 +46,23 @@ public class EditNimpleCodeActivity extends SherlockActivity {
 	public EditText mail;
 	@InjectView(R.id.phoneEditText)
 	public EditText phone;
-
 	@InjectView(R.id.mailCheckbox)
 	public CheckBox mailCheck;
 	@InjectView(R.id.phoneCheckbox)
 	public CheckBox phoneCheck;
-
 	// business information
 	@InjectView(R.id.companyEditText)
 	public TextView company;
 	@InjectView(R.id.positionEditText)
 	public TextView position;
-
 	@InjectView(R.id.companyCheckbox)
 	public CheckBox companyCheck;
 	@InjectView(R.id.positionCheckbox)
 	public CheckBox positionCheck;
-	
 	@InjectView(R.id.websiteCheckbox)
 	public CheckBox websiteCheck;
 	@InjectView(R.id.websiteEditText)
 	public EditText website;
-	
 	@InjectView(R.id.adressCheckbox)
 	public CheckBox addressCheck;
 	@InjectView(R.id.addressStreetEditText)
@@ -83,7 +71,14 @@ public class EditNimpleCodeActivity extends SherlockActivity {
 	public EditText addressPostal;
 	@InjectView(R.id.addressCityEditText)
 	public EditText addressCity;
-	
+	@InjectView(R.id.facebookCheckbox)
+	public CheckBox facebookCheck;
+	@InjectView(R.id.twitterCheckbox)
+	public CheckBox twitterCheck;
+	@InjectView(R.id.xingCheckbox)
+	public CheckBox xingCheck;
+	@InjectView(R.id.linkedinCheckbox)
+	public CheckBox linkedinCheck;
 	// social information
 	@InjectView(R.id.facebookRoundIcon)
 	ImageView facebookImageView;
@@ -93,7 +88,6 @@ public class EditNimpleCodeActivity extends SherlockActivity {
 	ImageView xingImageView;
 	@InjectView(R.id.linkedinRoundIcon)
 	ImageView linkedinImageView;
-
 	@InjectView(R.id.facebookTextView)
 	TextView facebookTextView;
 	@InjectView(R.id.twitterTextView)
@@ -102,15 +96,15 @@ public class EditNimpleCodeActivity extends SherlockActivity {
 	TextView xingTextView;
 	@InjectView(R.id.linkedinTextView)
 	TextView linkedinTextView;
+	private Context ctx;
 
-	@InjectView(R.id.facebookCheckbox)
-	public CheckBox facebookCheck;
-	@InjectView(R.id.twitterCheckbox)
-	public CheckBox twitterCheck;
-	@InjectView(R.id.xingCheckbox)
-	public CheckBox xingCheck;
-	@InjectView(R.id.linkedinCheckbox)
-	public CheckBox linkedinCheck;
+	public final static boolean isValidEmail(CharSequence target) {
+		if (target == null) {
+			return false;
+		} else {
+			return android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
+		}
+	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -118,56 +112,26 @@ public class EditNimpleCodeActivity extends SherlockActivity {
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		setContentView(R.layout.edit_ncard_screen);
 		setSupportProgressBarIndeterminateVisibility(false);
-		initActionBar();
-
+		ActionBarDoneCancel.apply(this, getSupportActionBar());
 		ButterKnife.inject(this);
-
 		ctx = getApplicationContext();
 		EventBus.getDefault().register(this);
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 	}
 
-	private void initActionBar() {
-		/*View actionbarDoneButton = getLayoutInflater().inflate(R.layout.actionbar_done_button, null);
-		getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM,
-				ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_HOME | ActionBar.DISPLAY_SHOW_TITLE);
-		getSupportActionBar().setCustomView(actionbarDoneButton);
-*/
-        // BEGIN_INCLUDE (inflate_set_custom_view)
-        // Inflate a "Done/Cancel" custom action bar view.
-        final LayoutInflater inflater = (LayoutInflater) getSupportActionBar().getThemedContext()
-                .getSystemService(LAYOUT_INFLATER_SERVICE);
-        final View customActionBarView = inflater.inflate(
-                R.layout.actionbar_done_cancel, null);
-        customActionBarView.findViewById(R.id.actionbar_done).setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        // "Done"
-                        onClickSave();
-                    }
-                });
-        customActionBarView.findViewById(R.id.actionbar_cancel).setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        // "Cancel"
-                        finish();
-                    }
-                });
-        // Show the custom action bar view and hide the normal Home icon and title.
-        final ActionBar actionBar = getSupportActionBar();
-        actionBar.setDisplayOptions(
-                ActionBar.DISPLAY_SHOW_CUSTOM,
-                ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_HOME
-                        | ActionBar.DISPLAY_SHOW_TITLE);
-        actionBar.setCustomView(customActionBarView,
-                new ActionBar.LayoutParams(
-                        ViewGroup.LayoutParams.MATCH_PARENT,
-                        ViewGroup.LayoutParams.MATCH_PARENT));
-        // END_INCLUDE (inflate_set_custom_view)
-        //setContentView(R.layout.actionbar_done_cancel);
-    }
+	@Override
+	public void onDoneCallback() {
+		if (performFormValidation()) {
+			return;
+		}
+		save();
+		finish();
+	}
+
+	@Override
+	public void onCancelCallback() {
+		finish();
+	}
 
 	public void onEvent(SocialConnectedEvent ev) {
 		fillUi();
@@ -189,14 +153,6 @@ public class EditNimpleCodeActivity extends SherlockActivity {
 		fillUi();
 	}
 
-	public final static boolean isValidEmail(CharSequence target) {
-		if (target == null) {
-			return false;
-		} else {
-			return android.util.Patterns.EMAIL_ADDRESS.matcher(target).matches();
-		}
-	}
-
 	private void fillUi() {
 		// set all views
 		NimpleCodeHelper ncode = new NimpleCodeHelper(ctx);
@@ -209,7 +165,7 @@ public class EditNimpleCodeActivity extends SherlockActivity {
 		addressStreet.setText(ncode.holder.address.getStreet());
 		addressPostal.setText(ncode.holder.address.getPostalCode());
 		addressCity.setText(ncode.holder.address.getLocality());
-		
+
 		mailCheck.setChecked(ncode.holder.show.mail);
 		phoneCheck.setChecked(ncode.holder.show.phone);
 
@@ -218,7 +174,7 @@ public class EditNimpleCodeActivity extends SherlockActivity {
 
 		companyCheck.setChecked(ncode.holder.show.company);
 		positionCheck.setChecked(ncode.holder.show.position);
-		
+
 		websiteCheck.setChecked(ncode.holder.show.website);
 		addressCheck.setChecked(ncode.holder.show.address);
 
@@ -226,18 +182,18 @@ public class EditNimpleCodeActivity extends SherlockActivity {
 	}
 
 	private void fillUiSocial(NimpleCodeHelper ncode) {
-		this.checkIfSocialMediaIsConnected(ncode.holder.facebookUrl,facebookTextView,facebookImageView,facebookCheck);
-		this.checkIfSocialMediaIsConnected(ncode.holder.twitterUrl,twitterTextView,twitterImageView,twitterCheck);
-		this.checkIfSocialMediaIsConnected(ncode.holder.xingUrl,xingTextView,xingImageView,xingCheck);
-		this.checkIfSocialMediaIsConnected(ncode.holder.linkedinUrl,linkedinTextView,linkedinImageView,linkedinCheck);
-		
+		this.checkIfSocialMediaIsConnected(ncode.holder.facebookUrl, facebookTextView, facebookImageView, facebookCheck);
+		this.checkIfSocialMediaIsConnected(ncode.holder.twitterUrl, twitterTextView, twitterImageView, twitterCheck);
+		this.checkIfSocialMediaIsConnected(ncode.holder.xingUrl, xingTextView, xingImageView, xingCheck);
+		this.checkIfSocialMediaIsConnected(ncode.holder.linkedinUrl, linkedinTextView, linkedinImageView, linkedinCheck);
+
 		// to be set after the display logic as the current state will be saved
 		facebookCheck.setChecked(ncode.holder.show.facebook);
 		twitterCheck.setChecked(ncode.holder.show.twitter);
 		xingCheck.setChecked(ncode.holder.show.xing);
 		linkedinCheck.setChecked(ncode.holder.show.linkedin);
 	}
-	
+
 	private void checkIfSocialMediaIsConnected(String url, TextView tv, ImageView iv, CheckBox cb) {
 		if (url != null && url.length() != 0) {
 			tv.setText(getText(R.string.social_connected));
@@ -250,16 +206,9 @@ public class EditNimpleCodeActivity extends SherlockActivity {
 		}
 	}
 
-	private void onClickSave() {
-		if (performFormValidation())
-			return;
-		save();
-		finish();
-	}
-
 	/**
 	 * Performs form validation on mail, lastname and firstname
-	 * 
+	 *
 	 * @return boolean, true if error occured, false if no error occurred
 	 */
 	private boolean performFormValidation() {
@@ -302,7 +251,7 @@ public class EditNimpleCodeActivity extends SherlockActivity {
 		ncode.holder.show.website = websiteCheck.isChecked();
 		ncode.holder.show.address = addressCheck.isChecked();
 		ncode.holder.websiteUrl = website.getText().toString();
-		ncode.holder.address = new Address(addressStreet.getText().toString(),addressPostal.getText().toString(),addressCity.getText().toString());
+		ncode.holder.address = new Address(addressStreet.getText().toString(), addressPostal.getText().toString(), addressCity.getText().toString());
 
 		// EditSocialFragment
 		ncode.holder.show.facebook = facebookCheck.isChecked();
@@ -320,7 +269,7 @@ public class EditNimpleCodeActivity extends SherlockActivity {
 		EventBus.getDefault().post(new NimpleCodeChangedEvent());
 	}
 
-	@OnClick({ R.id.twitterTextView, R.id.twitterRoundIcon })
+	@OnClick({R.id.twitterTextView, R.id.twitterRoundIcon})
 	void openConnectTwitterActivity() {
 		if (twitterTextView.getText().length() == getString(R.string.social_disconnected).length()) {
 			save();
@@ -334,7 +283,7 @@ public class EditNimpleCodeActivity extends SherlockActivity {
 		}
 	}
 
-	@OnClick({ R.id.xingTextView, R.id.xingRoundIcon })
+	@OnClick({R.id.xingTextView, R.id.xingRoundIcon})
 	void openConnectXingActivity() {
 		if (xingTextView.getText().length() == getString(R.string.social_disconnected).length()) {
 			save();
@@ -348,7 +297,7 @@ public class EditNimpleCodeActivity extends SherlockActivity {
 		}
 	}
 
-	@OnClick({ R.id.linkedinTextView, R.id.linkedinRoundIcon })
+	@OnClick({R.id.linkedinTextView, R.id.linkedinRoundIcon})
 	void openConnectLinkedinActivity() {
 		if (linkedinTextView.getText().length() == getString(R.string.social_disconnected).length()) {
 			save();
@@ -362,7 +311,7 @@ public class EditNimpleCodeActivity extends SherlockActivity {
 		}
 	}
 
-	@OnClick({ R.id.facebookTextView, R.id.facebookRoundIcon })
+	@OnClick({R.id.facebookTextView, R.id.facebookRoundIcon})
 	void openConnectFacebookActivity() {
 		if (facebookTextView.getText().length() == getString(R.string.social_disconnected).length()) {
 			save();
@@ -400,22 +349,5 @@ public class EditNimpleCodeActivity extends SherlockActivity {
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		Session.getActiveSession().onActivityResult(this, requestCode, resultCode, data);
-	}
-
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getSupportMenuInflater().inflate(R.menu.edit_card, menu);
-		return super.onCreateOptionsMenu(menu);
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case R.id.menu_discard:
-			finish();
-			return true;
-		default:
-			return false;
-		}
 	}
 }
