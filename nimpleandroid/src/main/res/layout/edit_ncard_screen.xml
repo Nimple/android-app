@@ -338,17 +338,6 @@
             android:text="@string/social_disconnected"
             android:textAppearance="@style/NimpleTextDefault"
             android:textColor="@color/nimple_default_text_color" />
-
-        <TextView
-            android:id="@+id/edit_ncode_save"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/linkedinRoundIcon"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="16dp"
-            android:padding="8dp"
-            android:text="@string/button_save"
-            android:textAppearance="@style/NimpleTextButton" />
     </RelativeLayout>
 
 </ScrollView>
