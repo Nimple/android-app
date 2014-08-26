@@ -22,7 +22,6 @@
             android:layout_height="wrap_content"
             android:layout_toLeftOf="@+id/contact_add"
             android:paddingBottom="3dp"
-            android:paddingLeft="4dp"
             android:textAppearance="@style/NimpleTextHeading" />
 
         <TextView
