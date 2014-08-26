@@ -112,7 +112,7 @@
 
 	<!-- contacts fragement -->
 	<string name="contact_added_toast">Ein neuer Kontakt wurde hinzugefügt.</string>
-	<string name="at_string/no_contacts_text">Scanne über + neue Kontakte ein</string>
+	<string name="no_contacts_text">Scanne über + neue Kontakte ein</string>
 
 	<!-- contact details -->
 	<string name="note_hint">Notizen</string>

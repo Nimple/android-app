@@ -2,11 +2,11 @@
 <resources>
 
 	<!-- Facebook App Id -->
-	<string name="app_id">1451876021700653</string>
+	<string name="app_id" translatable="false">1451876021700653</string>
 
 	<!-- General strings -->
-	<string name="app_name">Nimple</string>
-	<string name="app_slogan">Networking Simple</string>
+	<string name="app_name" translatable="false">Nimple</string>
+	<string name="app_slogan" translatable="false">Networking Simple</string>
 
 	<!-- About URLs -->
 	<string name="about_url_faq">http://www.appstronauten.com/faq_en/</string>
@@ -120,7 +120,7 @@
 
 	<!-- contacts fragement -->
 	<string name="contact_added_toast">You have got a new contact.</string>
-	<string name="at_string/no_contacts_text">Scan via + new contacts</string>
+	<string name="no_contacts_text">Scan via + new contacts</string>
 
 	<!-- contact details -->
 	<string name="note_hint">Notes</string>
