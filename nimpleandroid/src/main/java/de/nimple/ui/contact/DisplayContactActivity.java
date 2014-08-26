@@ -310,9 +310,12 @@ public class DisplayContactActivity extends SherlockActivity {
 		}
 	}
 
-	// Cleans the social network URLs
-	// to not contain 'https://' or 'www'
-	private String cleanThatURL(String urlString) {
+    /**
+     * Cleans the social network URLs to to not contain 'https://' or 'http://' or 'www'
+     * @param urlString
+     * @return
+     */
+	private String normalizeUrl(String urlString) {
 		String cleanUrlString = urlString.replace("https://", "");
 		cleanUrlString = cleanUrlString.replace("http://", "");
 		cleanUrlString = cleanUrlString.replace("www.", "");
@@ -321,28 +324,28 @@ public class DisplayContactActivity extends SherlockActivity {
 
 	private void fillSocialUi() {
 		if (contact.getFacebookUrl().length() != 0) {
-			facebookProfile.setText(contact.getFacebookUrl());
+			facebookProfile.setText(normalizeUrl(contact.getFacebookUrl()));
 			facebookImageView.setAlpha(255);
 		} else {
 			facebookImageView.setAlpha(30);
 		}
 
 		if (contact.getTwitterUrl().length() != 0) {
-			twitterProfile.setText(contact.getTwitterUrl());
+			twitterProfile.setText(normalizeUrl(contact.getTwitterUrl()));
 			twitterImageView.setAlpha(255);
 		} else {
 			twitterImageView.setAlpha(30);
 		}
 
 		if (contact.getXingUrl().length() != 0) {
-			xingProfile.setText(contact.getXingUrl());
+			xingProfile.setText(normalizeUrl(contact.getXingUrl()));
 			xingImageView.setAlpha(255);
 		} else {
 			xingImageView.setAlpha(30);
 		}
 
 		if (contact.getLinkedinUrl().length() != 0) {
-			linkedinProfile.setText(contact.getLinkedinUrl());
+			linkedinProfile.setText(normalizeUrl(contact.getLinkedinUrl()));
 			linkedinImageView.setAlpha(255);
 		} else {
 			linkedinImageView.setAlpha(30);
