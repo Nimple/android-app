@@ -3,7 +3,9 @@ package de.nimple.ui.edit;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -131,24 +133,40 @@ public class EditNimpleCodeActivity extends SherlockActivity {
 				ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_HOME | ActionBar.DISPLAY_SHOW_TITLE);
 		getSupportActionBar().setCustomView(actionbarDoneButton);
 */
-        View actionBarButtons = getLayoutInflater().inflate(R.layout.actionbar_done_cancel,
-                new LinearLayout(ctx), false);
-        View cancelActionView = actionBarButtons.findViewById(R.id.action_cancel);
-        cancelActionView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onDestroy();
-            }
-        });
-        View doneActionView = actionBarButtons.findViewById(R.id.action_done);
-        doneActionView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onClickSave();
-            }
-        });
-        ctx.getActionBar().setCustomView(actionBarButtons);
-
+        // BEGIN_INCLUDE (inflate_set_custom_view)
+        // Inflate a "Done/Cancel" custom action bar view.
+        final LayoutInflater inflater = (LayoutInflater) getSupportActionBar().getThemedContext()
+                .getSystemService(LAYOUT_INFLATER_SERVICE);
+        final View customActionBarView = inflater.inflate(
+                R.layout.actionbar_done_cancel, null);
+        customActionBarView.findViewById(R.id.actionbar_done).setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        // "Done"
+                        onClickSave();
+                    }
+                });
+        customActionBarView.findViewById(R.id.actionbar_cancel).setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        // "Cancel"
+                        onDestroy();
+                    }
+                });
+        // Show the custom action bar view and hide the normal Home icon and title.
+        final ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayOptions(
+                ActionBar.DISPLAY_SHOW_CUSTOM,
+                ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_HOME
+                        | ActionBar.DISPLAY_SHOW_TITLE);
+        actionBar.setCustomView(customActionBarView,
+                new ActionBar.LayoutParams(
+                        ViewGroup.LayoutParams.MATCH_PARENT,
+                        ViewGroup.LayoutParams.MATCH_PARENT));
+        // END_INCLUDE (inflate_set_custom_view)
+        setContentView(R.layout.actionbar_done_cancel);
     }
 
 	public void onEvent(SocialConnectedEvent ev) {
