@@ -48,40 +48,31 @@ public class ContactsListAdapter extends ArrayAdapter<Contact> {
 
 		final Contact c = getItem(pos);
 
-		// check for initial bootstrap contact
-		if (c.getCreated() == 0L) {
-			holder.addContact.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					Toast.makeText(act, (R.string.contacts_save), Toast.LENGTH_LONG).show();
-				}
-			});
-		} else {
-			holder.addContact.setOnClickListener(new OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					Builder builder = new AlertDialog.Builder(act);
-					builder.setMessage(act.getString(R.string.save_contact_question));
-					builder.setCancelable(true);
-					builder.setPositiveButton(act.getString(R.string.button_ok), new DialogInterface.OnClickListener() {
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							EventBus.getDefault().post(new ContactTransferredEvent());
-							IntentHelper.addContactPopup(act, c);
-							dialog.dismiss();
-						}
-					});
-					builder.setNegativeButton(act.getString(R.string.button_cancel), new DialogInterface.OnClickListener() {
-						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							dialog.dismiss();
-						}
-					});
-					AlertDialog dialog = builder.create();
-					dialog.show();
-				}
-			});
-		}
+
+		holder.addContact.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Builder builder = new AlertDialog.Builder(act);
+				builder.setMessage(act.getString(R.string.save_contact_question));
+				builder.setCancelable(true);
+				builder.setPositiveButton(act.getString(R.string.button_ok), new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						EventBus.getDefault().post(new ContactTransferredEvent());
+						IntentHelper.addContactPopup(act, c);
+						dialog.dismiss();
+					}
+				});
+				builder.setNegativeButton(act.getString(R.string.button_cancel), new DialogInterface.OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						dialog.dismiss();
+					}
+				});
+				AlertDialog dialog = builder.create();
+				dialog.show();
+			}
+		});
 
 		// display contact intent
 		view.setOnClickListener(new OnClickListener() {
