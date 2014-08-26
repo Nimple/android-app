@@ -40,8 +40,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="12dp"
+                android:layout_alignBottom="@+id/contact_add_text"
+                android:adjustViewBounds="true"
+                android:padding="12dp"
                 android:src="@drawable/ic_nimple_addressbook" />
 
             <ImageView
@@ -169,9 +170,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/addressTextView"
-                android:layout_centerHorizontal="true"
+                android:layout_centerHorizontal="false"
                 android:layout_marginTop="6dp"
-                android:padding="8dp"
+                android:padding="15dp"
                 android:text="@string/add_to_address_book"
                 android:textAppearance="@style/NimpleTextButton" />
         </RelativeLayout>
@@ -212,11 +213,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="4dp"
-            android:layout_marginLeft="7dp"
-            android:layout_marginRight="7dp"
-            android:layout_marginTop="5dp"
+            android:layout_height="fill_parent"
+            android:layout_margin="7dp"
             android:background="@drawable/card_frame_selector"
             android:padding="8dp" >
 
@@ -312,7 +310,7 @@
                 android:text="@string/contact_linkedin"
                 android:textAppearance="@style/NimpleTextDefault" />
 
-            <TextView
+            <!--<TextView
                 android:id="@+id/contact_delete"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -321,7 +319,7 @@
                 android:layout_marginTop="6dp"
                 android:padding="8dp"
                 android:text="@string/button_delete"
-                android:textAppearance="@style/NimpleTextButton" />
+                android:textAppearance="@style/NimpleTextButton" />-->
         </RelativeLayout>
     </LinearLayout>
 
