@@ -310,30 +310,38 @@ public class DisplayContactActivity extends SherlockActivity {
 		}
 	}
 
+	// Cleans the social network URLs
+	// to not contain 'https://' or 'www'
+	private String cleanThatURL(String urlString) {
+		String cleanUrlString = urlString.replace("https://", "");
+		cleanUrlString = cleanUrlString.replace("www.", "");
+		return cleanUrlString;
+	}
+
 	private void fillSocialUi() {
 		if (contact.getFacebookUrl().length() != 0) {
-			facebookProfile.setText(contact.getFacebookUrl());
+			facebookProfile.setText(cleanThatURL(contact.getFacebookUrl()));
 			facebookImageView.setAlpha(255);
 		} else {
 			facebookImageView.setAlpha(30);
 		}
 
 		if (contact.getTwitterUrl().length() != 0) {
-			twitterProfile.setText(contact.getTwitterUrl());
+			twitterProfile.setText(cleanThatURL(contact.getTwitterUrl()));
 			twitterImageView.setAlpha(255);
 		} else {
 			twitterImageView.setAlpha(30);
 		}
 
 		if (contact.getXingUrl().length() != 0) {
-			xingProfile.setText(contact.getXingUrl());
+			xingProfile.setText(cleanThatURL(contact.getXingUrl()));
 			xingImageView.setAlpha(255);
 		} else {
 			xingImageView.setAlpha(30);
 		}
 
 		if (contact.getLinkedinUrl().length() != 0) {
-			linkedinProfile.setText(contact.getLinkedinUrl());
+			linkedinProfile.setText(cleanThatURL(contact.getLinkedinUrl()));
 			linkedinImageView.setAlpha(255);
 		} else {
 			linkedinImageView.setAlpha(30);

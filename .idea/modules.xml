@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/nimple-android.iml" filepath="$PROJECT_DIR$/nimple-android.iml" />
       <module fileurl="file://$PROJECT_DIR$/nimple-android-studio.iml" filepath="$PROJECT_DIR$/nimple-android-studio.iml" />
       <module fileurl="file://$PROJECT_DIR$/nimpleandroid/nimpleandroid.iml" filepath="$PROJECT_DIR$/nimpleandroid/nimpleandroid.iml" />
       <module fileurl="file://$PROJECT_DIR$/nimplefacebook/nimplefacebook.iml" filepath="$PROJECT_DIR$/nimplefacebook/nimplefacebook.iml" />
