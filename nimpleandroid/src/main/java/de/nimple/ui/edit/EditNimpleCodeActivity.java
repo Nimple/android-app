@@ -8,6 +8,7 @@ import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import butterknife.ButterKnife;
@@ -125,11 +126,30 @@ public class EditNimpleCodeActivity extends SherlockActivity {
 	}
 
 	private void initActionBar() {
-		View actionbarDoneButton = getLayoutInflater().inflate(R.layout.actionbar_done_button, null);
+		/*View actionbarDoneButton = getLayoutInflater().inflate(R.layout.actionbar_done_button, null);
 		getSupportActionBar().setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM,
 				ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_HOME | ActionBar.DISPLAY_SHOW_TITLE);
 		getSupportActionBar().setCustomView(actionbarDoneButton);
-	}
+*/
+        View actionBarButtons = getLayoutInflater().inflate(R.layout.actionbar_done_cancel,
+                new LinearLayout(ctx), false);
+        View cancelActionView = actionBarButtons.findViewById(R.id.action_cancel);
+        cancelActionView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onDestroy();
+            }
+        });
+        View doneActionView = actionBarButtons.findViewById(R.id.action_done);
+        doneActionView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onClickSave();
+            }
+        });
+        ctx.getActionBar().setCustomView(actionBarButtons);
+
+    }
 
 	public void onEvent(SocialConnectedEvent ev) {
 		fillUi();
