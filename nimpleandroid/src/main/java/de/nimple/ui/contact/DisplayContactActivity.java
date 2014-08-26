@@ -162,7 +162,7 @@ public class DisplayContactActivity extends SherlockActivity {
 		dialog.show();
 	}
 
-	@OnClick(R.id.contact_delete)
+	//@OnClick(R.id.contact_delete)
 	public void showDeleteContact() {
 		Builder builder = new AlertDialog.Builder(this);
 		builder.setMessage(String.format(getString(R.string.delete_contact_dialog), contact.getName()));
@@ -314,6 +314,7 @@ public class DisplayContactActivity extends SherlockActivity {
 	// to not contain 'https://' or 'www'
 	private String cleanThatURL(String urlString) {
 		String cleanUrlString = urlString.replace("https://", "");
+		cleanUrlString = cleanUrlString.replace("http://", "");
 		cleanUrlString = cleanUrlString.replace("www.", "");
 		return cleanUrlString;
 	}
