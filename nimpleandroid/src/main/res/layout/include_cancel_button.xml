@@ -5,8 +5,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="0dp"
     android:layout_height="match_parent"
-    android:background="@drawable/done_cancel_bar"
-    android:layout_weight="1">
+    android:layout_weight="1"
+    android:background="@drawable/done_cancel_bar">
 
     <TextView
         style="?actionBarTabTextStyle"
@@ -19,4 +19,4 @@
         android:paddingLeft="20dp"
         android:paddingRight="20dp"
         android:text="@string/ab_discard"/>
-    </FrameLayout>
+</FrameLayout>

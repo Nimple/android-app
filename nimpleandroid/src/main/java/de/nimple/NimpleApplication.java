@@ -1,6 +1,7 @@
 package de.nimple;
 
 import android.app.Application;
+
 import de.nimple.domain.Contact;
 import de.nimple.exceptions.DuplicatedContactException;
 import de.nimple.persistence.ContactsPersistenceManager;
@@ -17,7 +18,7 @@ public class NimpleApplication extends Application {
 		super.onCreate();
 		dsc = new DataSyncController(getApplicationContext());
 		mixpanel = Mixpanel.getInstance(getApplicationContext());
-        com.facebook.AppEventsLogger.activateApp(getApplicationContext(), "1451876021700653");
+		com.facebook.AppEventsLogger.activateApp(getApplicationContext(), getString(R.string.app_id));
 		onBootstrap();
 	}
 
