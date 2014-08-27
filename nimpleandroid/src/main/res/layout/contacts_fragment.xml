@@ -20,7 +20,7 @@
         android:layout_alignParentBottom="true"
         android:gravity="center"
         android:padding="10dp"
-        android:text="at_string/no_contacts_text"
+        android:text="@string/no_contacts_text"
         android:textAppearance="@style/NimpleTextAnnotation" />
 
 </RelativeLayout>
