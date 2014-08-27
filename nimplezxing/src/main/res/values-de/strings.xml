@@ -19,7 +19,7 @@
     <string name="msg_camera_framework_bug">Anscheindend gibt es ein Problem mit der Handy-Kamera. Ein Neustart deines Handys kann das Problem beheben.</string>
     <string name="msg_default_format">Format</string>
     <string name="msg_default_meta">Metadaten</string>
-    <string name="msg_default_status">Platziere einen nimple-code im\nQuadrat, um ihn einzuscannen.\nDrücke den Zurück-Button, wenn\ndas Scannen nicht erfolgreich ist.</string>
+    <string name="msg_default_status">Scanne einen Nimple QR-Code ein.\nPlatziere den Code mittig.</string>
     <string name="msg_default_time">Zeit</string>
     <string name="msg_default_type">Typ</string>
 
