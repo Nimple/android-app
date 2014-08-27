@@ -88,7 +88,7 @@ public class MainActivity extends SherlockFragmentActivity {
 
 	public void onEvent(DuplicatedContactEvent ev) {
 		Toast.makeText(ctx, String.format(getString(R.string.contact_scan_duplicated), ev.getContact().getName()), Toast.LENGTH_LONG).show();
-	}
+}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

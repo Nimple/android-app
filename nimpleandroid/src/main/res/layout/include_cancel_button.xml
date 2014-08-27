@@ -5,6 +5,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="0dp"
     android:layout_height="match_parent"
+    android:background="@drawable/done_cancel_bar"
     android:layout_weight="1">
 
     <TextView
