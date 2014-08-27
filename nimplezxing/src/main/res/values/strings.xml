@@ -19,7 +19,7 @@
     <string name="msg_camera_framework_bug">There seems to be a problem with our camera. A reboot of your smartphone may fix this problem.</string>
     <string name="msg_default_format">Format</string>
     <string name="msg_default_meta">Metadata</string>
-    <string name="msg_default_status">Place nimple code inside of the rectangle to scan it.\nPress the back button if scanning does not succeed.</string>
+    <string name="msg_default_status">Scan a Nimple QR Code.\nPlace the QR Code in the middle.</string>
     <string name="msg_default_time">Time</string>
     <string name="msg_default_type">Type</string>
 
