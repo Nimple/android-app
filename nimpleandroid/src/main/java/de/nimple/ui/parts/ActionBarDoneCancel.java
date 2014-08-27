@@ -14,12 +14,14 @@ final public class ActionBarDoneCancel {
 		LayoutInflater inflater = (LayoutInflater) actionBar.getThemedContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
 		View v = inflater.inflate(R.layout.actionbar_done_cancel, null);
+        v.findViewById(R.id.actionbar_done).setBackgroundColor(v.getResources().getColor(R.color.nimple_color));
 		v.findViewById(R.id.actionbar_done).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				callback.onDoneCallback();
 			}
 		});
+        v.findViewById(R.id.actionbar_cancel).setBackgroundColor(v.getResources().getColor(R.color.nimple_color));
 		v.findViewById(R.id.actionbar_cancel).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
