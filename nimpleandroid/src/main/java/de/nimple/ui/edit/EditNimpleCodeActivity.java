@@ -3,6 +3,7 @@ package de.nimple.ui.edit;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.CheckBox;
@@ -271,7 +272,7 @@ public class EditNimpleCodeActivity extends SherlockActivity implements ActionBa
 
 	@OnClick({R.id.twitterTextView, R.id.twitterRoundIcon})
 	void openConnectTwitterActivity() {
-		if (twitterTextView.getText().length() == getString(R.string.social_disconnected).length()) {
+		if (TextUtils.equals(twitterTextView.getText(), getText(R.string.social_disconnected))) {
 			save();
 
 			Intent intent = new Intent(ctx, SocialTwitterActivity.class);
@@ -285,7 +286,7 @@ public class EditNimpleCodeActivity extends SherlockActivity implements ActionBa
 
 	@OnClick({R.id.xingTextView, R.id.xingRoundIcon})
 	void openConnectXingActivity() {
-		if (xingTextView.getText().length() == getString(R.string.social_disconnected).length()) {
+		if (xingTextView.getText().equals(getString(R.string.social_disconnected).length())) {
 			save();
 
 			Intent intent = new Intent(ctx, SocialXingActivity.class);
@@ -299,7 +300,7 @@ public class EditNimpleCodeActivity extends SherlockActivity implements ActionBa
 
 	@OnClick({R.id.linkedinTextView, R.id.linkedinRoundIcon})
 	void openConnectLinkedinActivity() {
-		if (linkedinTextView.getText().length() == getString(R.string.social_disconnected).length()) {
+		if (linkedinTextView.getText().equals(getString(R.string.social_disconnected))) {
 			save();
 
 			Intent intent = new Intent(ctx, SocialLinkedinActivity.class);
@@ -313,7 +314,7 @@ public class EditNimpleCodeActivity extends SherlockActivity implements ActionBa
 
 	@OnClick({R.id.facebookTextView, R.id.facebookRoundIcon})
 	void openConnectFacebookActivity() {
-		if (facebookTextView.getText().length() == getString(R.string.social_disconnected).length()) {
+		if (facebookTextView.getText().equals(getString(R.string.social_disconnected).length())) {
 			save();
 
 			// start Facebook Login

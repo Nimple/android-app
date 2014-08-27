@@ -3,26 +3,25 @@ package de.nimple.util;
 import java.util.HashMap;
 import java.util.Map;
 
-public class StringMap{
-	private Map<String, String> map = new HashMap<String, String>(); 
-	
-	public String put(String key, String value){
+public class StringMap {
+	private Map<String, String> map = new HashMap<String, String>();
+
+	public String put(String key, String value) {
 		return map.put(key, value.trim());
 	}
-	
-	public String get(Object key){
-		if(map.get(key) == null){
+
+	public String get(Object key) {
+		if (map.get(key) == null) {
 			return "";
 		}
 		return map.get(key);
 	}
-	
+
 	public boolean contains(String key) {
-	     return (map.get(key) != null && !map.get(key).trim().equals(""));
+		return (map.get(key) != null && !map.get(key).trim().equals(""));
 	}
-	
-	public int size(){
+
+	public int size() {
 		return map.size();
 	}
 }
-
