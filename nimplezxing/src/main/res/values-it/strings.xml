@@ -16,7 +16,7 @@
 -->
 <resources>
 
-    <string name="msg_camera_framework_bug">C'è un problema con la fotocamera. Un riavvio del telefono può risolvere il problema.</string>
+    <string name="msg_camera_framework_bug">C`è un problema con la fotocamera. Un riavvio del telefono può risolvere il problema.</string>
     <string name="msg_default_format">Format</string>
     <string name="msg_default_meta">Metadati</string>
     <string name="msg_default_status">Eseguire la scansione di un codice QR.\nInserire il codice in mezzo.</string>
