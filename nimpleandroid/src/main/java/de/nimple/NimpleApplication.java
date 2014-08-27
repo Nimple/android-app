@@ -17,6 +17,7 @@ public class NimpleApplication extends Application {
 		super.onCreate();
 		dsc = new DataSyncController(getApplicationContext());
 		mixpanel = Mixpanel.getInstance(getApplicationContext());
+        com.facebook.AppEventsLogger.activateApp(getApplicationContext(), "1451876021700653");
 		onBootstrap();
 	}
 
