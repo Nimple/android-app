@@ -137,11 +137,11 @@ public class VCardHelper {
 
 	public static StringMap vCardParse(String data) {
 		StringMap map = new StringMap();
-		String[] contactSet = data.split("\\r\\n|\\n|\\r");
+		String[] contactSet = data.split("\\r\\n|\\n\\n|\\n|\\r");
 
-		// if the length is lower than three we only have the beginning and
+		// if the length is lower than or equal three we only have the beginning, version and
 		// end tag of vcard
-		if (contactSet.length < 3) {
+		if (contactSet.length <= 3) {
 			return map;
 		}
 
