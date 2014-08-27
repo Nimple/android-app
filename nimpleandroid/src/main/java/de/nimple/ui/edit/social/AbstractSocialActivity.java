@@ -70,7 +70,7 @@ public abstract class AbstractSocialActivity<T extends Api> extends SherlockActi
 		apiCallback = bundle.getString("apiCallback");
 
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		getSupportActionBar().setTitle("connect to " + name);
+		getSupportActionBar().setTitle(String.format(getResources().getString(R.string.social_header), name));
 
 		service = new ServiceBuilder().provider(provider).apiKey(apiKey).apiSecret(apiSecret).callback(apiCallback).build();
 		initWebView();

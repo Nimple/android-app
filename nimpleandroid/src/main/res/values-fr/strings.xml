@@ -48,6 +48,7 @@
 	<string name="about_twitter">Nimple sur Twitter</string>
 
 	 <!-- Socialism -->
+    <string name="social_header">connectez-vous avec %s</string>
 	<string name="social_connected">être connecté</string>
 	<string name="social_disconnected">connectez-vous</string>
 	<string name="no_internet_connection">Pas de connexion internet.</string>
