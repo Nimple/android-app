@@ -8,7 +8,7 @@
     <de.nimple.ui.parts.PagerSlidingTabStrip
         android:id="@+id/tabs"
         android:layout_width="match_parent"
-        android:layout_height="52dp"
+        android:layout_height="@dimen/actionbar_height"
         android:background="#ededed"
         android:fontFamily="sans-serif-light"
         android:textColor="#616161"
