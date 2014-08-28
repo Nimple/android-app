@@ -286,7 +286,7 @@ public class EditNimpleCodeActivity extends SherlockActivity implements ActionBa
 
 	@OnClick({R.id.xingTextView, R.id.xingRoundIcon})
 	void openConnectXingActivity() {
-		if (xingTextView.getText().equals(getString(R.string.social_disconnected).length())) {
+		if (xingTextView.getText().equals(getString(R.string.social_disconnected))) {
 			save();
 
 			Intent intent = new Intent(ctx, SocialXingActivity.class);
@@ -314,7 +314,7 @@ public class EditNimpleCodeActivity extends SherlockActivity implements ActionBa
 
 	@OnClick({R.id.facebookTextView, R.id.facebookRoundIcon})
 	void openConnectFacebookActivity() {
-		if (facebookTextView.getText().equals(getString(R.string.social_disconnected).length())) {
+		if (facebookTextView.getText().equals(getString(R.string.social_disconnected))) {
 			save();
 
 			// start Facebook Login
