@@ -78,7 +78,7 @@
 	<string name="share_app_text">Używam aplikacji Nimple - Networking Simple. Sciąganie: www.nimpleapp.com</string>
 
 	<!-- Home Screen w/o user input -->
-	<string name="add_contact_hint">Skanuj nowy kontakt z\n</string>
+	<string name="add_contact_hint">Nowy kontakt z</string>
 	<string name="swype_left_hint">Przesuń palcem w lewo,\naby edytować do mapy</string>
 	<string name="swype_right_hint">Przesuń palcem w prawo,\naby zobaczyć twoje kontatky</string>
 
