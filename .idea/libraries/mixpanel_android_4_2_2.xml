@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="mixpanel-android-4.2.2">
     <CLASSES>
-      <root url="file://$PROJECT_DIR$/nimpleandroid/build/intermediates/exploded-aar/com.mixpanel.android/mixpanel-android/4.2.2/res" />
       <root url="jar://$PROJECT_DIR$/nimpleandroid/build/intermediates/exploded-aar/com.mixpanel.android/mixpanel-android/4.2.2/classes.jar!/" />
+      <root url="file://$PROJECT_DIR$/nimpleandroid/build/intermediates/exploded-aar/com.mixpanel.android/mixpanel-android/4.2.2/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
