@@ -26,7 +26,7 @@ public class ContactsPersistenceManager {
 	}
 
 	private ContactsPersistenceManager(Context ctx) {
-		DevOpenHelper helper = new DaoMaster.DevOpenHelper(ctx, "nimple-db", null);
+		DevOpenHelper helper = new DatabaseHelper(ctx, "nimple-db", null);
 		SQLiteDatabase db = helper.getWritableDatabase();
 		DaoMaster daoMaster = new DaoMaster(db);
 		DaoSession daoSession = daoMaster.newSession();
