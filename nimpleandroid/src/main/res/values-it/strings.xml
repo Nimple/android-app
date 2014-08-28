@@ -78,7 +78,7 @@
 	<string name="share_app_text">Io uso l\'app Nimple - Networking Simple. Download: www.nimpleapp.com</string>
 
 	<!-- Home Screen w/o user input -->
-	<string name="add_contact_hint">Scansione con\nun nuovo contatto</string>
+	<string name="add_contact_hint">Scansione \nun nuovo contatto</string>
 	<string name="swype_left_hint">Scorri a sinistra per per\ncreare il vostro biglietto</string>
 	<string name="swype_right_hint">Scorri a destra per\nvedere i tuoi contatti</string>
 
