@@ -6,8 +6,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -56,6 +58,9 @@ public class NimpleCardFragment extends SherlockFragment {
 	@InjectView(R.id.ncard_layout)
 	RelativeLayout ncardLayout;
 
+    @InjectView(R.id.spinner)
+    Spinner spinner;
+
 	private Context ctx;
 	private View view;
 
@@ -65,9 +70,32 @@ public class NimpleCardFragment extends SherlockFragment {
 		view = inflater.inflate(R.layout.main_ncard_fragment, container, false);
 		ButterKnife.inject(this, view);
 		EventBus.getDefault().register(this);
+        addSpinnerFunc();
 		refreshUi();
 		return view;
 	}
+
+    private void addSpinnerFunc(){
+        spinner.setOnItemSelectedListener( new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                switch (position){
+                    case 0:
+                        NimpleCodeHelper.setCurrentId(NimpleCodeHelper.NC_CARD_1);
+                        break;
+                    case 1:
+                        NimpleCodeHelper.setCurrentId(NimpleCodeHelper.NC_CARD_2);
+                        break;
+                }
+                refreshUi();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
 
 	@Override
 	public void onDestroyView() {

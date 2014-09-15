@@ -6,7 +6,7 @@ import de.nimple.util.SharedPrefHelper;
 public class NimpleCodeHelper {
 	public NimpleCode holder;
 	private Context ctx;
-    private  static String curId = NimpleCodeHelper.NC_CARD_1;
+    private static String curId = NimpleCodeHelper.NC_CARD_1;
 
 	public NimpleCodeHelper(Context ctx) {
 		this.ctx = ctx;
@@ -85,12 +85,6 @@ public class NimpleCodeHelper {
 	public boolean isInitialState() {
 		return !SharedPrefHelper.getBoolean(NC_INIT, ctx);
 	}
-
-    public void changeCardById(String id){
-        this.save();
-        this.curId = id;
-        this.load();
-    }
 
     public static String getCurrentId(){
         return curId;
