@@ -6,7 +6,7 @@ import de.nimple.util.SharedPrefHelper;
 public class NimpleCodeHelper {
 	public NimpleCode holder;
 	private Context ctx;
-    private String curId = NimpleCodeHelper.NC_CARD_1;
+    private  static String curId = NimpleCodeHelper.NC_CARD_1;
 
 	public NimpleCodeHelper(Context ctx) {
 		this.ctx = ctx;
@@ -92,14 +92,12 @@ public class NimpleCodeHelper {
         this.load();
     }
 
-    public void nextCard(){
-        this.save();
-        if(curId.equals(NC_CARD_1)){
-            curId = NC_CARD_2;
-        }else{
-            curId = NC_CARD_1;
-        }
-        this.load();
+    public static String getCurrentId(){
+        return curId;
+    }
+
+    public static void setCurrentId(String id){
+         curId = id;
     }
 
 	public class NimpleCode {

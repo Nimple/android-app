@@ -8,9 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
+import android.widget.Spinner;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 
@@ -22,6 +25,7 @@ import de.nimple.events.NimpleCodeChangedEvent;
 import de.nimple.util.DensityHelper;
 import de.nimple.util.SharedPrefHelper;
 import de.nimple.util.VersionResolver;
+import de.nimple.util.nimplecode.NimpleCodeHelper;
 import de.nimple.util.nimplecode.QRCodeCreator;
 import de.nimple.util.nimplecode.VCardHelper;
 
@@ -41,15 +45,41 @@ public class NimpleCodeFragment extends SherlockFragment {
 	@InjectView(R.id.arrow_up)
 	ImageView arrowUp;
 
+    @InjectView(R.id.spinner)
+    Spinner spinner;
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		ctx = getSherlockActivity().getApplicationContext();
 		view = inflater.inflate(R.layout.main_ncode_fragment, container, false);
 		ButterKnife.inject(this, view);
 		EventBus.getDefault().register(this);
+        addSpinnerFunc();
 		refreshUi();
 		return view;
 	}
+
+    private void addSpinnerFunc(){
+        spinner.setOnItemSelectedListener( new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                switch (position){
+                    case 0:
+                        NimpleCodeHelper.setCurrentId(NimpleCodeHelper.NC_CARD_1);
+                        break;
+                    case 1:
+                        NimpleCodeHelper.setCurrentId(NimpleCodeHelper.NC_CARD_2);
+                        break;
+                }
+                refreshUi();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
 
 	@Override
 	public void onDestroyView() {
