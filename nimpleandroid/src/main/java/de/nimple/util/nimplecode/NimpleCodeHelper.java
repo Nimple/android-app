@@ -6,84 +6,101 @@ import de.nimple.util.SharedPrefHelper;
 public class NimpleCodeHelper {
 	public NimpleCode holder;
 	private Context ctx;
+    private String curId = NimpleCodeHelper.NC_CARD_1;
 
 	public NimpleCodeHelper(Context ctx) {
 		this.ctx = ctx;
-		holder = new NimpleCode();
-		load();
+        load();
 	}
 
 	private void load() {
-		holder.firstname = SharedPrefHelper.getString(NC_VALUE_FIRSTNAME, ctx);
-		holder.lastname = SharedPrefHelper.getString(NC_VALUE_LASTNAME, ctx);
-		holder.mail = SharedPrefHelper.getString(NC_VALUE_MAIL, ctx);
-		holder.phone = SharedPrefHelper.getString(NC_VALUE_PHONE, ctx);
+        holder = new NimpleCode();
+		holder.firstname = SharedPrefHelper.getString(NC_VALUE_FIRSTNAME + curId, ctx);
+		holder.lastname = SharedPrefHelper.getString(NC_VALUE_LASTNAME + curId, ctx);
+		holder.mail = SharedPrefHelper.getString(NC_VALUE_MAIL + curId, ctx);
+		holder.phone = SharedPrefHelper.getString(NC_VALUE_PHONE + curId, ctx);
 
-		holder.company = SharedPrefHelper.getString(NC_VALUE_COMPANY, ctx);
-		holder.position = SharedPrefHelper.getString(NC_VALUE_POSITION, ctx);
-		holder.address = new Address(SharedPrefHelper.getString(NC_VALUE_ADDRESS, ctx));
+		holder.company = SharedPrefHelper.getString(NC_VALUE_COMPANY + curId, ctx);
+		holder.position = SharedPrefHelper.getString(NC_VALUE_POSITION + curId, ctx);
+		holder.address = new Address(SharedPrefHelper.getString(NC_VALUE_ADDRESS + curId, ctx));
 
-		holder.websiteUrl = SharedPrefHelper.getString(NC_VALUE_URL_WEBSITE, ctx);
+		holder.websiteUrl = SharedPrefHelper.getString(NC_VALUE_URL_WEBSITE + curId, ctx);
 
-		holder.facebookId = SharedPrefHelper.getString(NC_VALUE_ID_FACEBOOK, ctx);
-		holder.facebookUrl = SharedPrefHelper.getString(NC_VALUE_URL_FACEBOOK, ctx);
+		holder.facebookId = SharedPrefHelper.getString(NC_VALUE_ID_FACEBOOK + curId, ctx);
+		holder.facebookUrl = SharedPrefHelper.getString(NC_VALUE_URL_FACEBOOK + curId, ctx);
 
-		holder.twitterId = SharedPrefHelper.getString(NC_VALUE_ID_TWITTER, ctx);
-		holder.twitterUrl = SharedPrefHelper.getString(NC_VALUE_URL_TWITTER, ctx);
+		holder.twitterId = SharedPrefHelper.getString(NC_VALUE_ID_TWITTER + curId, ctx);
+		holder.twitterUrl = SharedPrefHelper.getString(NC_VALUE_URL_TWITTER + curId, ctx);
 
-		holder.xingUrl = SharedPrefHelper.getString(NC_VALUE_URL_XING, ctx);
+		holder.xingUrl = SharedPrefHelper.getString(NC_VALUE_URL_XING + curId, ctx);
 
-		holder.linkedinUrl = SharedPrefHelper.getString(NC_VALUE_URL_LINKEDIN, ctx);
+		holder.linkedinUrl = SharedPrefHelper.getString(NC_VALUE_URL_LINKEDIN + curId, ctx);
 
-		holder.show.mail = SharedPrefHelper.getBoolean(NC_SHOW_MAIL, true, ctx);
-		holder.show.phone = SharedPrefHelper.getBoolean(NC_SHOW_PHONE, true, ctx);
-		holder.show.company = SharedPrefHelper.getBoolean(NC_SHOW_COMPANY, true, ctx);
-		holder.show.position = SharedPrefHelper.getBoolean(NC_SHOW_POSITION, true, ctx);
-		holder.show.address = SharedPrefHelper.getBoolean(NC_SHOW_ADDRESS, true, ctx);
+		holder.show.mail = SharedPrefHelper.getBoolean(NC_SHOW_MAIL + curId, true, ctx);
+		holder.show.phone = SharedPrefHelper.getBoolean(NC_SHOW_PHONE + curId, true, ctx);
+		holder.show.company = SharedPrefHelper.getBoolean(NC_SHOW_COMPANY + curId, true, ctx);
+		holder.show.position = SharedPrefHelper.getBoolean(NC_SHOW_POSITION + curId, true, ctx);
+		holder.show.address = SharedPrefHelper.getBoolean(NC_SHOW_ADDRESS + curId, true, ctx);
 
-		holder.show.website = SharedPrefHelper.getBoolean(NC_SHOW_WEBSITE, true, ctx);
-		holder.show.facebook = SharedPrefHelper.getBoolean(NC_SHOW_FACEBOOK, true, ctx);
-		holder.show.twitter = SharedPrefHelper.getBoolean(NC_SHOW_TWITTER, true, ctx);
-		holder.show.xing = SharedPrefHelper.getBoolean(NC_SHOW_XING, true, ctx);
-		holder.show.linkedin = SharedPrefHelper.getBoolean(NC_SHOW_LINKEDIN, true, ctx);
+		holder.show.website = SharedPrefHelper.getBoolean(NC_SHOW_WEBSITE + curId, true, ctx);
+		holder.show.facebook = SharedPrefHelper.getBoolean(NC_SHOW_FACEBOOK + curId, true, ctx);
+		holder.show.twitter = SharedPrefHelper.getBoolean(NC_SHOW_TWITTER + curId, true, ctx);
+		holder.show.xing = SharedPrefHelper.getBoolean(NC_SHOW_XING + curId, true, ctx);
+		holder.show.linkedin = SharedPrefHelper.getBoolean(NC_SHOW_LINKEDIN + curId, true, ctx);
 	}
 
 	public void save() {
-		SharedPrefHelper.putBoolean(NC_INIT, true, ctx);
-		SharedPrefHelper.putString(NC_VALUE_FIRSTNAME, holder.firstname, ctx);
-		SharedPrefHelper.putString(NC_VALUE_LASTNAME, holder.lastname, ctx);
-		SharedPrefHelper.putString(NC_VALUE_MAIL, holder.mail, ctx);
-		SharedPrefHelper.putString(NC_VALUE_PHONE, holder.phone, ctx);
+		SharedPrefHelper.putBoolean(NC_INIT + curId, true, ctx);
+		SharedPrefHelper.putString(NC_VALUE_FIRSTNAME + curId, holder.firstname, ctx);
+		SharedPrefHelper.putString(NC_VALUE_LASTNAME + curId, holder.lastname, ctx);
+		SharedPrefHelper.putString(NC_VALUE_MAIL + curId, holder.mail, ctx);
+		SharedPrefHelper.putString(NC_VALUE_PHONE + curId, holder.phone, ctx);
 
-		SharedPrefHelper.putString(NC_VALUE_COMPANY, holder.company, ctx);
-		SharedPrefHelper.putString(NC_VALUE_POSITION, holder.position, ctx);
-		SharedPrefHelper.putString(NC_VALUE_ADDRESS, holder.address.toString(), ctx);
+		SharedPrefHelper.putString(NC_VALUE_COMPANY + curId, holder.company, ctx);
+		SharedPrefHelper.putString(NC_VALUE_POSITION + curId, holder.position, ctx);
+		SharedPrefHelper.putString(NC_VALUE_ADDRESS + curId, holder.address.toString(), ctx);
 
-		SharedPrefHelper.putString(NC_VALUE_URL_WEBSITE, holder.websiteUrl, ctx);
-		SharedPrefHelper.putString(NC_VALUE_ID_FACEBOOK, holder.facebookId, ctx);
-		SharedPrefHelper.putString(NC_VALUE_URL_FACEBOOK, holder.facebookUrl, ctx);
-		SharedPrefHelper.putString(NC_VALUE_ID_TWITTER, holder.twitterId, ctx);
-		SharedPrefHelper.putString(NC_VALUE_URL_TWITTER, holder.twitterUrl, ctx);
-		SharedPrefHelper.putString(NC_VALUE_URL_XING, holder.xingUrl, ctx);
-		SharedPrefHelper.putString(NC_VALUE_URL_LINKEDIN, holder.linkedinUrl, ctx);
+		SharedPrefHelper.putString(NC_VALUE_URL_WEBSITE + curId, holder.websiteUrl, ctx);
+		SharedPrefHelper.putString(NC_VALUE_ID_FACEBOOK + curId, holder.facebookId, ctx);
+		SharedPrefHelper.putString(NC_VALUE_URL_FACEBOOK + curId, holder.facebookUrl, ctx);
+		SharedPrefHelper.putString(NC_VALUE_ID_TWITTER + curId, holder.twitterId, ctx);
+		SharedPrefHelper.putString(NC_VALUE_URL_TWITTER + curId, holder.twitterUrl, ctx);
+		SharedPrefHelper.putString(NC_VALUE_URL_XING + curId, holder.xingUrl, ctx);
+		SharedPrefHelper.putString(NC_VALUE_URL_LINKEDIN + curId, holder.linkedinUrl, ctx);
 
 		// Show
-		SharedPrefHelper.putBoolean(NC_SHOW_MAIL, holder.show.mail, ctx);
-		SharedPrefHelper.putBoolean(NC_SHOW_PHONE, holder.show.phone, ctx);
-		SharedPrefHelper.putBoolean(NC_SHOW_COMPANY, holder.show.company, ctx);
-		SharedPrefHelper.putBoolean(NC_SHOW_POSITION, holder.show.position, ctx);
-		SharedPrefHelper.putBoolean(NC_SHOW_ADDRESS, holder.show.address, ctx);
+		SharedPrefHelper.putBoolean(NC_SHOW_MAIL + curId, holder.show.mail, ctx);
+		SharedPrefHelper.putBoolean(NC_SHOW_PHONE + curId, holder.show.phone, ctx);
+		SharedPrefHelper.putBoolean(NC_SHOW_COMPANY + curId, holder.show.company, ctx);
+		SharedPrefHelper.putBoolean(NC_SHOW_POSITION + curId, holder.show.position, ctx);
+		SharedPrefHelper.putBoolean(NC_SHOW_ADDRESS + curId, holder.show.address, ctx);
 
-		SharedPrefHelper.putBoolean(NC_SHOW_WEBSITE, holder.show.website, ctx);
-		SharedPrefHelper.putBoolean(NC_SHOW_FACEBOOK, holder.show.facebook, ctx);
-		SharedPrefHelper.putBoolean(NC_SHOW_TWITTER, holder.show.twitter, ctx);
-		SharedPrefHelper.putBoolean(NC_SHOW_XING, holder.show.xing, ctx);
-		SharedPrefHelper.putBoolean(NC_SHOW_LINKEDIN, holder.show.linkedin, ctx);
+		SharedPrefHelper.putBoolean(NC_SHOW_WEBSITE + curId, holder.show.website, ctx);
+		SharedPrefHelper.putBoolean(NC_SHOW_FACEBOOK + curId, holder.show.facebook, ctx);
+		SharedPrefHelper.putBoolean(NC_SHOW_TWITTER + curId, holder.show.twitter, ctx);
+		SharedPrefHelper.putBoolean(NC_SHOW_XING + curId, holder.show.xing, ctx);
+		SharedPrefHelper.putBoolean(NC_SHOW_LINKEDIN + curId, holder.show.linkedin, ctx);
 	}
 
 	public boolean isInitialState() {
 		return !SharedPrefHelper.getBoolean(NC_INIT, ctx);
 	}
+
+    public void changeCardById(String id){
+        this.save();
+        this.curId = id;
+        this.load();
+    }
+
+    public void nextCard(){
+        this.save();
+        if(curId.equals(NC_CARD_1)){
+            curId = NC_CARD_2;
+        }else{
+            curId = NC_CARD_1;
+        }
+        this.load();
+    }
 
 	public class NimpleCode {
 		public Show show = new Show();
@@ -153,4 +170,7 @@ public class NimpleCodeHelper {
 	private final String NC_SHOW_TWITTER = "nimple_code_twitter_show";
 	private final String NC_SHOW_FACEBOOK = "nimple_code_facebook_show";
 	private final String NC_SHOW_WEBSITE = "nimple_code_website_show";
+
+    public static final String NC_CARD_1 ="";
+    public static final String NC_CARD_2 ="2";
 }
