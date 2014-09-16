@@ -136,4 +136,10 @@
         <item>1</item>
         <item>2</item>
     </string-array>
+    <string name="file_extension_png">png</string>
+    <string name="tag_fragment_FileSave">asasasdasd</string>
+    <string name="alert_ok">ok</string>
+    <string name="alert_cancel">cancel</string>
+    <string name="alert_file_save_as">alert_file_save_as</string>
+    <string name="hint_filename_unadorned">hint_filename_unadorned</string>
 </resources>

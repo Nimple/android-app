@@ -72,6 +72,39 @@ public class VCardHelper {
 		return sb.toString();
 	}
 
+    public static String getCardFromContact(Contact contact, Context ctx){
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(VCardConstants.PROPERTY_BEGIN + VCardConstants.DEF_SEPARATOR + VCardConstants.LOG_TAG + ls);
+        sb.append(VCardConstants.PROPERTY_VERSION + VCardConstants.DEF_SEPARATOR + VCardConstants.VERSION_V30 + ls);
+        sb.append(VCardConstants.PROPERTY_N + VCardConstants.DEF_SEPARATOR + contact.getName()  + ls);
+        addToStringIfNotEmpty(sb, VCardConstants.PROPERTY_TEL + VCardConstants.VALUE_SEPARATOR + VCardConstants.PARAM_TYPE_CELL, contact.getTelephone());
+
+        addToStringIfNotEmpty(sb, VCardConstants.PROPERTY_EMAIL, contact.getEmail());
+        addToStringIfNotEmpty(sb, VCardConstants.PROPERTY_ORG, contact.getCompany());
+        addToStringIfNotEmpty(sb, VCardConstants.PROPERTY_TITLE, contact.getPosition());
+        sb.append(new Address(contact.getAddress()).toVcard3Attr());
+        sb.append(ls);
+        addToStringIfNotEmpty(sb, VCardConstants.PROPERTY_URL,contact.getWebsite());
+
+        addToStringIfNotEmpty(sb, VCardConstants.PROPERTY_URL,contact.getFacebookUrl());
+        addToStringIfNotEmpty(sb, VCardConstants.PROPERTY_X_FACEBOOK_ID,contact.getFacebookId());
+
+        addToStringIfNotEmpty(sb, VCardConstants.PROPERTY_URL,contact.getTwitterUrl());
+        addToStringIfNotEmpty(sb, VCardConstants.PROPERTY_X_TWITTER_ID,contact.getTwitterId());
+
+        addToStringIfNotEmpty(sb, VCardConstants.PROPERTY_URL,contact.getXingUrl());
+
+        addToStringIfNotEmpty(sb, VCardConstants.PROPERTY_URL,contact.getLinkedinUrl());
+
+        addToStringIfNotEmpty(sb, VCardConstants.PROPERTY_NOTE, ctx.getString(R.string.created_note));
+
+        sb.append(VCardConstants.PROPERTY_END + VCardConstants.DEF_SEPARATOR + VCardConstants.LOG_TAG + ls);
+
+        Lg.d(sb.toString());
+        return sb.toString();
+    }
+
 	private static void addToStringIfNotEmpty(StringBuilder sb, String key, String value) {
 		if (value == null || value.length() == 0) {
 			return;

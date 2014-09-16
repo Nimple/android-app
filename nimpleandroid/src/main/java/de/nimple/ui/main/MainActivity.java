@@ -2,7 +2,9 @@ package de.nimple.ui.main;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -23,6 +25,11 @@ import com.google.zxing.client.android.Intents;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+
 import de.greenrobot.event.EventBus;
 import de.nimple.R;
 import de.nimple.events.ApplicationStartedEvent;
@@ -32,9 +39,11 @@ import de.nimple.events.NimpleCodeScanFailedEvent;
 import de.nimple.events.NimpleCodeScannedEvent;
 import de.nimple.ui.about.AboutNimpleActivity;
 import de.nimple.ui.main.fragments.ContactListFragment;
+import de.nimple.ui.main.fragments.ISaveExtender;
 import de.nimple.ui.main.fragments.NimpleCardFragment;
 import de.nimple.ui.main.fragments.NimpleCodeFragment;
 import de.nimple.ui.parts.PagerSlidingTabStrip;
+import de.nimple.util.export.Export;
 import de.nimple.util.logging.Lg;
 
 public class MainActivity extends SherlockFragmentActivity {
@@ -57,7 +66,6 @@ public class MainActivity extends SherlockFragmentActivity {
 		ButterKnife.inject(this);
 
 		ctx = getApplicationContext();
-
 		adapter = new NimplePagerAdapter(getSupportFragmentManager());
 
 		pager.setAdapter(adapter);
@@ -107,10 +115,44 @@ public class MainActivity extends SherlockFragmentActivity {
 			shareApp();
 		} else if (item.getItemId() == R.id.menu_feedback) {
 			sendFeedback();
-		}
+		} else if (item.getItemId() == R.id.menu_save){
+            save();
+        }
 
 		return super.onOptionsItemSelected(item);
 	}
+
+    private Fragment findCurrentFragment(){
+
+        for(Fragment frag : getSupportFragmentManager().getFragments()){
+            if(frag.isVisible()){
+               return frag;
+            }
+        }
+        return null;
+    }
+
+    private void save(){
+        Export export = ((ISaveExtender)findCurrentFragment()).getExport();
+
+        if (export.getType() == Export.Type.Barcode){
+            File file = new File(Environment.getExternalStorageDirectory() + "/" +  Environment.DIRECTORY_DOWNLOADS, "test" + ".png");
+            FileOutputStream fOut = null;
+            try {
+                fOut = new FileOutputStream(file);
+                ((Bitmap)export.getContent()).compress(Bitmap.CompressFormat.PNG, 100, fOut);
+                fOut.flush();
+                fOut.close();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }else if(export.getType() == Export.Type.VCard){
+
+        }
+
+    }
 
 	private void sendFeedback() {
 		IntentBuilder intentBuilder = ShareCompat.IntentBuilder.from(this);

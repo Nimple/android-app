@@ -3,6 +3,7 @@ package de.nimple.ui.main.fragments;
 import java.util.List;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,8 +22,12 @@ import de.nimple.domain.Contact;
 import de.nimple.events.ContactAddedEvent;
 import de.nimple.events.ContactDeletedEvent;
 import de.nimple.persistence.ContactsPersistenceManager;
+import de.nimple.util.export.Export;
+import de.nimple.util.logging.Lg;
+import de.nimple.util.nimplecode.QRCodeCreator;
+import de.nimple.util.nimplecode.VCardHelper;
 
-public class ContactListFragment extends SherlockFragment {
+public class ContactListFragment extends SherlockFragment  implements ISaveExtender{
 	public static final ContactListFragment newInstance() {
 		return new ContactListFragment();
 	}
@@ -86,4 +91,13 @@ public class ContactListFragment extends SherlockFragment {
 		ContactsPersistenceManager.getInstance(ctx).remove(c);
 		EventBus.getDefault().post(new ContactDeletedEvent(c));
 	}
+
+    @Override
+    public Export getExport() {
+        StringBuilder sb = new StringBuilder();
+        for(Contact con : listOfContacts) {
+            sb.append(VCardHelper.getCardFromContact(con, ctx));
+        }
+        return new Export<String>(sb.toString());
+    }
 }

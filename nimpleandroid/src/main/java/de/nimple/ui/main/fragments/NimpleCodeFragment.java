@@ -25,11 +25,12 @@ import de.nimple.events.NimpleCodeChangedEvent;
 import de.nimple.util.DensityHelper;
 import de.nimple.util.SharedPrefHelper;
 import de.nimple.util.VersionResolver;
+import de.nimple.util.export.Export;
 import de.nimple.util.nimplecode.NimpleCodeHelper;
 import de.nimple.util.nimplecode.QRCodeCreator;
 import de.nimple.util.nimplecode.VCardHelper;
 
-public class NimpleCodeFragment extends SherlockFragment {
+public class NimpleCodeFragment extends SherlockFragment  implements ISaveExtender{
 	public static final NimpleCodeFragment newInstance() {
 		return new NimpleCodeFragment();
 	}
@@ -148,4 +149,9 @@ public class NimpleCodeFragment extends SherlockFragment {
 	private boolean checkForNimpleCode() {
 		return SharedPrefHelper.getBoolean("nimple_code_init", ctx);
 	}
+
+    @Override
+    public Export getExport() {
+        return new Export<Bitmap>(QRCodeCreator.generateQrCode(VCardHelper.getCardFromSharedPrefs(ctx)));
+    }
 }
