@@ -1,8 +1,11 @@
 package de.nimple.ui.main;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v4.app.Fragment;
@@ -12,6 +15,13 @@ import android.support.v4.app.ShareCompat;
 import android.support.v4.app.ShareCompat.IntentBuilder;
 import android.support.v4.view.ViewPager;
 import android.view.Display;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.PopupMenu;
+import android.widget.PopupWindow;
+import android.widget.TextView;
 import android.widget.Toast;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -24,6 +34,8 @@ import com.actionbarsherlock.view.Window;
 import com.google.zxing.client.android.Intents;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+
+import org.w3c.dom.Text;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -44,6 +56,7 @@ import de.nimple.ui.main.fragments.NimpleCardFragment;
 import de.nimple.ui.main.fragments.NimpleCodeFragment;
 import de.nimple.ui.parts.PagerSlidingTabStrip;
 import de.nimple.util.export.Export;
+import de.nimple.util.export.ExportHelper;
 import de.nimple.util.logging.Lg;
 
 public class MainActivity extends SherlockFragmentActivity {
@@ -54,6 +67,7 @@ public class MainActivity extends SherlockFragmentActivity {
 	PagerSlidingTabStrip tabs;
 	@InjectView(R.id.pager)
 	ViewPager pager;
+
 
 	private static final int SCAN_REQUEST_CODE = 0x0000c0de;
 
@@ -122,36 +136,42 @@ public class MainActivity extends SherlockFragmentActivity {
 		return super.onOptionsItemSelected(item);
 	}
 
-    private Fragment findCurrentFragment(){
+    private void save() {
+        int id = pager.getCurrentItem();
+        Fragment frag = getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.pager + ":" + id);
+        final Export export = ((ISaveExtender) frag).getExport();
 
-        for(Fragment frag : getSupportFragmentManager().getFragments()){
-            if(frag.isVisible()){
-               return frag;
+       LayoutInflater layoutInflater
+                = (LayoutInflater)getBaseContext()
+                .getSystemService(LAYOUT_INFLATER_SERVICE);
+        View popupView = layoutInflater.inflate(R.layout.popup_export, null);
+        final PopupWindow popupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT);
+        TextView exportMail = (TextView)popupView.findViewById(R.id.export_menu_mail);
+        TextView exportSave = (TextView)popupView.findViewById(R.id.export_menu_save);
+        exportMail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //MAybe it can be solved with temp file
+                File file = new File(export.getPath(), export.getFilename() + export.getExtension());
+                ExportHelper.save(export, file);
+                sendEmail(Uri.fromFile(file));
+                popupWindow.dismiss();
             }
-        }
-        return null;
-    }
-
-    private void save(){
-        Export export = ((ISaveExtender)findCurrentFragment()).getExport();
-
-        if (export.getType() == Export.Type.Barcode){
-            File file = new File(Environment.getExternalStorageDirectory() + "/" +  Environment.DIRECTORY_DOWNLOADS, "test" + ".png");
-            FileOutputStream fOut = null;
-            try {
-                fOut = new FileOutputStream(file);
-                ((Bitmap)export.getContent()).compress(Bitmap.CompressFormat.PNG, 100, fOut);
-                fOut.flush();
-                fOut.close();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
+        });
+        exportSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                File file = new File(export.getPath(), export.getFilename() + export.getExtension());
+                if(ExportHelper.save(export, file)){
+                    Toast.makeText(ctx,"Erfolgreich auf SD-Karte gespeichert",Toast.LENGTH_SHORT);
+                }else{
+                    Toast.makeText(ctx,"Fehler beim Speichern",Toast.LENGTH_SHORT);
+                }
+                popupWindow.dismiss();
             }
-        }else if(export.getType() == Export.Type.VCard){
-
-        }
-
+        });
+        popupWindow.showAsDropDown(tabs, 50, -30);
     }
 
 	private void sendFeedback() {
@@ -168,16 +188,23 @@ public class MainActivity extends SherlockFragmentActivity {
 	}
 
 	private void shareApp() {
-		IntentBuilder intentBuilder = ShareCompat.IntentBuilder.from(this);
-		intentBuilder.setType("text/plain");
-		intentBuilder.setSubject(getString(R.string.share_app_subject));
-		intentBuilder.setText(getString(R.string.share_app_text));
-		intentBuilder.setChooserTitle(getString(R.string.share_app_chooser));
-
-		Intent intent = intentBuilder.getIntent();
-		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		startActivity(intent);
+		sendEmail(null);
 	}
+
+    private void sendEmail(Uri attachment){
+        IntentBuilder intentBuilder = ShareCompat.IntentBuilder.from(this);
+        intentBuilder.setType("text/plain");
+        intentBuilder.setSubject(getString(R.string.share_app_subject));
+        intentBuilder.setText(getString(R.string.share_app_text));
+        if(attachment != null) {
+            intentBuilder.setStream(attachment);
+        }
+        intentBuilder.setChooserTitle(getString(R.string.share_app_chooser));
+
+        Intent intent = intentBuilder.getIntent();
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+    }
 
 	private void startAboutNimpleActivity() {
 		Intent intent = new Intent(ctx, AboutNimpleActivity.class);

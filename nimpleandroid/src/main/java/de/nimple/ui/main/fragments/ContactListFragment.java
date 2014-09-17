@@ -98,6 +98,8 @@ public class ContactListFragment extends SherlockFragment  implements ISaveExten
         for(Contact con : listOfContacts) {
             sb.append(VCardHelper.getCardFromContact(con, ctx));
         }
-        return new Export<String>(sb.toString());
+        Export export = new Export<String>(sb.toString());
+        export.setFilename("NimpleContacts");
+        return export;
     }
 }

@@ -5,6 +5,12 @@
         android:icon="@drawable/ic_action_add_person"
         android:showAsAction="always"
         android:title="@string/ab_add"/>
+
+    <item
+        android:id="@+id/menu_save"
+        android:showAsAction="always"
+        android:icon="@drawable/ic_save"
+        android:title="test"/>
     <item
         android:id="@+id/menu_share"
         android:showAsAction="never"
