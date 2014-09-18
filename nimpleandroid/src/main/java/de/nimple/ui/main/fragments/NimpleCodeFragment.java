@@ -14,11 +14,10 @@ import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.Spinner;
 
-import butterknife.ButterKnife;
-import butterknife.InjectView;
-
 import com.actionbarsherlock.app.SherlockFragment;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 import de.greenrobot.event.EventBus;
 import de.nimple.R;
 import de.nimple.events.NimpleCodeChangedEvent;
@@ -26,11 +25,12 @@ import de.nimple.util.DensityHelper;
 import de.nimple.util.SharedPrefHelper;
 import de.nimple.util.VersionResolver;
 import de.nimple.util.export.Export;
+import de.nimple.util.export.IExportExtender;
 import de.nimple.util.nimplecode.NimpleCodeHelper;
 import de.nimple.util.nimplecode.QRCodeCreator;
 import de.nimple.util.nimplecode.VCardHelper;
 
-public class NimpleCodeFragment extends SherlockFragment  implements ISaveExtender{
+public class NimpleCodeFragment extends SherlockFragment  implements IExportExtender {
 	public static final NimpleCodeFragment newInstance() {
 		return new NimpleCodeFragment();
 	}

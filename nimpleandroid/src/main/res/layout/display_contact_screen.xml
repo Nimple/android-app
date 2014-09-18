@@ -175,6 +175,30 @@
                 android:padding="15dp"
                 android:text="@string/add_to_address_book"
                 android:textAppearance="@style/NimpleTextButton" />
+
+            <TextView
+                android:id="@+id/contact_export_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/contact_add_text"
+                android:layout_centerHorizontal="false"
+                android:layout_marginTop="6dp"
+                android:padding="15dp"
+                android:text="@string/export_contact"
+                android:textAppearance="@style/NimpleTextButton" />
+
+            <ImageView
+                android:id="@+id/contact_export"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_alignBottom="@+id/contact_export_text"
+                android:adjustViewBounds="true"
+                android:padding="12dp"
+                android:src="@drawable/ic_nimple_export"
+                android:layout_below="@+id/contact_add"
+                android:layout_alignLeft="@+id/contact_add"
+                android:layout_alignStart="@+id/contact_add" />
         </RelativeLayout>
 
         <RelativeLayout

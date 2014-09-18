@@ -1,9 +1,6 @@
 package de.nimple.ui.main.fragments;
 
-import java.util.List;
-
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,11 +8,13 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 import com.actionbarsherlock.app.SherlockFragment;
 
+import java.util.List;
+
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 import de.greenrobot.event.EventBus;
 import de.nimple.R;
 import de.nimple.domain.Contact;
@@ -23,11 +22,10 @@ import de.nimple.events.ContactAddedEvent;
 import de.nimple.events.ContactDeletedEvent;
 import de.nimple.persistence.ContactsPersistenceManager;
 import de.nimple.util.export.Export;
-import de.nimple.util.logging.Lg;
-import de.nimple.util.nimplecode.QRCodeCreator;
+import de.nimple.util.export.IExportExtender;
 import de.nimple.util.nimplecode.VCardHelper;
 
-public class ContactListFragment extends SherlockFragment  implements ISaveExtender{
+public class ContactListFragment extends SherlockFragment  implements IExportExtender {
 	public static final ContactListFragment newInstance() {
 		return new ContactListFragment();
 	}

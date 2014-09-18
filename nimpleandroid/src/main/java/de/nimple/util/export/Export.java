@@ -52,14 +52,6 @@ public class Export<T> {
         return path;
     }
 
-    public void setPath(String path) {
-        this.path = path;
-    }
-
-    public String getQualifiedPath() {
-        return path + "/" + filename + extension;
-    }
-
     public static enum Type {
         VCard,
         Barcode

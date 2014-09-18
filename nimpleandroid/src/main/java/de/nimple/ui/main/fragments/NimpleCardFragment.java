@@ -11,22 +11,23 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import butterknife.ButterKnife;
-import butterknife.InjectView;
-import butterknife.OnClick;
 
 import com.actionbarsherlock.app.SherlockFragment;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
+import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 import de.nimple.R;
 import de.nimple.events.NimpleCodeChangedEvent;
 import de.nimple.ui.edit.EditNimpleCodeActivity;
 import de.nimple.util.export.Export;
+import de.nimple.util.export.IExportExtender;
 import de.nimple.util.nimplecode.Address;
 import de.nimple.util.nimplecode.NimpleCodeHelper;
 import de.nimple.util.nimplecode.VCardHelper;
 
-public class NimpleCardFragment extends SherlockFragment implements ISaveExtender {
+public class NimpleCardFragment extends SherlockFragment implements IExportExtender {
 	public static final NimpleCardFragment newInstance() {
 		return new NimpleCardFragment();
 	}

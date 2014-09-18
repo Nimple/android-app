@@ -2,61 +2,98 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@android:color/background_light"
+    android:background="@android:color/background_dark"
     android:orientation="vertical">
 
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/export_dia_header"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:background="@color/nimple_color"
+        android:text="@string/export_dia_header"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Datei exportieren"
-        android:id="@+id/textView2" />
+        android:textColor="#FFFFFF"
+        android:padding="5dp"
+        android:textSize="20sp" />
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_margin="1dp"
+        android:background="@color/background"
         android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            >
+            android:padding="5dp"
+            android:showDividers="end">
 
             <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:src="@drawable/ic_save" />
+                android:layout_width="31dp"
+                android:layout_height="31dp"
+                android:src="@drawable/ic_nimple_export" />
+
             <TextView
                 android:id="@+id/export_menu_save"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="5dp"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textSize="16dp"
-                android:text="Auf SD-Karte speichern" />
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="7dp"
+                android:textColor="#616161"
+                android:text="@string/export_dia_card"
+                android:textSize="16sp" />
         </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="1dp"
+        android:background="@color/background"
+        android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            >
+            android:padding="5dp"
+            android:showDividers="end">
 
             <ImageView
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="31dp"
+                android:layout_height="31dp"
                 android:src="@drawable/ic_nimple_email" />
 
             <TextView
                 android:id="@+id/export_menu_mail"
-                android:layout_marginTop="5dp"
-                android:layout_marginLeft="5dp"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textSize="16dp"
-                android:text="E-Mail" />
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="7dp"
+                android:textColor="#616161"
+                android:text="@string/export_dia_mail"
+                android:textSize="16sp" />
         </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="1dp"
+        android:background="@color/background"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/export_menu_cancel"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_marginTop="7dp"
+            android:textColor="#616161"
+            android:text="@string/export_dia_cancel"
+            android:textSize="16sp" />
+
     </LinearLayout>
 </LinearLayout>

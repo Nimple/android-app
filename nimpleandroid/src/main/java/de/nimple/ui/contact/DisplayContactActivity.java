@@ -11,8 +11,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -31,8 +33,11 @@ import de.nimple.domain.Contact;
 import de.nimple.events.ContactDeletedEvent;
 import de.nimple.events.ContactTransferredEvent;
 import de.nimple.persistence.ContactsPersistenceManager;
+import de.nimple.ui.dialog.ExportDialog;
 import de.nimple.util.IntentHelper;
+import de.nimple.util.export.Export;
 import de.nimple.util.logging.Lg;
+import de.nimple.util.nimplecode.VCardHelper;
 
 public class DisplayContactActivity extends SherlockActivity {
 	private Context ctx;
@@ -161,6 +166,18 @@ public class DisplayContactActivity extends SherlockActivity {
 		AlertDialog dialog = builder.create();
 		dialog.show();
 	}
+
+    @OnClick({ R.id.contact_export_text, R.id.contact_export })
+    public void showExportContact() {
+        LayoutInflater layoutInflater
+                = (LayoutInflater)ctx
+                .getSystemService(LAYOUT_INFLATER_SERVICE);
+        View popupView = layoutInflater.inflate(R.layout.popup_export, null);
+        Export<String> export = new Export<String>(VCardHelper.getCardFromContact(contact,ctx));
+        ExportDialog exportDialog = new ExportDialog(popupView, ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT,export,this);
+        exportDialog.showAsDropDown(mailTextView);
+    }
 
 	//@OnClick(R.id.contact_delete)
 	public void showDeleteContact() {

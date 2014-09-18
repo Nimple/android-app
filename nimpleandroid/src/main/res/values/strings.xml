@@ -131,15 +131,18 @@
 	<string name="contact_linkedin">No LinkedIn profile</string>
 	<string name="button_delete">Delete</string>
 
-    <!-- TEST       -->
-    <string-array name="nimpleCards">
-        <item>1</item>
-        <item>2</item>
-    </string-array>
-    <string name="file_extension_png">png</string>
-    <string name="tag_fragment_FileSave">asasasdasd</string>
-    <string name="alert_ok">ok</string>
-    <string name="alert_cancel">cancel</string>
-    <string name="alert_file_save_as">alert_file_save_as</string>
-    <string name="hint_filename_unadorned">hint_filename_unadorned</string>
+    <!-- export -->
+    <string name="export_save">Content was saved successfully on SD-Card</string>
+    <string name="export_save_err">Failed to save content on SD-Card</string>
+    <string name="ab_export">Export</string>
+    <string name="export_contact">Export this contact</string>
+    <string name="export_dia_header">Export File</string>
+    <string name="export_dia_card">Export to SD-Card</string>
+    <string name="export_dia_mail">Send as E-Mail</string>
+    <string name="export_dia_cancel">Cancel</string>
+    <!-- several cards -->
+    <array name="nimpleCards">
+        <item>private</item>
+        <item>business</item>
+    </array>
 </resources>

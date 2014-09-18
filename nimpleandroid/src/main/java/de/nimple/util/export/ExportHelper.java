@@ -13,24 +13,17 @@ import java.io.IOException;
 public class ExportHelper {
 
     public static boolean save(Export export, File file) {
-        if (export == null) {
+        if (export == null || file == null) {
             return false;
         }
-
-        if (export.getType() == Export.Type.Barcode) {
-            return ExportHelper.saveBitmap(file, (Bitmap) export.getContent());
-        } else if (export.getType() == Export.Type.VCard) {
-            return ExportHelper.saveText(file,(String) export.getContent());
-        }
-
-        return false;
-    }
-
-    public static boolean saveBitmap(File file, Bitmap content){
         try {
             FileOutputStream fOut = null;
             fOut = new FileOutputStream(file);
-            content.compress(Bitmap.CompressFormat.PNG, 100, fOut);
+            if (export.getType() == Export.Type.Barcode) {
+                ((Bitmap) export.getContent()).compress(Bitmap.CompressFormat.PNG, 100, fOut);
+            } else if (export.getType() == Export.Type.VCard) {
+                fOut.write(((String)export.getContent()).getBytes());
+            }
             fOut.flush();
             fOut.close();
             return true;
@@ -39,22 +32,7 @@ public class ExportHelper {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return false;
-    }
 
-    public static boolean saveText(File file, String content){
-        try {
-            FileOutputStream fOut = null;
-            fOut = new FileOutputStream(file);
-            fOut.write(content.getBytes());
-            fOut.flush();
-            fOut.close();
-            return true;
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         return false;
     }
 }

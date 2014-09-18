@@ -1,13 +1,9 @@
 package de.nimple.ui.main;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.net.Uri;
+import android.graphics.Point;
 import android.os.Bundle;
-import android.os.Environment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -18,13 +14,7 @@ import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.PopupMenu;
-import android.widget.PopupWindow;
-import android.widget.TextView;
 import android.widget.Toast;
-import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
 import com.actionbarsherlock.view.Menu;
@@ -35,13 +25,8 @@ import com.google.zxing.client.android.Intents;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
-import org.w3c.dom.Text;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 import de.greenrobot.event.EventBus;
 import de.nimple.R;
 import de.nimple.events.ApplicationStartedEvent;
@@ -50,13 +35,13 @@ import de.nimple.events.DuplicatedContactEvent;
 import de.nimple.events.NimpleCodeScanFailedEvent;
 import de.nimple.events.NimpleCodeScannedEvent;
 import de.nimple.ui.about.AboutNimpleActivity;
+import de.nimple.ui.dialog.ExportDialog;
 import de.nimple.ui.main.fragments.ContactListFragment;
-import de.nimple.ui.main.fragments.ISaveExtender;
 import de.nimple.ui.main.fragments.NimpleCardFragment;
 import de.nimple.ui.main.fragments.NimpleCodeFragment;
 import de.nimple.ui.parts.PagerSlidingTabStrip;
 import de.nimple.util.export.Export;
-import de.nimple.util.export.ExportHelper;
+import de.nimple.util.export.IExportExtender;
 import de.nimple.util.logging.Lg;
 
 public class MainActivity extends SherlockFragmentActivity {
@@ -67,6 +52,7 @@ public class MainActivity extends SherlockFragmentActivity {
 	PagerSlidingTabStrip tabs;
 	@InjectView(R.id.pager)
 	ViewPager pager;
+
 
 
 	private static final int SCAN_REQUEST_CODE = 0x0000c0de;
@@ -139,39 +125,18 @@ public class MainActivity extends SherlockFragmentActivity {
     private void save() {
         int id = pager.getCurrentItem();
         Fragment frag = getSupportFragmentManager().findFragmentByTag("android:switcher:" + R.id.pager + ":" + id);
-        final Export export = ((ISaveExtender) frag).getExport();
+        final Export export = ((IExportExtender) frag).getExport();
 
        LayoutInflater layoutInflater
-                = (LayoutInflater)getBaseContext()
+                = (LayoutInflater)ctx
                 .getSystemService(LAYOUT_INFLATER_SERVICE);
         View popupView = layoutInflater.inflate(R.layout.popup_export, null);
-        final PopupWindow popupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT);
-        TextView exportMail = (TextView)popupView.findViewById(R.id.export_menu_mail);
-        TextView exportSave = (TextView)popupView.findViewById(R.id.export_menu_save);
-        exportMail.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //MAybe it can be solved with temp file
-                File file = new File(export.getPath(), export.getFilename() + export.getExtension());
-                ExportHelper.save(export, file);
-                sendEmail(Uri.fromFile(file));
-                popupWindow.dismiss();
-            }
-        });
-        exportSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                File file = new File(export.getPath(), export.getFilename() + export.getExtension());
-                if(ExportHelper.save(export, file)){
-                    Toast.makeText(ctx,"Erfolgreich auf SD-Karte gespeichert",Toast.LENGTH_SHORT);
-                }else{
-                    Toast.makeText(ctx,"Fehler beim Speichern",Toast.LENGTH_SHORT);
-                }
-                popupWindow.dismiss();
-            }
-        });
-        popupWindow.showAsDropDown(tabs, 50, -30);
+        ExportDialog exportDialog = new ExportDialog(popupView, ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT,export,this);
+        Display display = getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        exportDialog.showAsDropDown(tabs,0,0);
     }
 
 	private void sendFeedback() {
@@ -187,18 +152,11 @@ public class MainActivity extends SherlockFragmentActivity {
 		startActivity(intent);
 	}
 
-	private void shareApp() {
-		sendEmail(null);
-	}
-
-    private void sendEmail(Uri attachment){
+    private void shareApp(){
         IntentBuilder intentBuilder = ShareCompat.IntentBuilder.from(this);
         intentBuilder.setType("text/plain");
         intentBuilder.setSubject(getString(R.string.share_app_subject));
         intentBuilder.setText(getString(R.string.share_app_text));
-        if(attachment != null) {
-            intentBuilder.setStream(attachment);
-        }
         intentBuilder.setChooserTitle(getString(R.string.share_app_chooser));
 
         Intent intent = intentBuilder.getIntent();
