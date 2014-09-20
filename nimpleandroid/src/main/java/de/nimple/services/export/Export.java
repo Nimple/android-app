@@ -1,4 +1,4 @@
-package de.nimple.util.export;
+package de.nimple.services.export;
 
 import android.graphics.Bitmap;
 import android.os.Environment;

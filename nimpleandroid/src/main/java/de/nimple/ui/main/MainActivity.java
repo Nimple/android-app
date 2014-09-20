@@ -38,8 +38,8 @@ import de.nimple.ui.main.fragments.ContactListFragment;
 import de.nimple.ui.main.fragments.NimpleCardFragment;
 import de.nimple.ui.main.fragments.NimpleCodeFragment;
 import de.nimple.ui.parts.PagerSlidingTabStrip;
-import de.nimple.util.export.Export;
-import de.nimple.util.export.IExportExtender;
+import de.nimple.services.export.Export;
+import de.nimple.services.export.IExportExtender;
 import de.nimple.util.logging.Lg;
 
 public class MainActivity extends BaseActivity {

@@ -36,7 +36,7 @@ import de.nimple.events.ContactTransferredEvent;
 import de.nimple.services.contacts.ContactsService;
 import de.nimple.ui.dialog.ExportDialog;
 import de.nimple.util.IntentHelper;
-import de.nimple.util.export.Export;
+import de.nimple.services.export.Export;
 import de.nimple.util.logging.Lg;
 import de.nimple.util.nimplecode.VCardHelper;
 

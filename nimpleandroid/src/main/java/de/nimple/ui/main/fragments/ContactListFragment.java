@@ -24,8 +24,8 @@ import de.nimple.events.ContactDeletedEvent;
 import de.nimple.exceptions.DuplicatedContactException;
 import de.nimple.services.contacts.ContactsService;
 import de.nimple.util.SharedPrefHelper;
-import de.nimple.util.export.Export;
-import de.nimple.util.export.IExportExtender;
+import de.nimple.services.export.Export;
+import de.nimple.services.export.IExportExtender;
 import de.nimple.util.logging.Lg;
 import de.nimple.util.nimplecode.VCardHelper;
 
