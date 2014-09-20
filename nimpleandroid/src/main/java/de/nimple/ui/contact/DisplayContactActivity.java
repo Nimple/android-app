@@ -1,9 +1,6 @@
 package de.nimple.ui.contact;
 
-import java.text.DateFormat;
-import java.util.Date;
-import java.util.Locale;
-
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.Context;
@@ -12,21 +9,23 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.text.DateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
-
-import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuItem;
-import com.actionbarsherlock.view.Window;
-
 import de.greenrobot.event.EventBus;
 import de.nimple.R;
 import de.nimple.domain.Contact;
@@ -39,7 +38,7 @@ import de.nimple.util.export.Export;
 import de.nimple.util.logging.Lg;
 import de.nimple.util.nimplecode.VCardHelper;
 
-public class DisplayContactActivity extends SherlockActivity {
+public class DisplayContactActivity extends Activity {
 	private Context ctx;
 	private Contact contact;
 
@@ -48,8 +47,8 @@ public class DisplayContactActivity extends SherlockActivity {
 	TextView mailTextView;
 	@InjectView(R.id.phoneTextView)
 	TextView phoneTextView;
-    @InjectView(R.id.phoneWorkTextView)
-    TextView phoneWorkTextView;
+	@InjectView(R.id.phoneWorkTextView)
+	TextView phoneWorkTextView;
 
 	// created / notes
 	@InjectView(R.id.contact_created)
@@ -94,9 +93,9 @@ public class DisplayContactActivity extends SherlockActivity {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		setContentView(R.layout.display_contact_screen);
-		setSupportProgressBarIndeterminateVisibility(false);
+		setProgressBarIndeterminateVisibility(false);
 
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		getActionBar().setDisplayHomeAsUpEnabled(true);
 
 		ButterKnife.inject(this);
 
@@ -105,7 +104,7 @@ public class DisplayContactActivity extends SherlockActivity {
 		long contactId = getIntent().getLongExtra("CONTACT_ID", -1);
 		contact = ContactsPersistenceManager.getInstance(ctx).findContactById(contactId);
 
-		getSupportActionBar().setTitle(contact.getName());
+		getActionBar().setTitle(contact.getName());
 
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
@@ -119,7 +118,7 @@ public class DisplayContactActivity extends SherlockActivity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getSupportMenuInflater().inflate(R.menu.display_contact, menu);
+		getMenuInflater().inflate(R.menu.display_contact, menu);
 		return super.onCreateOptionsMenu(menu);
 	}
 
@@ -132,21 +131,21 @@ public class DisplayContactActivity extends SherlockActivity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case android.R.id.home:
-			finish();
-			return true;
-		case R.id.menu_finish:
-			finish();
-			return true;
-		case R.id.menu_del:
-			showDeleteContact();
-			return true;
-		default:
-			return false;
+			case android.R.id.home:
+				finish();
+				return true;
+			case R.id.menu_finish:
+				finish();
+				return true;
+			case R.id.menu_del:
+				showDeleteContact();
+				return true;
+			default:
+				return false;
 		}
 	}
 
-	@OnClick({ R.id.contact_add, R.id.contact_add_text })
+	@OnClick({R.id.contact_add, R.id.contact_add_text})
 	public void showAddContact() {
 		Builder builder = new AlertDialog.Builder(this);
 		builder.setMessage(getString(R.string.save_contact_question));
@@ -169,17 +168,17 @@ public class DisplayContactActivity extends SherlockActivity {
 		dialog.show();
 	}
 
-    @OnClick({ R.id.contact_export_text, R.id.contact_export })
-    public void showExportContact() {
-        LayoutInflater layoutInflater
-                = (LayoutInflater)ctx
-                .getSystemService(LAYOUT_INFLATER_SERVICE);
-        View popupView = layoutInflater.inflate(R.layout.popup_export, null);
-        Export<String> export = new Export<String>(VCardHelper.getCardFromContact(contact,ctx));
-        ExportDialog exportDialog = new ExportDialog(popupView, ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT,export,this);
-        exportDialog.showAsDropDown(mailTextView);
-    }
+	@OnClick({R.id.contact_export_text, R.id.contact_export})
+	public void showExportContact() {
+		LayoutInflater layoutInflater
+				= (LayoutInflater) ctx
+				.getSystemService(LAYOUT_INFLATER_SERVICE);
+		View popupView = layoutInflater.inflate(R.layout.popup_export, null);
+		Export<String> export = new Export<String>(VCardHelper.getCardFromContact(contact, ctx));
+		ExportDialog exportDialog = new ExportDialog(popupView, ViewGroup.LayoutParams.WRAP_CONTENT,
+				ViewGroup.LayoutParams.WRAP_CONTENT, export, this);
+		exportDialog.showAsDropDown(mailTextView);
+	}
 
 	//@OnClick(R.id.contact_delete)
 	public void showDeleteContact() {
@@ -242,24 +241,24 @@ public class DisplayContactActivity extends SherlockActivity {
 			phoneTextView.setVisibility(View.INVISIBLE);
 		}
 
-        final String numberWork = contact.getTelephoneWork();
-        if (numberWork != null && numberWork.length() != 0) {
-            phoneWorkTextView.setText(numberWork);
-            phoneWorkTextView.setOnClickListener(new OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (contact.getCreated() == 0L) {
-                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(numberWork));
-                        startActivity(browserIntent);
-                    } else {
-                        IntentHelper.callContact(DisplayContactActivity.this, contact);
-                    }
-                }
-            });
-            phoneWorkTextView.setVisibility(View.VISIBLE);
-        } else {
-            phoneWorkTextView.setVisibility(View.INVISIBLE);
-        }
+		final String numberWork = contact.getTelephoneWork();
+		if (numberWork != null && numberWork.length() != 0) {
+			phoneWorkTextView.setText(numberWork);
+			phoneWorkTextView.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					if (contact.getCreated() == 0L) {
+						Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(numberWork));
+						startActivity(browserIntent);
+					} else {
+						IntentHelper.callContact(DisplayContactActivity.this, contact);
+					}
+				}
+			});
+			phoneWorkTextView.setVisibility(View.VISIBLE);
+		} else {
+			phoneWorkTextView.setVisibility(View.INVISIBLE);
+		}
 
 		final String website = contact.getWebsite();
 		if (website != null && website.length() != 0) {
@@ -320,39 +319,40 @@ public class DisplayContactActivity extends SherlockActivity {
 		fillSocialUi();
 	}
 
-	@OnClick({ R.id.facebookRoundIcon, R.id.facebookProfile })
+	@OnClick({R.id.facebookRoundIcon, R.id.facebookProfile})
 	public void onClickFacebook() {
 		if (contact.getFacebookUrl().length() != 0) {
 			IntentHelper.openFacebook(this, contact.getFacebookId(), contact.getFacebookUrl());
 		}
 	}
 
-	@OnClick({ R.id.twitterRoundIcon, R.id.twitterProfile })
+	@OnClick({R.id.twitterRoundIcon, R.id.twitterProfile})
 	public void onClickTwitter() {
 		if (contact.getTwitterUrl().length() != 0) {
 			IntentHelper.openTwitter(this, contact.getTwitterId(), contact.getTwitterUrl());
 		}
 	}
 
-	@OnClick({ R.id.xingRoundIcon, R.id.xingProfile })
+	@OnClick({R.id.xingRoundIcon, R.id.xingProfile})
 	public void onClickXing() {
 		if (contact.getXingUrl().length() != 0) {
 			IntentHelper.openXing(this, contact.getXingUrl());
 		}
 	}
 
-	@OnClick({ R.id.linkedinRoundIcon, R.id.linkedinProfile })
+	@OnClick({R.id.linkedinRoundIcon, R.id.linkedinProfile})
 	public void onClickLinkedIn() {
 		if (contact.getLinkedinUrl().length() != 0) {
 			IntentHelper.openLinkedin(this, contact.getLinkedinUrl());
 		}
 	}
 
-    /**
-     * Cleans the social network URLs to to not contain 'https://' or 'http://' or 'www'
-     * @param urlString
-     * @return
-     */
+	/**
+	 * Cleans the social network URLs to to not contain 'https://' or 'http://' or 'www'
+	 *
+	 * @param urlString
+	 * @return
+	 */
 	private String normalizeUrl(String urlString) {
 		String cleanUrlString = urlString.replace("https://", "");
 		cleanUrlString = cleanUrlString.replace("http://", "");

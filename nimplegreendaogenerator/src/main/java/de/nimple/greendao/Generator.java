@@ -12,7 +12,7 @@ public class Generator {
 
         defineContact(schema);
 
-        new DaoGenerator() .generateAll(schema, args[0]);
+        new DaoGenerator().generateAll(schema, args[0]);
     }
 
     private static void defineContact(Schema schema) {

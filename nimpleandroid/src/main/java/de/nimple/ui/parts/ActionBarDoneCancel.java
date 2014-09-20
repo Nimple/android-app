@@ -1,11 +1,10 @@
 package de.nimple.ui.parts;
 
+import android.app.ActionBar;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
-import com.actionbarsherlock.app.ActionBar;
 
 import de.nimple.R;
 
@@ -13,14 +12,14 @@ final public class ActionBarDoneCancel {
 	public static void apply(final ActionBarDoneCancelCallback callback, final ActionBar actionBar) {
 		LayoutInflater inflater = (LayoutInflater) actionBar.getThemedContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-	   View v = inflater.inflate(R.layout.actionbar_done_cancel, null);
-      v.findViewById(R.id.actionbar_done).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                callback.onDoneCallback();
-            }
-        });
-       v.findViewById(R.id.actionbar_cancel).setOnClickListener(new View.OnClickListener() {
+		View v = inflater.inflate(R.layout.actionbar_done_cancel, null);
+		v.findViewById(R.id.actionbar_done).setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				callback.onDoneCallback();
+			}
+		});
+		v.findViewById(R.id.actionbar_cancel).setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				callback.onCancelCallback();

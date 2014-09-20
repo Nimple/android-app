@@ -1,5 +1,6 @@
 package de.nimple.ui.main.fragments;
 
+import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,8 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.actionbarsherlock.app.SherlockFragment;
 
 import java.util.List;
 
@@ -25,7 +24,7 @@ import de.nimple.util.export.Export;
 import de.nimple.util.export.IExportExtender;
 import de.nimple.util.nimplecode.VCardHelper;
 
-public class ContactListFragment extends SherlockFragment  implements IExportExtender {
+public class ContactListFragment extends Fragment implements IExportExtender {
 	public static final ContactListFragment newInstance() {
 		return new ContactListFragment();
 	}
@@ -41,7 +40,7 @@ public class ContactListFragment extends SherlockFragment  implements IExportExt
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		ctx = getSherlockActivity().getApplicationContext();
+		ctx = getActivity().getApplicationContext();
 		final View view = inflater.inflate(R.layout.contacts_fragment, container, false);
 		ButterKnife.inject(this, view);
 
@@ -90,14 +89,14 @@ public class ContactListFragment extends SherlockFragment  implements IExportExt
 		EventBus.getDefault().post(new ContactDeletedEvent(c));
 	}
 
-    @Override
-    public Export getExport() {
-        StringBuilder sb = new StringBuilder();
-        for(Contact con : listOfContacts) {
-            sb.append(VCardHelper.getCardFromContact(con, ctx));
-        }
-        Export export = new Export<String>(sb.toString());
-        export.setFilename("NimpleContacts");
-        return export;
-    }
+	@Override
+	public Export getExport() {
+		StringBuilder sb = new StringBuilder();
+		for (Contact con : listOfContacts) {
+			sb.append(VCardHelper.getCardFromContact(con, ctx));
+		}
+		Export export = new Export<String>(sb.toString());
+		export.setFilename("NimpleContacts");
+		return export;
+	}
 }

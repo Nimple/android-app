@@ -1,5 +1,6 @@
 package de.nimple.ui.main.fragments;
 
+import android.app.Fragment;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -13,8 +14,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.Spinner;
-
-import com.actionbarsherlock.app.SherlockFragment;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -30,7 +29,7 @@ import de.nimple.util.nimplecode.NimpleCodeHelper;
 import de.nimple.util.nimplecode.QRCodeCreator;
 import de.nimple.util.nimplecode.VCardHelper;
 
-public class NimpleCodeFragment extends SherlockFragment  implements IExportExtender {
+public class NimpleCodeFragment extends Fragment implements IExportExtender {
 	public static final NimpleCodeFragment newInstance() {
 		return new NimpleCodeFragment();
 	}
@@ -46,34 +45,34 @@ public class NimpleCodeFragment extends SherlockFragment  implements IExportExte
 	@InjectView(R.id.arrow_up)
 	ImageView arrowUp;
 
-    @InjectView(R.id.spinner)
-    Spinner spinner;
+	@InjectView(R.id.spinner)
+	Spinner spinner;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		ctx = getSherlockActivity().getApplicationContext();
+		ctx = getActivity().getApplicationContext();
 		view = inflater.inflate(R.layout.main_ncode_fragment, container, false);
 		ButterKnife.inject(this, view);
 		EventBus.getDefault().register(this);
-        addSpinnerFunc();
+		addSpinnerFunc();
 		refreshUi();
 		return view;
 	}
 
-    private void addSpinnerFunc(){
-        spinner.setOnItemSelectedListener( new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                NimpleCodeHelper.setCurrentId(position);
-                refreshUi();
-            }
+	private void addSpinnerFunc() {
+		spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+				NimpleCodeHelper.setCurrentId(position);
+				refreshUi();
+			}
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
 
-            }
-        });
-    }
+			}
+		});
+	}
 
 	@Override
 	public void onDestroyView() {
@@ -143,8 +142,8 @@ public class NimpleCodeFragment extends SherlockFragment  implements IExportExte
 		return SharedPrefHelper.getBoolean("nimple_code_init", ctx);
 	}
 
-    @Override
-    public Export getExport() {
-        return new Export<Bitmap>(QRCodeCreator.generateQrCode(VCardHelper.getCardFromSharedPrefs(ctx)));
-    }
+	@Override
+	public Export getExport() {
+		return new Export<Bitmap>(QRCodeCreator.generateQrCode(VCardHelper.getCardFromSharedPrefs(ctx)));
+	}
 }
