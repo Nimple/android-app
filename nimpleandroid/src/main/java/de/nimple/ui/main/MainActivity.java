@@ -11,7 +11,6 @@ import android.support.v4.view.ViewPager;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.Toast;
-
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
