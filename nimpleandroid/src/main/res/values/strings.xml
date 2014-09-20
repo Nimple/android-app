@@ -142,6 +142,7 @@
     <string name="export_dia_mail">Send as E-Mail</string>
     <string name="export_dia_cancel">Cancel</string>
     <!-- several cards -->
+    <string name="nimpleCards_defaultName">NimpleCard</string>
     <array name="nimpleCards">
         <item>private</item>
         <item>business</item>

@@ -1,12 +1,14 @@
 package de.nimple.util.nimplecode;
 
 import android.content.Context;
+
+import de.nimple.R;
 import de.nimple.util.SharedPrefHelper;
 
 public class NimpleCodeHelper {
 	public NimpleCode holder;
 	private Context ctx;
-    private static String curId = NimpleCodeHelper.NC_CARD_1;
+    private static int m_curId = 0; //NimpleCodeHelper.NC_CARD_1;
 
 	public NimpleCodeHelper(Context ctx) {
 		this.ctx = ctx;
@@ -14,7 +16,15 @@ public class NimpleCodeHelper {
 	}
 
 	private void load() {
+        String curId = "";
+
+        //Necessary to support versions with one card
+        if(m_curId != 0){
+            curId = String.valueOf(m_curId);
+        }
+
         holder = new NimpleCode();
+        holder.cardName = SharedPrefHelper.getString(NC_CARD_NAME + curId, ctx);
 		holder.firstname = SharedPrefHelper.getString(NC_VALUE_FIRSTNAME + curId, ctx);
 		holder.lastname = SharedPrefHelper.getString(NC_VALUE_LASTNAME + curId, ctx);
 		holder.mail = SharedPrefHelper.getString(NC_VALUE_MAIL + curId, ctx);
@@ -52,8 +62,23 @@ public class NimpleCodeHelper {
 	}
 
 	public void save() {
-		SharedPrefHelper.putBoolean(NC_INIT + curId, true, ctx);
-		SharedPrefHelper.putString(NC_VALUE_FIRSTNAME + curId, holder.firstname, ctx);
+
+        String curId = "";
+
+        //Necessary to support versions with one card
+        if(m_curId != 0){
+            curId = String.valueOf(m_curId);
+        }
+
+		SharedPrefHelper.putBoolean(NC_INIT, true, ctx);
+
+        if (holder.cardName != null && !holder.cardName.equals("")) {
+            SharedPrefHelper.putString(NC_CARD_NAME + curId, holder.cardName, ctx);
+        } else {
+            SharedPrefHelper.putString(NC_CARD_NAME + curId, ctx.getString(R.string.nimpleCards_defaultName) + "_" + curId, ctx);
+        }
+        
+        SharedPrefHelper.putString(NC_VALUE_FIRSTNAME + curId, holder.firstname, ctx);
 		SharedPrefHelper.putString(NC_VALUE_LASTNAME + curId, holder.lastname, ctx);
 		SharedPrefHelper.putString(NC_VALUE_MAIL + curId, holder.mail, ctx);
 		SharedPrefHelper.putString(NC_VALUE_PHONE + curId, holder.phone, ctx);
@@ -90,16 +115,17 @@ public class NimpleCodeHelper {
 		return !SharedPrefHelper.getBoolean(NC_INIT, ctx);
 	}
 
-    public static String getCurrentId(){
-        return curId;
+    public static int getCurrentId(){
+        return m_curId;
     }
 
-    public static void setCurrentId(String id){
-         curId = id;
+    public static void setCurrentId(int id){
+         m_curId = id;
     }
 
 	public class NimpleCode {
 		public Show show = new Show();
+        public String cardName;
 
 		public String firstname;
 		public String lastname;
@@ -141,6 +167,8 @@ public class NimpleCodeHelper {
 	// ////////////////////////// constants /////////////////////////////
 	private final String NC_INIT = "nimple_code_init";
 
+    private final String NC_CARD_NAME = "nimple_card_name";
+
 	private final String NC_VALUE_FIRSTNAME = "nimple_code_firstname";
 	private final String NC_VALUE_LASTNAME = "nimple_code_lastname";
 	private final String NC_VALUE_MAIL = "nimple_code_mail";
@@ -171,6 +199,6 @@ public class NimpleCodeHelper {
 	private final String NC_SHOW_FACEBOOK = "nimple_code_facebook_show";
 	private final String NC_SHOW_WEBSITE = "nimple_code_website_show";
 
-    public static final String NC_CARD_1 ="";
-    public static final String NC_CARD_2 ="2";
+//    public static final String NC_CARD_1 ="";
+//    public static final String NC_CARD_2 ="2";
 }

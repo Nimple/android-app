@@ -64,14 +64,7 @@ public class NimpleCodeFragment extends SherlockFragment  implements IExportExte
         spinner.setOnItemSelectedListener( new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                switch (position){
-                    case 0:
-                        NimpleCodeHelper.setCurrentId(NimpleCodeHelper.NC_CARD_1);
-                        break;
-                    case 1:
-                        NimpleCodeHelper.setCurrentId(NimpleCodeHelper.NC_CARD_2);
-                        break;
-                }
+                NimpleCodeHelper.setCurrentId(position);
                 refreshUi();
             }
 
