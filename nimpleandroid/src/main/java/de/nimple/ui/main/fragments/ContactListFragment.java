@@ -1,6 +1,5 @@
 package de.nimple.ui.main.fragments;
 
-import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -12,19 +11,25 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import de.greenrobot.event.EventBus;
 import de.nimple.R;
+import de.nimple.dagger.BaseFragment;
 import de.nimple.domain.Contact;
 import de.nimple.events.ContactAddedEvent;
 import de.nimple.events.ContactDeletedEvent;
-import de.nimple.persistence.ContactsPersistenceManager;
+import de.nimple.exceptions.DuplicatedContactException;
+import de.nimple.services.contacts.ContactsService;
+import de.nimple.util.SharedPrefHelper;
 import de.nimple.util.export.Export;
 import de.nimple.util.export.IExportExtender;
+import de.nimple.util.logging.Lg;
 import de.nimple.util.nimplecode.VCardHelper;
 
-public class ContactListFragment extends Fragment implements IExportExtender {
+public class ContactListFragment extends BaseFragment implements IExportExtender {
 	public static final ContactListFragment newInstance() {
 		return new ContactListFragment();
 	}
@@ -32,6 +37,9 @@ public class ContactListFragment extends Fragment implements IExportExtender {
 	private Context ctx;
 	private List<Contact> listOfContacts;
 	private ContactsListAdapter contactsAdapter;
+
+	@Inject
+	ContactsService contactsService;
 
 	@InjectView(R.id.contactsList)
 	ListView contactsList;
@@ -41,10 +49,12 @@ public class ContactListFragment extends Fragment implements IExportExtender {
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		ctx = getActivity().getApplicationContext();
+		onBootstrap();
+
 		final View view = inflater.inflate(R.layout.contacts_fragment, container, false);
 		ButterKnife.inject(this, view);
 
-		listOfContacts = ContactsPersistenceManager.getInstance(ctx).findAllContacts();
+		listOfContacts = contactsService.findAllContacts();
 
 		EventBus.getDefault().register(this);
 
@@ -53,6 +63,27 @@ public class ContactListFragment extends Fragment implements IExportExtender {
 
 		toggleInfoText();
 		return view;
+	}
+
+	private boolean isInitial() {
+		return !SharedPrefHelper.getBoolean("nimple_app_launched", ctx);
+	}
+
+	private void onBootstrap() {
+		if (isInitial()) {
+			Contact c = new Contact(null, getString(R.string.bootstrap_first_contact), "feedback.android@nimple.de", "", "http://www.nimple.de", "", "", "", "",
+					"Appstronauten GbR", "Nimple - Networking Simple", "286113114869395", "https://www.facebook.com/nimpleapp", "2444364654",
+					"https://twitter.com/Nimpleapp", "https://www.xing.com/companies/appstronautengbr", "https://www.linkedin.com/company/appstronauten-gbr",
+					"", System.currentTimeMillis(), "");
+
+			try {
+				contactsService.persist(c);
+			} catch (DuplicatedContactException e) {
+				Lg.d("DuplicatedContactException occured - should never happen onBootstrap");
+			}
+
+			SharedPrefHelper.putBoolean("nimple_app_launched", true, ctx);
+		}
 	}
 
 	private void toggleInfoText() {
@@ -82,11 +113,6 @@ public class ContactListFragment extends Fragment implements IExportExtender {
 		listOfContacts.remove(ev.getContact());
 		contactsAdapter.notifyDataSetChanged();
 		toggleInfoText();
-	}
-
-	public static void deleteContact(Context ctx, Contact c) {
-		ContactsPersistenceManager.getInstance(ctx).remove(c);
-		EventBus.getDefault().post(new ContactDeletedEvent(c));
 	}
 
 	@Override

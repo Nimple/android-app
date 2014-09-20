@@ -1,4 +1,4 @@
-package de.nimple.persistence;
+package de.nimple.services.upgrade;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -13,9 +13,18 @@ public class DatabaseHelper extends DaoMaster.DevOpenHelper {
 
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		if (oldVersion == 1 && newVersion == 2) {
-			Lg.d("Upgrading schema from version " + oldVersion + " to " + newVersion + " by altering contacts table");
+		Lg.d("Upgrading schema from version " + oldVersion + " to " + newVersion);
+		int currentVersion = oldVersion;
+		while (currentVersion < newVersion) {
+			currentVersion++;
+			applyPatch(db, currentVersion);
+		}
+	}
 
+	private void applyPatch(SQLiteDatabase db, int patchVersion) {
+		Lg.d("Applying patch for version " + patchVersion);
+		if (patchVersion == 2) {
+			// Patch(2)
 			db.execSQL("ALTER TABLE contacts ADD website TEXT");
 
 			db.execSQL("ALTER TABLE contacts ADD street TEXT");
@@ -27,10 +36,10 @@ public class DatabaseHelper extends DaoMaster.DevOpenHelper {
 			db.execSQL("UPDATE contacts SET street = '' WHERE street IS NULL");
 			db.execSQL("UPDATE contacts SET postal = '' WHERE postal IS NULL");
 			db.execSQL("UPDATE contacts SET city = '' WHERE city IS NULL");
-		} else {
-			Lg.d("Upgrading schema from version " + oldVersion + " to " + newVersion + " by dropping all tables");
-			DaoMaster.dropAllTables(db, true);
-			onCreate(db);
+		}
+		if (patchVersion == 3) {
+			// Patch(3)
+			db.execSQL("ALTER TABLE contacts ADD telephoneWork TEXT");
 		}
 	}
 }

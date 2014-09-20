@@ -1,6 +1,5 @@
 package de.nimple.ui.main;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
@@ -24,10 +23,10 @@ import com.google.zxing.client.android.Intents;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
-import butterknife.ButterKnife;
 import butterknife.InjectView;
 import de.greenrobot.event.EventBus;
 import de.nimple.R;
+import de.nimple.dagger.BaseActivity;
 import de.nimple.events.ApplicationStartedEvent;
 import de.nimple.events.ContactAddedEvent;
 import de.nimple.events.DuplicatedContactEvent;
@@ -43,7 +42,7 @@ import de.nimple.util.export.Export;
 import de.nimple.util.export.IExportExtender;
 import de.nimple.util.logging.Lg;
 
-public class MainActivity extends Activity {
+public class MainActivity extends BaseActivity {
 	private static Context ctx;
 	private NimplePagerAdapter adapter;
 
@@ -51,7 +50,6 @@ public class MainActivity extends Activity {
 	PagerSlidingTabStrip tabs;
 	@InjectView(R.id.pager)
 	ViewPager pager;
-
 
 	private static final int SCAN_REQUEST_CODE = 0x0000c0de;
 
@@ -61,7 +59,6 @@ public class MainActivity extends Activity {
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		setContentView(R.layout.main);
 		setProgressBarIndeterminateVisibility(false);
-		ButterKnife.inject(this);
 
 		ctx = getApplicationContext();
 		adapter = new NimplePagerAdapter(getFragmentManager());

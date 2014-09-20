@@ -1,6 +1,5 @@
 package de.nimple.ui.contact;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.Context;
@@ -23,22 +22,28 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import javax.inject.Inject;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 import de.nimple.R;
+import de.nimple.dagger.BaseActivity;
 import de.nimple.domain.Contact;
 import de.nimple.events.ContactDeletedEvent;
 import de.nimple.events.ContactTransferredEvent;
-import de.nimple.persistence.ContactsPersistenceManager;
+import de.nimple.services.contacts.ContactsService;
 import de.nimple.ui.dialog.ExportDialog;
 import de.nimple.util.IntentHelper;
 import de.nimple.util.export.Export;
 import de.nimple.util.logging.Lg;
 import de.nimple.util.nimplecode.VCardHelper;
 
-public class DisplayContactActivity extends Activity {
+public class DisplayContactActivity extends BaseActivity {
+	@Inject
+	ContactsService contactsService;
+
 	private Context ctx;
 	private Contact contact;
 
@@ -89,7 +94,7 @@ public class DisplayContactActivity extends Activity {
 	TextView linkedinProfile;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		setContentView(R.layout.display_contact_screen);
@@ -102,7 +107,7 @@ public class DisplayContactActivity extends Activity {
 		ctx = getApplicationContext();
 
 		long contactId = getIntent().getLongExtra("CONTACT_ID", -1);
-		contact = ContactsPersistenceManager.getInstance(ctx).findContactById(contactId);
+		contact = contactsService.findContactById(contactId);
 
 		getActionBar().setTitle(contact.getName());
 
@@ -113,7 +118,7 @@ public class DisplayContactActivity extends Activity {
 
 	private void save() {
 		contact.setNote(notesText.getText().toString());
-		ContactsPersistenceManager.getInstance(ctx).update(contact);
+		contactsService.update(contact);
 	}
 
 	@Override
@@ -188,7 +193,7 @@ public class DisplayContactActivity extends Activity {
 		builder.setPositiveButton(getString(R.string.button_ok), new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				ContactsPersistenceManager.getInstance(getApplicationContext()).remove(contact);
+				contactsService.remove(contact);
 				EventBus.getDefault().post(new ContactDeletedEvent(contact));
 				finish();
 			}

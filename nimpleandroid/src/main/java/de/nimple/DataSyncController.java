@@ -1,8 +1,12 @@
 package de.nimple;
 
+import android.content.Context;
+
 import org.json.JSONObject;
 
-import android.content.Context;
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import de.greenrobot.event.EventBus;
 import de.nimple.domain.Contact;
 import de.nimple.enums.SocialNetwork;
@@ -14,16 +18,20 @@ import de.nimple.events.NimpleCodeScannedEvent;
 import de.nimple.events.SocialConnectedEvent;
 import de.nimple.events.SocialDisconnectedEvent;
 import de.nimple.exceptions.DuplicatedContactException;
-import de.nimple.persistence.ContactsPersistenceManager;
+import de.nimple.services.contacts.ContactsService;
 import de.nimple.util.logging.Lg;
 import de.nimple.util.nimplecode.NimpleCodeHelper;
 import de.nimple.util.nimplecode.VCardHelper;
 
 public class DataSyncController {
-	private Context ctx;
+	@Inject
+	ContactsService contactsService;
+
+	@Inject
+	@Named("App")
+	Context ctx;
 
 	public DataSyncController(Context ctx) {
-		this.ctx = ctx;
 		EventBus.getDefault().register(this);
 	}
 
@@ -113,7 +121,7 @@ public class DataSyncController {
 			Lg.d("hash of contact = " + contact.getHash());
 
 			try {
-				ContactsPersistenceManager.getInstance(ctx).persist(contact);
+				contactsService.persist(contact);
 				EventBus.getDefault().post(new ContactAddedEvent(contact));
 			} catch (DuplicatedContactException e) {
 				EventBus.getDefault().post(new DuplicatedContactEvent(contact));
