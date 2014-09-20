@@ -70,7 +70,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="-2dp"
                 android:layout_toRightOf="@+id/phoneIcon"
-                android:text="@string/ncard_phone"
+                android:text="@string/ncard_phone_home"
                 android:textAppearance="@style/NimpleTextDefault" />
 
             <ImageView
@@ -80,7 +80,7 @@
                 android:layout_alignLeft="@+id/phoneIcon"
                 android:layout_below="@+id/phoneTextView"
                 android:layout_marginTop="10dp"
-                android:src="@drawable/ic_nimple_phone" />
+                android:src="@drawable/ic_nimple_mobile" />
 
             <TextView
                 android:id="@+id/phoneWorkTextView"
@@ -90,7 +90,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="-2dp"
                 android:layout_toRightOf="@+id/phoneWorkIcon"
-                android:text="@string/ncard_phone_work"
+                android:text="@string/ncard_phone_mobile"
                 android:textAppearance="@style/NimpleTextDefault" />
 
             <ImageView

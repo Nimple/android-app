@@ -4,6 +4,9 @@ import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
@@ -22,6 +25,7 @@ import de.nimple.events.ContactDeletedEvent;
 import de.nimple.persistence.ContactsPersistenceManager;
 import de.nimple.util.export.Export;
 import de.nimple.util.export.IExportExtender;
+import de.nimple.util.fragment.MenuHelper;
 import de.nimple.util.nimplecode.VCardHelper;
 
 public class ContactListFragment extends Fragment implements IExportExtender {
@@ -52,8 +56,21 @@ public class ContactListFragment extends Fragment implements IExportExtender {
 		contactsList.setAdapter(contactsAdapter);
 
 		toggleInfoText();
-		return view;
-	}
+        setHasOptionsMenu(true);
+        return view;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.contacts_fragment, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        MenuHelper.selectMenuItem(item, this);
+        return super.onOptionsItemSelected(item);
+    }
 
 	private void toggleInfoText() {
 		if (listOfContacts.size() > 2) {

@@ -28,7 +28,7 @@ public abstract class IntentHelper {
 	public static void callContact(final Context ctx, final Contact contact) {
 		Intent intent = new Intent(Intent.ACTION_DIAL);
 		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		intent.setData(Uri.parse("tel:" + contact.getTelephone()));
+		intent.setData(Uri.parse("tel:" + contact.getTelephoneHome()));
 		ctx.startActivity(intent);
 	}
 
@@ -38,7 +38,7 @@ public abstract class IntentHelper {
 
 		intent.setType(ContactsContract.Contacts.CONTENT_ITEM_TYPE);
 		intent.putExtra(ContactsContract.Intents.Insert.NAME, contact.getName());
-		intent.putExtra(ContactsContract.Intents.Insert.PHONE, contact.getTelephone());
+		intent.putExtra(ContactsContract.Intents.Insert.PHONE, contact.getTelephoneHome());
 		intent.putExtra(ContactsContract.Intents.Insert.EMAIL, contact.getEmail());
 		intent.putExtra(ContactsContract.Intents.Insert.COMPANY, contact.getCompany());
 		intent.putExtra(ContactsContract.Intents.Insert.JOB_TITLE, contact.getPosition());

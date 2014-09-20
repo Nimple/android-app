@@ -4,7 +4,11 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.ShareCompat;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -12,6 +16,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+
+import java.util.zip.Inflater;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -22,6 +28,7 @@ import de.nimple.events.NimpleCodeChangedEvent;
 import de.nimple.ui.edit.EditNimpleCodeActivity;
 import de.nimple.util.export.Export;
 import de.nimple.util.export.IExportExtender;
+import de.nimple.util.fragment.MenuHelper;
 import de.nimple.util.nimplecode.Address;
 import de.nimple.util.nimplecode.NimpleCodeHelper;
 import de.nimple.util.nimplecode.VCardHelper;
@@ -68,7 +75,7 @@ public class NimpleCardFragment extends Fragment implements IExportExtender {
 	private Context ctx;
 	private View view;
 
-	@Override
+    @Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		ctx = getActivity().getApplicationContext();
 		view = inflater.inflate(R.layout.main_ncard_fragment, container, false);
@@ -76,8 +83,21 @@ public class NimpleCardFragment extends Fragment implements IExportExtender {
 		EventBus.getDefault().register(this);
 		addSpinnerFunc();
 		refreshUi();
+        setHasOptionsMenu(true);
 		return view;
 	}
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.card_fragment, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        MenuHelper.selectMenuItem(item, this);
+        return super.onOptionsItemSelected(item);
+    }
 
 	private void addSpinnerFunc() {
 		spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -120,8 +140,8 @@ public class NimpleCardFragment extends Fragment implements IExportExtender {
 
 		if (!ncode.isInitialState()) {
 			String name = ncode.holder.firstname + " " + ncode.holder.lastname;
-			String phone = ncode.holder.phone;
-			String phone_work = ncode.holder.phone_work;
+			String phone_home = ncode.holder.phone_home;
+			String phone_mobile = ncode.holder.phone_mobile;
 			String mail = ncode.holder.mail;
 			String company = ncode.holder.company;
 			String position = ncode.holder.position;
@@ -129,8 +149,8 @@ public class NimpleCardFragment extends Fragment implements IExportExtender {
 			Address address = ncode.holder.address;
 
 			nameTextView.setText(name);
-			phoneTextView.setText(phone);
-			phoneWorkTextView.setText(phone_work);
+			phoneTextView.setText(phone_mobile);
+			phoneWorkTextView.setText(phone_mobile);
 			mailTextView.setText(mail);
 			companyTextView.setText(company);
 			positionTextView.setText(position);
@@ -140,8 +160,8 @@ public class NimpleCardFragment extends Fragment implements IExportExtender {
 			addressCityTextView.setText(address.getPostalCode() + " " + address.getLocality());
 		}
 
-		this.checkIfTextViewIsEmpty(ncode.holder.show.phone, phoneTextView);
-		this.checkIfTextViewIsEmpty(ncode.holder.show.phone_work, phoneWorkTextView);
+		this.checkIfTextViewIsEmpty(ncode.holder.show.phone_home, phoneTextView);
+		this.checkIfTextViewIsEmpty(ncode.holder.show.phone_mobile, phoneWorkTextView);
 		this.checkIfTextViewIsEmpty(ncode.holder.show.mail, mailTextView);
 		this.checkIfTextViewIsEmpty(ncode.holder.show.company, companyTextView);
 		this.checkIfTextViewIsEmpty(ncode.holder.show.position, positionTextView);

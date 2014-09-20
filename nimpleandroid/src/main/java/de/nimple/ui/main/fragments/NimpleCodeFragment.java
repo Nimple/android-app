@@ -6,6 +6,9 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
@@ -25,6 +28,7 @@ import de.nimple.util.SharedPrefHelper;
 import de.nimple.util.VersionResolver;
 import de.nimple.util.export.Export;
 import de.nimple.util.export.IExportExtender;
+import de.nimple.util.fragment.MenuHelper;
 import de.nimple.util.nimplecode.NimpleCodeHelper;
 import de.nimple.util.nimplecode.QRCodeCreator;
 import de.nimple.util.nimplecode.VCardHelper;
@@ -56,8 +60,21 @@ public class NimpleCodeFragment extends Fragment implements IExportExtender {
 		EventBus.getDefault().register(this);
 		addSpinnerFunc();
 		refreshUi();
-		return view;
-	}
+        setHasOptionsMenu(true);
+        return view;
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.code_fragment, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        MenuHelper.selectMenuItem(item, this);
+        return super.onOptionsItemSelected(item);
+    }
 
 	private void addSpinnerFunc() {
 		spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {

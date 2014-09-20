@@ -106,13 +106,21 @@ public class ContactsListAdapter extends ArrayAdapter<Contact> {
 			holder.emailField.setVisibility(View.GONE);
 		}
 
-		final String number = c.getTelephone();
-		if (number != null && number.length() != 0) {
-			holder.numberField.setText(number);
+		final String numberHome = c.getTelephoneHome();
+		if (numberHome != null && numberHome.length() != 0) {
+			holder.numberField.setText(numberHome);
 			holder.numberField.setVisibility(View.VISIBLE);
 		} else {
 			holder.numberField.setVisibility(View.GONE);
 		}
+
+        final String numberMobile = c.getTelephoneMobile();
+        if (numberMobile != null && numberMobile.length() != 0) {
+            holder.numberField.setText(numberMobile);
+            holder.numberField.setVisibility(View.VISIBLE);
+        } else {
+            holder.numberField.setVisibility(View.GONE);
+        }
 
 		final int ALPHA_OFF = 20;
 		final int ALPHA_ON = 255;

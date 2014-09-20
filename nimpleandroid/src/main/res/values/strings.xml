@@ -108,8 +108,8 @@
 
 	<!-- nimple-card fragement -->
 	<string name="ncard_name">Name</string>
-	<string name="ncard_phone">Phone number</string>
-    <string name="ncard_phone_work">Phone number work</string>
+	<string name="ncard_phone_home">Phone number</string>
+    <string name="ncard_phone_mobile">Mobile number</string>
 	<string name="ncard_mail">Email address</string>
 	<string name="ncard_company">Company/University</string>
 	<string name="ncard_job">Job/Position</string>
@@ -132,9 +132,20 @@
 	<string name="contact_linkedin">No LinkedIn profile</string>
 	<string name="button_delete">Delete</string>
 
+
     <!-- export -->
-    <string name="export_save">Content was saved successfully on SD-Card</string>
-    <string name="export_save_err">Failed to save content on SD-Card</string>
+    <string name="ab_export_contacts">Export Contacts</string>
+    <string name="ab_export_code">Export Barcode</string>
+    <string name="ab_export_card">Export Card</string>
+    <string name="ab_export_err">Failed to save content</string>
+    <string name="ab_export_save">Saved content to folder "Downloads"</string>
+
+    <!-- share -->
+    <string name="ab_share_contacts">Share Contacts</string>
+    <string name="ab_share_code">Share Barcode</string>
+    <string name="ab_share_card">Share Card</string>
+
+
     <string name="ab_export">Export</string>
     <string name="export_contact">Export this contact</string>
     <string name="export_dia_header">Export File</string>
@@ -143,6 +154,7 @@
     <string name="export_dia_cancel">Cancel</string>
     <!-- several cards -->
     <string name="nimpleCards_defaultName">NimpleCard</string>
+    <string name="personal_input_mobile">Mobile number</string>
     <array name="nimpleCards">
         <item>private</item>
         <item>business</item>

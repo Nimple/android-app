@@ -1,16 +1,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android" >
-
+    <item
+        android:id="@+id/menu_export"
+        android:showAsAction="always"
+        android:icon="@drawable/ic_action_share_contacts"
+        android:title="@string/ab_share_contacts"/>
     <item
         android:id="@+id/menu_add"
         android:icon="@drawable/ic_action_add_person"
         android:showAsAction="always"
         android:title="@string/ab_add"/>
-
     <item
         android:id="@+id/menu_save"
         android:showAsAction="never"
-        android:icon="@drawable/ic_action_export"
-        android:title="@string/ab_export"/>
+        android:title="@string/ab_export_contacts"/>
     <item
         android:id="@+id/menu_share"
         android:showAsAction="never"

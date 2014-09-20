@@ -51,7 +51,7 @@
                     android:src="@drawable/ic_nimple_addressbook"/>
 
                 <ImageView
-                    android:id="@+id/phoneIcon"
+                    android:id="@+id/phoneHomeIcon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignLeft="@+id/nameTextView"
@@ -60,39 +60,38 @@
                     android:src="@drawable/ic_nimple_phone"/>
 
                 <TextView
-                    android:id="@+id/phoneTextView"
+                    android:id="@+id/phoneHomeTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/nameTextView"
                     android:layout_marginLeft="10dp"
                     android:layout_toRightOf="@+id/phoneIcon"
-                    android:text="@string/ncard_phone"
+                    android:text="@string/ncard_phone_home"
                     android:textAppearance="@style/NimpleTextDefault"/>
 
                 <ImageView
-                    android:id="@+id/phoneWorkIcon"
+                    android:id="@+id/phoneMobileIcon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/phoneTextView"
-                    android:layout_alignTop="@+id/phoneWorkTextView"
+                    android:layout_alignLeft="@+id/phoneHomeIcon"
+                    android:layout_alignTop="@+id/phoneMobileTextView"
                     android:layout_marginTop="2dp"
-                    android:src="@drawable/ic_nimple_phone"/>
+                    android:src="@drawable/ic_nimple_mobile"/>
 
                 <TextView
-                    android:id="@+id/phoneWorkTextView"
+                    android:id="@+id/phoneMobileTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/phoneTextView"
-                    android:layout_marginLeft="10dp"
-                    android:layout_toRightOf="@+id/phoneWorkIcon"
-                    android:text="@string/ncard_phone_work"
+                    android:layout_below="@+id/phoneHomeTextView"
+                    android:layout_toRightOf="@+id/phoneMobileIcon"
+                    android:text="@string/ncard_phone_mobile"
                     android:textAppearance="@style/NimpleTextDefault"/>
 
                 <ImageView
                     android:id="@+id/mailIcon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/phoneIcon"
+                    android:layout_alignLeft="@+id/phoneMobileIcon"
                     android:layout_alignTop="@+id/mailTextView"
                     android:layout_marginTop="2dp"
                     android:src="@drawable/ic_nimple_email"/>
@@ -101,8 +100,8 @@
                     android:id="@+id/mailTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/phoneTextView"
-                    android:layout_below="@+id/phoneTextView"
+                    android:layout_alignLeft="@+id/phoneWorkTextView"
+                    android:layout_below="@+id/phoneWorkTextView"
                     android:layout_marginTop="6dp"
                     android:text="@string/ncard_mail"
                     android:textAppearance="@style/NimpleTextDefault"/>
@@ -222,7 +221,7 @@
                     android:layout_below="@+id/contact_add"
                     android:adjustViewBounds="true"
                     android:padding="12dp"
-                    android:src="@drawable/ic_nimple_export"/>
+                    android:src="@drawable/ic_action_share_single_contact"/>
             </RelativeLayout>
 
             <RelativeLayout

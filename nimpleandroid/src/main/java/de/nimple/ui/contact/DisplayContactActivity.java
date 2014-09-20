@@ -8,12 +8,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -32,23 +30,24 @@ import de.nimple.domain.Contact;
 import de.nimple.events.ContactDeletedEvent;
 import de.nimple.events.ContactTransferredEvent;
 import de.nimple.persistence.ContactsPersistenceManager;
-import de.nimple.ui.dialog.ExportDialog;
 import de.nimple.util.IntentHelper;
 import de.nimple.util.export.Export;
+import de.nimple.util.export.IExportExtender;
+import de.nimple.util.fragment.MenuHelper;
 import de.nimple.util.logging.Lg;
 import de.nimple.util.nimplecode.VCardHelper;
 
-public class DisplayContactActivity extends Activity {
+public class DisplayContactActivity extends Activity implements IExportExtender {
 	private Context ctx;
 	private Contact contact;
 
 	// clickable intents
 	@InjectView(R.id.mailTextView)
 	TextView mailTextView;
-	@InjectView(R.id.phoneTextView)
-	TextView phoneTextView;
-	@InjectView(R.id.phoneWorkTextView)
-	TextView phoneWorkTextView;
+	@InjectView(R.id.phoneHomeTextView)
+	TextView phoneHomeTextView;
+	@InjectView(R.id.phoneMobileTextView)
+	TextView phoneMobileTextView;
 
 	// created / notes
 	@InjectView(R.id.contact_created)
@@ -94,7 +93,6 @@ public class DisplayContactActivity extends Activity {
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		setContentView(R.layout.display_contact_screen);
 		setProgressBarIndeterminateVisibility(false);
-
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 
 		ButterKnife.inject(this);
@@ -104,7 +102,7 @@ public class DisplayContactActivity extends Activity {
 		long contactId = getIntent().getLongExtra("CONTACT_ID", -1);
 		contact = ContactsPersistenceManager.getInstance(ctx).findContactById(contactId);
 
-		getActionBar().setTitle(contact.getName());
+		getActionBar().setTitle("");
 
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
@@ -170,14 +168,7 @@ public class DisplayContactActivity extends Activity {
 
 	@OnClick({R.id.contact_export_text, R.id.contact_export})
 	public void showExportContact() {
-		LayoutInflater layoutInflater
-				= (LayoutInflater) ctx
-				.getSystemService(LAYOUT_INFLATER_SERVICE);
-		View popupView = layoutInflater.inflate(R.layout.popup_export, null);
-		Export<String> export = new Export<String>(VCardHelper.getCardFromContact(contact, ctx));
-		ExportDialog exportDialog = new ExportDialog(popupView, ViewGroup.LayoutParams.WRAP_CONTENT,
-				ViewGroup.LayoutParams.WRAP_CONTENT, export, this);
-		exportDialog.showAsDropDown(mailTextView);
+        MenuHelper.save(this.getExport(),getApplicationContext());
 	}
 
 	//@OnClick(R.id.contact_delete)
@@ -222,10 +213,10 @@ public class DisplayContactActivity extends Activity {
 			mailTextView.setVisibility(View.INVISIBLE);
 		}
 
-		final String number = contact.getTelephone();
+		final String number = contact.getTelephoneHome();
 		if (number != null && number.length() != 0) {
-			phoneTextView.setText(number);
-			phoneTextView.setOnClickListener(new OnClickListener() {
+			phoneHomeTextView.setText(number);
+            phoneHomeTextView.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
 					if (contact.getCreated() == 0L) {
@@ -236,28 +227,28 @@ public class DisplayContactActivity extends Activity {
 					}
 				}
 			});
-			phoneTextView.setVisibility(View.VISIBLE);
+            phoneHomeTextView.setVisibility(View.VISIBLE);
 		} else {
-			phoneTextView.setVisibility(View.INVISIBLE);
+            phoneHomeTextView.setVisibility(View.INVISIBLE);
 		}
 
-		final String numberWork = contact.getTelephoneWork();
-		if (numberWork != null && numberWork.length() != 0) {
-			phoneWorkTextView.setText(numberWork);
-			phoneWorkTextView.setOnClickListener(new OnClickListener() {
+		final String numberMobile = contact.getTelephoneMobile();
+		if (numberMobile != null && numberMobile.length() != 0) {
+            phoneMobileTextView.setText(numberMobile);
+			phoneMobileTextView.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
 					if (contact.getCreated() == 0L) {
-						Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(numberWork));
+						Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(numberMobile));
 						startActivity(browserIntent);
 					} else {
 						IntentHelper.callContact(DisplayContactActivity.this, contact);
 					}
 				}
 			});
-			phoneWorkTextView.setVisibility(View.VISIBLE);
+            phoneMobileTextView.setVisibility(View.VISIBLE);
 		} else {
-			phoneWorkTextView.setVisibility(View.INVISIBLE);
+            phoneMobileTextView.setVisibility(View.INVISIBLE);
 		}
 
 		final String website = contact.getWebsite();
@@ -389,4 +380,9 @@ public class DisplayContactActivity extends Activity {
 			linkedinImageView.setAlpha(30);
 		}
 	}
+
+    @Override
+    public Export getExport() {
+       return new Export<String>(VCardHelper.getCardFromContact(contact, ctx));
+    }
 }

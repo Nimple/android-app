@@ -12,8 +12,8 @@ public class Contact {
     private Long rowId;
     private String name;
     private String email;
-    private String telephone;
-    private String telephoneWork;
+    private String telephoneHome;
+    private String telephoneMobile;
     private String website;
     private String street;
     private String postal;
@@ -40,12 +40,12 @@ public class Contact {
         this.rowId = rowId;
     }
 
-    public Contact(Long rowId, String name, String email, String telephone, String telephoneWork, String website, String street, String postal, String city, String company, String position, String facebookId, String facebookUrl, String twitterId, String twitterUrl, String xingUrl, String linkedinUrl, String hash, Long created, String note) {
+    public Contact(Long rowId, String name, String email, String telephoneHome, String telephoneMobile, String website, String street, String postal, String city, String company, String position, String facebookId, String facebookUrl, String twitterId, String twitterUrl, String xingUrl, String linkedinUrl, String hash, Long created, String note) {
         this.rowId = rowId;
         this.name = name;
         this.email = email;
-        this.telephone = telephone;
-        this.telephoneWork = telephoneWork;
+        this.telephoneHome = telephoneHome;
+        this.telephoneMobile = telephoneMobile;
         this.website = website;
         this.street = street;
         this.postal = postal;
@@ -87,20 +87,20 @@ public class Contact {
         this.email = email;
     }
 
-    public String getTelephone() {
-        return telephone;
+    public String getTelephoneHome() {
+        return telephoneHome;
     }
 
-    public void setTelephone(String telephone) {
-        this.telephone = telephone;
+    public void setTelephoneHome(String telephoneHome) {
+        this.telephoneHome = telephoneHome;
     }
 
-    public String getTelephoneWork() {
-        return telephoneWork;
+    public String getTelephoneMobile() {
+        return telephoneMobile;
     }
 
-    public void setTelephoneWork(String telephoneWork) {
-        this.telephoneWork = telephoneWork;
+    public void setTelephoneMobile(String telephoneMobile) {
+        this.telephoneMobile = telephoneMobile;
     }
 
     public String getWebsite() {
