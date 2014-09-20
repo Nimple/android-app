@@ -4,7 +4,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 
 import de.nimple.domain.DaoMaster;
-import de.nimple.util.logging.Lg;
+import de.nimple.util.Lg;
 
 public class DatabaseHelper extends DaoMaster.DevOpenHelper {
 	public DatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory) {

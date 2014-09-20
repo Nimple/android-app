@@ -25,9 +25,9 @@ import de.nimple.util.SharedPrefHelper;
 import de.nimple.util.VersionResolver;
 import de.nimple.services.export.Export;
 import de.nimple.services.export.IExportExtender;
-import de.nimple.util.nimplecode.NimpleCodeHelper;
-import de.nimple.util.nimplecode.QRCodeCreator;
-import de.nimple.util.nimplecode.VCardHelper;
+import de.nimple.services.nimplecode.NimpleCodeHelper;
+import de.nimple.services.nimplecode.QRCodeCreator;
+import de.nimple.services.nimplecode.VCardHelper;
 
 public class NimpleCodeFragment extends Fragment implements IExportExtender {
 	public static final NimpleCodeFragment newInstance() {

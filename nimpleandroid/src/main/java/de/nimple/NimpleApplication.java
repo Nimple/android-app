@@ -1,7 +1,7 @@
 package de.nimple;
 
 import de.nimple.dagger.DaggerApplication;
-import de.nimple.util.logging.Mixpanel;
+import de.nimple.util.Mixpanel;
 
 public final class NimpleApplication extends DaggerApplication {
 	private DataSyncController dsc;

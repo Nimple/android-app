@@ -28,7 +28,7 @@ import org.scribe.oauth.OAuthService;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import de.nimple.R;
-import de.nimple.util.logging.Lg;
+import de.nimple.util.Lg;
 
 /**
  * Generic social network connection class.

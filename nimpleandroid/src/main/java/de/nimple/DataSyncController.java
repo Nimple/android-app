@@ -19,9 +19,9 @@ import de.nimple.events.SocialConnectedEvent;
 import de.nimple.events.SocialDisconnectedEvent;
 import de.nimple.exceptions.DuplicatedContactException;
 import de.nimple.services.contacts.ContactsService;
-import de.nimple.util.logging.Lg;
-import de.nimple.util.nimplecode.NimpleCodeHelper;
-import de.nimple.util.nimplecode.VCardHelper;
+import de.nimple.util.Lg;
+import de.nimple.services.nimplecode.NimpleCodeHelper;
+import de.nimple.services.nimplecode.VCardHelper;
 
 public class DataSyncController {
 	@Inject

@@ -15,7 +15,6 @@ import de.nimple.R;
 import de.nimple.domain.Contact;
 import de.nimple.exceptions.UserIdNotFoundException;
 import de.nimple.exceptions.XingProfileIsCompanyException;
-import de.nimple.util.logging.Lg;
 
 public abstract class IntentHelper {
 	public static void sendMail(final Context ctx, final Contact contact) {

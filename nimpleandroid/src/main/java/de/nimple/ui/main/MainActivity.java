@@ -40,7 +40,7 @@ import de.nimple.ui.main.fragments.NimpleCodeFragment;
 import de.nimple.ui.parts.PagerSlidingTabStrip;
 import de.nimple.services.export.Export;
 import de.nimple.services.export.IExportExtender;
-import de.nimple.util.logging.Lg;
+import de.nimple.util.Lg;
 
 public class MainActivity extends BaseActivity {
 	private static Context ctx;

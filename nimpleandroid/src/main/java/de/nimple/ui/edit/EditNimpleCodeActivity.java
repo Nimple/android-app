@@ -33,9 +33,9 @@ import de.nimple.ui.edit.social.SocialLinkedinActivity;
 import de.nimple.ui.edit.social.SocialTwitterActivity;
 import de.nimple.ui.edit.social.SocialXingActivity;
 import de.nimple.ui.parts.ActionBarDoneCancel;
-import de.nimple.util.logging.Lg;
-import de.nimple.util.nimplecode.Address;
-import de.nimple.util.nimplecode.NimpleCodeHelper;
+import de.nimple.util.Lg;
+import de.nimple.services.nimplecode.Address;
+import de.nimple.services.nimplecode.NimpleCodeHelper;
 
 public class EditNimpleCodeActivity extends Activity implements ActionBarDoneCancel.ActionBarDoneCancelCallback {
 	// personal information

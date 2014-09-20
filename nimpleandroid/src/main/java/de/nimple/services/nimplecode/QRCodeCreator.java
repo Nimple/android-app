@@ -1,4 +1,4 @@
-package de.nimple.util.nimplecode;
+package de.nimple.services.nimplecode;
 
 import java.util.EnumMap;
 
@@ -10,7 +10,7 @@ import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 
-import de.nimple.util.logging.Lg;
+import de.nimple.util.Lg;
 
 public abstract class QRCodeCreator {
 	public static Bitmap generateQrCode(String content) {

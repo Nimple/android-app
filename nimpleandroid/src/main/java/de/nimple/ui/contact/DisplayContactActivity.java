@@ -37,8 +37,8 @@ import de.nimple.services.contacts.ContactsService;
 import de.nimple.ui.dialog.ExportDialog;
 import de.nimple.util.IntentHelper;
 import de.nimple.services.export.Export;
-import de.nimple.util.logging.Lg;
-import de.nimple.util.nimplecode.VCardHelper;
+import de.nimple.util.Lg;
+import de.nimple.services.nimplecode.VCardHelper;
 
 public class DisplayContactActivity extends BaseActivity {
 	@Inject

@@ -12,7 +12,7 @@ import de.nimple.domain.DaoMaster;
 import de.nimple.domain.DaoSession;
 import de.nimple.exceptions.DuplicatedContactException;
 import de.nimple.services.upgrade.DatabaseHelper;
-import de.nimple.util.logging.Lg;
+import de.nimple.util.Lg;
 
 public class ContactsSQLiteImpl implements ContactsService {
 	private final static String SQLITE_DB_NAME = "nimple-db";

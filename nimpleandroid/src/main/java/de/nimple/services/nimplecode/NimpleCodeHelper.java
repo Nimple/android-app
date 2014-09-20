@@ -1,4 +1,4 @@
-package de.nimple.util.nimplecode;
+package de.nimple.services.nimplecode;
 
 import android.content.Context;
 

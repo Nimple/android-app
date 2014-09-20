@@ -26,8 +26,8 @@ import de.nimple.services.contacts.ContactsService;
 import de.nimple.util.SharedPrefHelper;
 import de.nimple.services.export.Export;
 import de.nimple.services.export.IExportExtender;
-import de.nimple.util.logging.Lg;
-import de.nimple.util.nimplecode.VCardHelper;
+import de.nimple.util.Lg;
+import de.nimple.services.nimplecode.VCardHelper;
 
 public class ContactListFragment extends BaseFragment implements IExportExtender {
 	public static final ContactListFragment newInstance() {

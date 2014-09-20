@@ -1,4 +1,4 @@
-package de.nimple.util.nimplecode;
+package de.nimple.services.nimplecode;
 
 import java.util.Locale;
 
@@ -7,8 +7,8 @@ import de.nimple.R;
 import de.nimple.domain.Contact;
 import de.nimple.util.Crypto;
 import de.nimple.util.StringMap;
-import de.nimple.util.logging.Lg;
-import de.nimple.util.nimplecode.NimpleCodeHelper.NimpleCode;
+import de.nimple.util.Lg;
+import de.nimple.services.nimplecode.NimpleCodeHelper.NimpleCode;
 
 public class VCardHelper {
 	public final static String ls = System.getProperty("line.separator");
