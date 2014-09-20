@@ -1,5 +1,6 @@
 package de.nimple.ui.main.fragments;
 
+import android.app.Fragment;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -11,11 +12,9 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-
-import com.actionbarsherlock.app.SherlockFragment;
-
 import de.greenrobot.event.EventBus;
 import de.nimple.R;
 import de.nimple.events.NimpleCodeChangedEvent;
@@ -25,7 +24,7 @@ import de.nimple.util.VersionResolver;
 import de.nimple.util.nimplecode.QRCodeCreator;
 import de.nimple.util.nimplecode.VCardHelper;
 
-public class NimpleCodeFragment extends SherlockFragment {
+public class NimpleCodeFragment extends Fragment {
 	public static final NimpleCodeFragment newInstance() {
 		return new NimpleCodeFragment();
 	}
@@ -43,7 +42,7 @@ public class NimpleCodeFragment extends SherlockFragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		ctx = getSherlockActivity().getApplicationContext();
+		ctx = getActivity().getApplicationContext();
 		view = inflater.inflate(R.layout.main_ncode_fragment, container, false);
 		ButterKnife.inject(this, view);
 		EventBus.getDefault().register(this);

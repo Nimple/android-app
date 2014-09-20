@@ -1,10 +1,12 @@
 package de.nimple.ui.edit;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -12,8 +14,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.view.Window;
 import com.facebook.Request;
 import com.facebook.Response;
 import com.facebook.Session;
@@ -37,7 +37,7 @@ import de.nimple.util.logging.Lg;
 import de.nimple.util.nimplecode.Address;
 import de.nimple.util.nimplecode.NimpleCodeHelper;
 
-public class EditNimpleCodeActivity extends SherlockActivity implements ActionBarDoneCancel.ActionBarDoneCancelCallback {
+public class EditNimpleCodeActivity extends Activity implements ActionBarDoneCancel.ActionBarDoneCancelCallback {
 	// personal information
 	@InjectView(R.id.firstnameEditText)
 	public EditText firstname;
@@ -112,8 +112,8 @@ public class EditNimpleCodeActivity extends SherlockActivity implements ActionBa
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		setContentView(R.layout.edit_ncard_screen);
-		setSupportProgressBarIndeterminateVisibility(false);
-		ActionBarDoneCancel.apply(this, getSupportActionBar());
+		setProgressBarIndeterminateVisibility(false);
+		ActionBarDoneCancel.apply(this, getActionBar());
 		ButterKnife.inject(this);
 		ctx = getApplicationContext();
 		EventBus.getDefault().register(this);

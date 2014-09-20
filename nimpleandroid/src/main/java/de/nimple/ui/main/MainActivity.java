@@ -1,28 +1,27 @@
 package de.nimple.ui.main;
 
+import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.app.ShareCompat;
-import android.support.v4.app.ShareCompat.IntentBuilder;
 import android.support.v4.view.ViewPager;
 import android.view.Display;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.Window;
 import android.widget.Toast;
-import butterknife.ButterKnife;
-import butterknife.InjectView;
 
-import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
-import com.actionbarsherlock.view.Window;
 import com.google.zxing.client.android.Intents;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
+import butterknife.ButterKnife;
+import butterknife.InjectView;
 import de.greenrobot.event.EventBus;
 import de.nimple.R;
 import de.nimple.events.ApplicationStartedEvent;
@@ -37,7 +36,7 @@ import de.nimple.ui.main.fragments.NimpleCodeFragment;
 import de.nimple.ui.parts.PagerSlidingTabStrip;
 import de.nimple.util.logging.Lg;
 
-public class MainActivity extends SherlockFragmentActivity {
+public class MainActivity extends Activity {
 	private static Context ctx;
 	private NimplePagerAdapter adapter;
 
@@ -53,12 +52,12 @@ public class MainActivity extends SherlockFragmentActivity {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		setContentView(R.layout.main);
-		setSupportProgressBarIndeterminateVisibility(false);
+		setProgressBarIndeterminateVisibility(false);
 		ButterKnife.inject(this);
 
 		ctx = getApplicationContext();
 
-		adapter = new NimplePagerAdapter(getSupportFragmentManager());
+		adapter = new NimplePagerAdapter(getFragmentManager());
 
 		pager.setAdapter(adapter);
 		pager.setOffscreenPageLimit(2);
@@ -88,11 +87,11 @@ public class MainActivity extends SherlockFragmentActivity {
 
 	public void onEvent(DuplicatedContactEvent ev) {
 		Toast.makeText(ctx, String.format(getString(R.string.contact_scan_duplicated), ev.getContact().getName()), Toast.LENGTH_LONG).show();
-}
+	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuInflater inflater = getSupportMenuInflater();
+		MenuInflater inflater = getMenuInflater();
 		inflater.inflate(R.menu.main, menu);
 		return super.onCreateOptionsMenu(menu);
 	}
@@ -113,7 +112,7 @@ public class MainActivity extends SherlockFragmentActivity {
 	}
 
 	private void sendFeedback() {
-		IntentBuilder intentBuilder = ShareCompat.IntentBuilder.from(this);
+		ShareCompat.IntentBuilder intentBuilder = ShareCompat.IntentBuilder.from(this);
 		intentBuilder.setType("message/rfc822");
 		intentBuilder.addEmailTo(getString(R.string.feedback_email));
 		intentBuilder.setSubject(getString(R.string.feedback_subject));
@@ -126,7 +125,7 @@ public class MainActivity extends SherlockFragmentActivity {
 	}
 
 	private void shareApp() {
-		IntentBuilder intentBuilder = ShareCompat.IntentBuilder.from(this);
+		ShareCompat.IntentBuilder intentBuilder = ShareCompat.IntentBuilder.from(this);
 		intentBuilder.setType("text/plain");
 		intentBuilder.setSubject(getString(R.string.share_app_subject));
 		intentBuilder.setText(getString(R.string.share_app_text));
@@ -151,28 +150,28 @@ public class MainActivity extends SherlockFragmentActivity {
 		@Override
 		public CharSequence getPageTitle(int pos) {
 			switch (pos) {
-			case 0:
-				return getString(R.string.ncard_title);
-			case 1:
-				return getString(R.string.ncode_title);
-			case 2:
-				return getString(R.string.contacts_title);
-			default:
-				return null;
+				case 0:
+					return getString(R.string.ncard_title);
+				case 1:
+					return getString(R.string.ncode_title);
+				case 2:
+					return getString(R.string.contacts_title);
+				default:
+					return null;
 			}
 		}
 
 		@Override
 		public Fragment getItem(int pos) {
 			switch (pos) {
-			case 0:
-				return NimpleCardFragment.newInstance();
-			case 1:
-				return NimpleCodeFragment.newInstance();
-			case 2:
-				return ContactListFragment.newInstance();
-			default:
-				return null;
+				case 0:
+					return NimpleCardFragment.newInstance();
+				case 1:
+					return NimpleCodeFragment.newInstance();
+				case 2:
+					return ContactListFragment.newInstance();
+				default:
+					return null;
 			}
 		}
 
@@ -198,7 +197,7 @@ public class MainActivity extends SherlockFragmentActivity {
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent intent) {
 		super.onActivityResult(requestCode, resultCode, intent);
-		Lg.d("reqestCode:" + requestCode + ", resultCode:" + resultCode);
+		Lg.d("requestCode:" + requestCode + ", resultCode:" + resultCode);
 
 		if (requestCode == SCAN_REQUEST_CODE) {
 			IntentResult scanResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, intent);

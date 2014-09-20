@@ -1,5 +1,19 @@
 package de.nimple.ui.edit.social;
 
+import android.app.Activity;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.view.MenuItem;
+import android.view.View;
+import android.webkit.WebChromeClient;
+import android.webkit.WebView;
+import android.webkit.WebViewClient;
+import android.widget.RelativeLayout;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.scribe.builder.ServiceBuilder;
@@ -11,33 +25,17 @@ import org.scribe.model.Verb;
 import org.scribe.model.Verifier;
 import org.scribe.oauth.OAuthService;
 
-import android.graphics.Bitmap;
-import android.net.Uri;
-import android.os.AsyncTask;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.view.View;
-import android.webkit.WebChromeClient;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
-import android.widget.RelativeLayout;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-
-import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.view.MenuItem;
-
 import de.nimple.R;
 import de.nimple.util.logging.Lg;
 
 /**
  * Generic social network connection class.
- * 
- * @param <T>
- *            Scribe Provider API
+ *
+ * @param <T> Scribe Provider API
  */
-public abstract class AbstractSocialActivity<T extends Api> extends SherlockActivity {
+public abstract class AbstractSocialActivity<T extends Api> extends Activity {
 	@InjectView(R.id.webview_callback)
 	WebView webView;
 	@InjectView(R.id.webview_progress)
@@ -69,8 +67,8 @@ public abstract class AbstractSocialActivity<T extends Api> extends SherlockActi
 		apiCallUrl = bundle.getString("apiCallUrl");
 		apiCallback = bundle.getString("apiCallback");
 
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		getSupportActionBar().setTitle(String.format(getResources().getString(R.string.social_header), name));
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+		getActionBar().setTitle(String.format(getResources().getString(R.string.social_header), name));
 
 		service = new ServiceBuilder().provider(provider).apiKey(apiKey).apiSecret(apiSecret).callback(apiCallback).build();
 		initWebView();
@@ -80,12 +78,12 @@ public abstract class AbstractSocialActivity<T extends Api> extends SherlockActi
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case android.R.id.home:
-			Lg.d("back");
-			finish();
-			return true;
-		default:
-			return false;
+			case android.R.id.home:
+				Lg.d("back");
+				finish();
+				return true;
+			default:
+				return false;
 		}
 	}
 
@@ -210,7 +208,9 @@ public abstract class AbstractSocialActivity<T extends Api> extends SherlockActi
 			@Override
 			protected void onPreExecute() {
 				progressBar.setVisibility(View.VISIBLE);
-			};
+			}
+
+			;
 
 			@Override
 			protected Void doInBackground(Void... params) {

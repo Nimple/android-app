@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:android="http://schemas.android.com/apk/res/android" xmlns:tools="http://schemas.android.com/tools">
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <!-- This is our main ActionBarSherlock theme -->
-    <style name="Theme.Nimple" parent="Theme.Sherlock.Light.DarkActionBar">
-        <item name="actionBarStyle">@style/Widget.Styled.ActionBar</item>
-        <item name="android:actionBarStyle" tools:ignore="NewApi">@style/Widget.Styled.ActionBar</item>
+    <!-- This is our main app theme -->
+    <style name="Theme.Nimple" parent="android:Theme.Holo.Light.DarkActionBar">
+        <item name="android:actionBarStyle">@style/Widget.Styled.ActionBar</item>
 
         <!-- Generated with http://android-holo-colors.com -->
         <item name="android:editTextStyle">@style/EditTextAppTheme</item>
@@ -24,20 +23,19 @@
         <item name="android:buttonStyleToggle">@style/ToggleAppTheme</item>
         <item name="android:spinnerItemStyle">@style/SpinnerItemAppTheme</item>
         <item name="android:textSelectHandleLeft">@drawable/apptheme_text_select_handle_left</item>
-        <item name="android:textSelectHandleRight">@drawable/apptheme_text_select_handle_right</item>
+        <item name="android:textSelectHandleRight">@drawable/apptheme_text_select_handle_right
+        </item>
         <item name="android:textSelectHandle">@drawable/apptheme_text_select_handle_middle</item>
 
         <!-- Android Action Bar Style Generator -->
-        <item name="popupMenuStyle">@style/PopupMenu.Nimple</item>
-        <item name="dropDownListViewStyle">@style/DropDownListView.Nimple</item>
-        <item name="actionDropDownStyle">@style/DropDownNav.Nimple</item>
-        <item name="android:popupMenuStyle" tools:ignore="NewApi">@style/PopupMenu.Nimple</item>
+        <item name="android:popupMenuStyle">@style/PopupMenu.Nimple</item>
         <item name="android:dropDownListViewStyle">@style/DropDownListView.Nimple</item>
-        <item name="android:actionDropDownStyle" tools:ignore="NewApi">@style/DropDownNav.Nimple</item>
+        <item name="android:actionDropDownStyle">@style/DropDownNav.Nimple
+        </item>
 
         <!-- Light.DarkActionBar specific -->
-        <item name="actionBarWidgetTheme">@style/Theme.Nimple.Widget</item>
-        <item name="android:actionBarWidgetTheme" tools:ignore="NewApi">@style/Theme.Nimple.Widget</item>
+        <item name="android:actionBarWidgetTheme">@style/Theme.Nimple.Widget
+        </item>
 
         <!-- Samsung actionbar item pressed color -->
         <item name="android:actionBarItemBackground">@drawable/selectable_background_nimple</item>
@@ -48,9 +46,7 @@
         <!-- Material Enhancements -->
         <item name="android:actionOverflowButtonStyle">@style/OverflowReplacement</item>
         <item name="android:homeAsUpIndicator">@drawable/ic_action_back</item>
-        <item name="homeAsUpIndicator">@drawable/ic_action_back</item>
         <item name="android:windowContentOverlay">@null</item>
-        <item name="windowContentOverlay">@null</item>
 
         <!-- Should be applied on Preferences -->
         <item name="android:textAppearanceMedium">@style/NimpleTextDefault.Medium</item>
@@ -102,13 +98,10 @@
         <item name="android:textColor">#a0a0a0</item>
     </style>
 
-    <!-- "Implementation" of our ABS custom theme -->
-    <style name="Widget.Styled.ActionBar" parent="Widget.Sherlock.Light.ActionBar.Solid.Inverse">
-        <item name="titleTextStyle">@style/TitleText</item>
-        <item name="android:titleTextStyle" tools:ignore="NewApi">@style/TitleText</item>
-        <item name="background">@color/nimple_color</item>
+    <!-- "Implementation" of our AB custom theme -->
+    <style name="Widget.Styled.ActionBar" parent="android:Widget.Holo.Light.ActionBar.Solid.Inverse">
+        <item name="android:titleTextStyle">@style/TitleText</item>
         <item name="android:background">@color/nimple_color</item>
-        <item name="icon">@drawable/ic_nimple</item>
         <item name="android:icon">@drawable/ic_nimple</item>
         <item name="android:height">@dimen/actionbar_height</item>
     </style>
