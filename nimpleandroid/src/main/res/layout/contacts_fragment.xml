@@ -1,17 +1,18 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
     android:id="@+id/contacts_fragment"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:background="@android:color/white"
+    android:orientation="vertical">
 
     <ListView
         android:id="@+id/contactsList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:clipToPadding="false"
-        android:divider="#ededed"
-        android:dividerHeight="4dp"
-        android:padding="8dp" />
+        android:divider="@android:color/transparent"
+        android:dividerHeight="0dp"/>
 
     <TextView
         android:id="@+id/noContactsTextView"
@@ -21,6 +22,6 @@
         android:gravity="center"
         android:padding="10dp"
         android:text="@string/no_contacts_text"
-        android:textAppearance="@style/NimpleTextAnnotation" />
+        android:textAppearance="@style/NimpleTextAnnotation"/>
 
 </RelativeLayout>
