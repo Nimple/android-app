@@ -49,6 +49,8 @@
         <item name="android:actionOverflowButtonStyle">@style/OverflowReplacement</item>
         <item name="android:homeAsUpIndicator">@drawable/ic_action_back</item>
         <item name="homeAsUpIndicator">@drawable/ic_action_back</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="windowContentOverlay">@null</item>
 
         <!-- Should be applied on Preferences -->
         <item name="android:textAppearanceMedium">@style/NimpleTextDefault.Medium</item>

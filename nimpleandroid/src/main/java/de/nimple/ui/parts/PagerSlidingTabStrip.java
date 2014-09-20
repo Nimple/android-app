@@ -22,6 +22,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.Typeface;
@@ -264,11 +265,12 @@ public class PagerSlidingTabStrip extends HorizontalScrollView {
 
 				TextView tab = (TextView) v;
 				tab.setTextSize(TypedValue.COMPLEX_UNIT_PX, tabTextSize);
-				tab.setTextColor(tabTextColor);
 
 				if (i == currentPage) {
+					tab.setTextColor(Color.parseColor("#fcf8f9"));
 					tab.setTypeface(Typeface.create("sans-serif-normal", Typeface.BOLD));
 				} else {
+					tab.setTextColor(tabTextColor);
 					tab.setTypeface(Typeface.create("sans-serif-light", Typeface.NORMAL));
 				}
 
