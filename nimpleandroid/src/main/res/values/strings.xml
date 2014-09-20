@@ -109,6 +109,7 @@
 	<!-- nimple-card fragement -->
 	<string name="ncard_name">Name</string>
 	<string name="ncard_phone">Phone number</string>
+    <string name="ncard_phone_work">Phone number work</string>
 	<string name="ncard_mail">Email address</string>
 	<string name="ncard_company">Company/University</string>
 	<string name="ncard_job">Job/Position</string>

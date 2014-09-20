@@ -13,6 +13,7 @@ public class Contact {
     private String name;
     private String email;
     private String telephone;
+    private String telephoneWork;
     private String website;
     private String street;
     private String postal;
@@ -39,11 +40,12 @@ public class Contact {
         this.rowId = rowId;
     }
 
-    public Contact(Long rowId, String name, String email, String telephone, String website, String street, String postal, String city, String company, String position, String facebookId, String facebookUrl, String twitterId, String twitterUrl, String xingUrl, String linkedinUrl, String hash, Long created, String note) {
+    public Contact(Long rowId, String name, String email, String telephone, String telephoneWork, String website, String street, String postal, String city, String company, String position, String facebookId, String facebookUrl, String twitterId, String twitterUrl, String xingUrl, String linkedinUrl, String hash, Long created, String note) {
         this.rowId = rowId;
         this.name = name;
         this.email = email;
         this.telephone = telephone;
+        this.telephoneWork = telephoneWork;
         this.website = website;
         this.street = street;
         this.postal = postal;
@@ -91,6 +93,14 @@ public class Contact {
 
     public void setTelephone(String telephone) {
         this.telephone = telephone;
+    }
+
+    public String getTelephoneWork() {
+        return telephoneWork;
+    }
+
+    public void setTelephoneWork(String telephoneWork) {
+        this.telephoneWork = telephoneWork;
     }
 
     public String getWebsite() {

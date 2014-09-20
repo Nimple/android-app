@@ -65,6 +65,25 @@
                 android:textAppearance="@style/NimpleTextDefault" />
 
             <ImageView
+                android:id="@+id/phoneWorkIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/phoneTextView"
+                android:layout_alignTop="@+id/phoneWorkTextView"
+                android:layout_marginTop="2dp"
+                android:src="@drawable/ic_nimple_phone" />
+
+            <TextView
+                android:id="@+id/phoneWorkTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/phoneTextView"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/phoneWorkIcon"
+                android:text="@string/ncard_phone_work"
+                android:textAppearance="@style/NimpleTextDefault" />
+
+            <ImageView
                 android:id="@+id/mailIcon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

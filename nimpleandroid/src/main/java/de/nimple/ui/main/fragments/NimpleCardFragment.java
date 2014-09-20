@@ -37,7 +37,9 @@ public class NimpleCardFragment extends SherlockFragment implements IExportExten
 	@InjectView(R.id.mailTextView)
 	TextView mailTextView;
 	@InjectView(R.id.phoneTextView)
-	TextView phoneTextView;
+    TextView phoneTextView;
+    @InjectView(R.id.phoneWorkTextView)
+    TextView phoneWorkTextView;
 	@InjectView(R.id.companyTextView)
 	TextView companyTextView;
 	@InjectView(R.id.jobTextView)
@@ -127,6 +129,7 @@ public class NimpleCardFragment extends SherlockFragment implements IExportExten
 		if (!ncode.isInitialState()) {
 			String name = ncode.holder.firstname + " " + ncode.holder.lastname;
 			String phone = ncode.holder.phone;
+            String phone_work = ncode.holder.phone_work;
 			String mail = ncode.holder.mail;
 			String company = ncode.holder.company;
 			String position = ncode.holder.position;
@@ -135,6 +138,7 @@ public class NimpleCardFragment extends SherlockFragment implements IExportExten
 
 			nameTextView.setText(name);
 			phoneTextView.setText(phone);
+            phoneWorkTextView.setText(phone_work);
 			mailTextView.setText(mail);
 			companyTextView.setText(company);
 			positionTextView.setText(position);
@@ -145,6 +149,7 @@ public class NimpleCardFragment extends SherlockFragment implements IExportExten
 		}
 
 		this.checkIfTextViewIsEmpty(ncode.holder.show.phone, phoneTextView);
+        this.checkIfTextViewIsEmpty(ncode.holder.show.phone_work, phoneWorkTextView);
 		this.checkIfTextViewIsEmpty(ncode.holder.show.mail, mailTextView);
 		this.checkIfTextViewIsEmpty(ncode.holder.show.company, companyTextView);
 		this.checkIfTextViewIsEmpty(ncode.holder.show.position, positionTextView);

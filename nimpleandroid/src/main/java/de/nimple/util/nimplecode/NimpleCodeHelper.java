@@ -19,6 +19,7 @@ public class NimpleCodeHelper {
 		holder.lastname = SharedPrefHelper.getString(NC_VALUE_LASTNAME + curId, ctx);
 		holder.mail = SharedPrefHelper.getString(NC_VALUE_MAIL + curId, ctx);
 		holder.phone = SharedPrefHelper.getString(NC_VALUE_PHONE + curId, ctx);
+        holder.phone_work = SharedPrefHelper.getString(NC_VALUE_PHONE_WORK + curId, ctx);
 
 		holder.company = SharedPrefHelper.getString(NC_VALUE_COMPANY + curId, ctx);
 		holder.position = SharedPrefHelper.getString(NC_VALUE_POSITION + curId, ctx);
@@ -38,6 +39,7 @@ public class NimpleCodeHelper {
 
 		holder.show.mail = SharedPrefHelper.getBoolean(NC_SHOW_MAIL + curId, true, ctx);
 		holder.show.phone = SharedPrefHelper.getBoolean(NC_SHOW_PHONE + curId, true, ctx);
+        holder.show.phone_work = SharedPrefHelper.getBoolean(NC_SHOW_PHONE_WORK + curId, true, ctx);
 		holder.show.company = SharedPrefHelper.getBoolean(NC_SHOW_COMPANY + curId, true, ctx);
 		holder.show.position = SharedPrefHelper.getBoolean(NC_SHOW_POSITION + curId, true, ctx);
 		holder.show.address = SharedPrefHelper.getBoolean(NC_SHOW_ADDRESS + curId, true, ctx);
@@ -55,6 +57,7 @@ public class NimpleCodeHelper {
 		SharedPrefHelper.putString(NC_VALUE_LASTNAME + curId, holder.lastname, ctx);
 		SharedPrefHelper.putString(NC_VALUE_MAIL + curId, holder.mail, ctx);
 		SharedPrefHelper.putString(NC_VALUE_PHONE + curId, holder.phone, ctx);
+        SharedPrefHelper.putString(NC_VALUE_PHONE_WORK + curId, holder.phone_work, ctx);
 
 		SharedPrefHelper.putString(NC_VALUE_COMPANY + curId, holder.company, ctx);
 		SharedPrefHelper.putString(NC_VALUE_POSITION + curId, holder.position, ctx);
@@ -71,6 +74,7 @@ public class NimpleCodeHelper {
 		// Show
 		SharedPrefHelper.putBoolean(NC_SHOW_MAIL + curId, holder.show.mail, ctx);
 		SharedPrefHelper.putBoolean(NC_SHOW_PHONE + curId, holder.show.phone, ctx);
+        SharedPrefHelper.putBoolean(NC_SHOW_PHONE_WORK + curId, holder.show.phone, ctx);
 		SharedPrefHelper.putBoolean(NC_SHOW_COMPANY + curId, holder.show.company, ctx);
 		SharedPrefHelper.putBoolean(NC_SHOW_POSITION + curId, holder.show.position, ctx);
 		SharedPrefHelper.putBoolean(NC_SHOW_ADDRESS + curId, holder.show.address, ctx);
@@ -101,6 +105,7 @@ public class NimpleCodeHelper {
 		public String lastname;
 		public String mail;
 		public String phone;
+        public String phone_work;
 		public String company;
 		public String position;
 		public Address address;
@@ -120,6 +125,7 @@ public class NimpleCodeHelper {
 		public class Show {
 			public boolean mail;
 			public boolean phone;
+            public boolean phone_work;
 			public boolean company;
 			public boolean position;
 			public boolean address;
@@ -139,6 +145,7 @@ public class NimpleCodeHelper {
 	private final String NC_VALUE_LASTNAME = "nimple_code_lastname";
 	private final String NC_VALUE_MAIL = "nimple_code_mail";
 	private final String NC_VALUE_PHONE = "nimple_code_phone";
+    private final String NC_VALUE_PHONE_WORK = "nimple_code_phone_work";
 	private final String NC_VALUE_ADDRESS = "nimple_code_address";
 	private final String NC_VALUE_POSITION = "nimple_code_position";
 	private final String NC_VALUE_COMPANY = "nimple_code_company";
@@ -154,6 +161,7 @@ public class NimpleCodeHelper {
 	// Show
 	private final String NC_SHOW_MAIL = "nimple_code_mail_show";
 	private final String NC_SHOW_PHONE = "nimple_code_phone_show";
+    private final String NC_SHOW_PHONE_WORK = "nimple_code_phone_show_work";
 	private final String NC_SHOW_COMPANY = "nimple_code_company_show";
 	private final String NC_SHOW_POSITION = "nimple_code_position_show";
 	private final String NC_SHOW_ADDRESS = "nimple_code_address_show";

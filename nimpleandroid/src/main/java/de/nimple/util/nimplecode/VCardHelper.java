@@ -18,6 +18,7 @@ public class VCardHelper {
 	private final static String LINKEDIN = "linkedin";
 	private final static String WEBSITE = "website";
 	private final static String ADDRESS = "address";
+    private final static String PHONE_2 = "phone_2";
 
 	// This method solves the special case if a barcode should be generated from SharedPrefs
 	public static String getCardFromSharedPrefs(Context ctx) {
@@ -31,6 +32,9 @@ public class VCardHelper {
 		sb.append(VCardConstants.PROPERTY_VERSION + VCardConstants.DEF_SEPARATOR + VCardConstants.VERSION_V30 + ls);
 		sb.append(VCardConstants.PROPERTY_N + VCardConstants.DEF_SEPARATOR + code.lastname + VCardConstants.VALUE_SEPARATOR + code.firstname + ls);
 		addToStringIfNotEmpty(sb, VCardConstants.PROPERTY_TEL + VCardConstants.VALUE_SEPARATOR + VCardConstants.PARAM_TYPE_CELL, code.phone);
+
+        if(code.show.phone_2)
+            addToStringIfNotEmpty(sb, VCardConstants.PROPERTY_TEL + VCardConstants.VALUE_SEPARATOR + VCardConstants.PARAM_TYPE_HOME, code.phone_2);
 
 		if (code.show.mail)
 			addToStringIfNotEmpty(sb, VCardConstants.PROPERTY_EMAIL, code.mail);
@@ -79,6 +83,8 @@ public class VCardHelper {
         sb.append(VCardConstants.PROPERTY_VERSION + VCardConstants.DEF_SEPARATOR + VCardConstants.VERSION_V30 + ls);
         sb.append(VCardConstants.PROPERTY_N + VCardConstants.DEF_SEPARATOR + contact.getName()  + ls);
         addToStringIfNotEmpty(sb, VCardConstants.PROPERTY_TEL + VCardConstants.VALUE_SEPARATOR + VCardConstants.PARAM_TYPE_CELL, contact.getTelephone());
+        addToStringIfNotEmpty(sb, VCardConstants.PROPERTY_TEL + VCardConstants.VALUE_SEPARATOR + VCardConstants.PARAM_TYPE_HOME, contact.getTelephone2());
+
 
         addToStringIfNotEmpty(sb, VCardConstants.PROPERTY_EMAIL, contact.getEmail());
         addToStringIfNotEmpty(sb, VCardConstants.PROPERTY_ORG, contact.getCompany());
@@ -129,7 +135,8 @@ public class VCardHelper {
 			contact.setName("");
 		}
 		contact.setEmail(map.get(VCardConstants.PROPERTY_EMAIL));
-		contact.setTelephone(map.get(VCardConstants.PROPERTY_TEL));
+		contact.setTelephone(map.get(VCardConstants.PARAM_TYPE_CELL));
+        contact.setTelephone2(map.get(VCardConstants.PARAM_TYPE_HOME));
 
 		// takes care of multiple units
 		if (map.get(VCardConstants.PROPERTY_ORG).contains(VCardConstants.VALUE_SEPARATOR)) {
@@ -197,7 +204,11 @@ public class VCardHelper {
 			} else if (contact.contains(VCardConstants.PROPERTY_ADR + VCardConstants.VALUE_SEPARATOR)) {
 				map.put(ADDRESS, value);
 			} else if (contact.startsWith(VCardConstants.PROPERTY_TEL)) {
-				map.put(VCardConstants.PROPERTY_TEL, value);
+                if(contact.contains(VCardConstants.PARAM_TYPE_HOME)){
+                    map.put(VCardConstants.PARAM_TYPE_HOME, value);
+                }else if(contact.contains(VCardConstants.PARAM_TYPE_CELL)){
+                    map.put(VCardConstants.PARAM_TYPE_CELL, value);
+                }
 			} else if (contact.startsWith(VCardConstants.PROPERTY_EMAIL)) {
 				map.put(VCardConstants.PROPERTY_EMAIL, value);
 			} else {

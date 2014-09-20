@@ -51,6 +51,10 @@ public class EditNimpleCodeActivity extends SherlockActivity implements ActionBa
 	public CheckBox mailCheck;
 	@InjectView(R.id.phoneCheckbox)
 	public CheckBox phoneCheck;
+    @InjectView(R.id.phoneWorkEditText)
+    public EditText phone_work;
+    @InjectView(R.id.phoneWorkCheckbox)
+    public CheckBox phoneWorkCheck;
 	// business information
 	@InjectView(R.id.companyEditText)
 	public TextView company;
@@ -162,6 +166,7 @@ public class EditNimpleCodeActivity extends SherlockActivity implements ActionBa
 		lastname.setText(ncode.holder.lastname);
 		mail.setText(ncode.holder.mail);
 		phone.setText(ncode.holder.phone);
+        phone_work.setText(ncode.holder.phone_work);
 		website.setText(ncode.holder.websiteUrl);
 		addressStreet.setText(ncode.holder.address.getStreet());
 		addressPostal.setText(ncode.holder.address.getPostalCode());
@@ -169,6 +174,7 @@ public class EditNimpleCodeActivity extends SherlockActivity implements ActionBa
 
 		mailCheck.setChecked(ncode.holder.show.mail);
 		phoneCheck.setChecked(ncode.holder.show.phone);
+        phoneWorkCheck.setChecked(ncode.holder.show.phone_work);
 
 		company.setText(ncode.holder.company);
 		position.setText(ncode.holder.position);
@@ -247,8 +253,10 @@ public class EditNimpleCodeActivity extends SherlockActivity implements ActionBa
 		ncode.holder.mail = mail.getText().toString();
 
 		ncode.holder.phone = phone.getText().toString();
+        ncode.holder.phone_work = phone_work.getText().toString();
 		ncode.holder.show.mail = mailCheck.isChecked();
 		ncode.holder.show.phone = phoneCheck.isChecked();
+        ncode.holder.show.phone_work = phoneWorkCheck.isChecked();
 		ncode.holder.show.website = websiteCheck.isChecked();
 		ncode.holder.show.address = addressCheck.isChecked();
 		ncode.holder.websiteUrl = website.getText().toString();

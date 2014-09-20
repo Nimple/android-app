@@ -48,6 +48,8 @@ public class DisplayContactActivity extends SherlockActivity {
 	TextView mailTextView;
 	@InjectView(R.id.phoneTextView)
 	TextView phoneTextView;
+    @InjectView(R.id.phoneWorkTextView)
+    TextView phoneWorkTextView;
 
 	// created / notes
 	@InjectView(R.id.contact_created)
@@ -239,6 +241,25 @@ public class DisplayContactActivity extends SherlockActivity {
 		} else {
 			phoneTextView.setVisibility(View.INVISIBLE);
 		}
+
+        final String numberWork = contact.getTelephoneWork();
+        if (numberWork != null && numberWork.length() != 0) {
+            phoneWorkTextView.setText(numberWork);
+            phoneWorkTextView.setOnClickListener(new OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (contact.getCreated() == 0L) {
+                        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(numberWork));
+                        startActivity(browserIntent);
+                    } else {
+                        IntentHelper.callContact(DisplayContactActivity.this, contact);
+                    }
+                }
+            });
+            phoneWorkTextView.setVisibility(View.VISIBLE);
+        } else {
+            phoneWorkTextView.setVisibility(View.INVISIBLE);
+        }
 
 		final String website = contact.getWebsite();
 		if (website != null && website.length() != 0) {
