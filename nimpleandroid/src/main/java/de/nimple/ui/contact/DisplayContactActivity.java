@@ -101,7 +101,6 @@ public class DisplayContactActivity extends Activity implements IExportExtender 
 
 		long contactId = getIntent().getLongExtra("CONTACT_ID", -1);
 		contact = ContactsPersistenceManager.getInstance(ctx).findContactById(contactId);
-
 		getActionBar().setTitle("");
 
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);

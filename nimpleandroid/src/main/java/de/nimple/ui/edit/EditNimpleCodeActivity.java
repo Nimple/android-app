@@ -40,6 +40,7 @@ import de.nimple.util.nimplecode.NimpleCodeHelper;
 public class EditNimpleCodeActivity extends Activity implements ActionBarDoneCancel.ActionBarDoneCancelCallback {
 	@InjectView(R.id.cardNameEditText)
     public EditText cardName;
+
 	// personal information
 	@InjectView(R.id.firstnameEditText)
 	public EditText firstname;
