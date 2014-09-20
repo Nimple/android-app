@@ -4,19 +4,18 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.preference.Preference;
-
-import com.actionbarsherlock.app.SherlockPreferenceActivity;
-import com.actionbarsherlock.view.MenuItem;
+import android.preference.PreferenceActivity;
+import android.view.MenuItem;
 
 import de.nimple.R;
 import de.nimple.util.logging.Lg;
 
-public class AboutNimpleActivity extends SherlockPreferenceActivity {
+public class AboutNimpleActivity extends PreferenceActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		getActionBar().setDisplayHomeAsUpEnabled(true);
 
 		addPreferencesFromResource(R.xml.about);
 
@@ -38,11 +37,11 @@ public class AboutNimpleActivity extends SherlockPreferenceActivity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case android.R.id.home:
-			finish();
-			return true;
-		default:
-			return false;
+			case android.R.id.home:
+				finish();
+				return true;
+			default:
+				return false;
 		}
 	}
 }

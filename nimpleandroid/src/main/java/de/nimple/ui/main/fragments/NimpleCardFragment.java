@@ -1,5 +1,6 @@
 package de.nimple.ui.main.fragments;
 
+import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,8 +14,6 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 
-import com.actionbarsherlock.app.SherlockFragment;
-
 import de.greenrobot.event.EventBus;
 import de.nimple.R;
 import de.nimple.events.NimpleCodeChangedEvent;
@@ -22,7 +21,7 @@ import de.nimple.ui.edit.EditNimpleCodeActivity;
 import de.nimple.util.nimplecode.Address;
 import de.nimple.util.nimplecode.NimpleCodeHelper;
 
-public class NimpleCardFragment extends SherlockFragment {
+public class NimpleCardFragment extends Fragment {
 	public static final NimpleCardFragment newInstance() {
 		return new NimpleCardFragment();
 	}
@@ -61,7 +60,7 @@ public class NimpleCardFragment extends SherlockFragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		ctx = getSherlockActivity().getApplicationContext();
+		ctx = getActivity().getApplicationContext();
 		view = inflater.inflate(R.layout.main_ncard_fragment, container, false);
 		ButterKnife.inject(this, view);
 		EventBus.getDefault().register(this);

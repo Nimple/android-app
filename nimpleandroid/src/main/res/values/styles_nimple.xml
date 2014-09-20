@@ -20,54 +20,46 @@
 
 <resources>
 
-    <style name="ActionBar.Solid.Nimple" parent="@style/Widget.Sherlock.Light.ActionBar.Solid.Inverse">
-        <item name="background">@drawable/ab_solid_nimple</item>
-        <item name="backgroundStacked">@drawable/ab_stacked_solid_nimple</item>
-        <item name="backgroundSplit">@drawable/ab_bottom_solid_nimple</item>
-        <item name="progressBarStyle">@style/ProgressBar.Nimple</item>
+    <style name="ActionBar.Solid.Nimple" parent="@android:style/Widget.Holo.Light.ActionBar.Solid.Inverse">
         <item name="android:background">@drawable/ab_solid_nimple</item>
         <item name="android:backgroundStacked">@drawable/ab_stacked_solid_nimple</item>
         <item name="android:backgroundSplit">@drawable/ab_bottom_solid_nimple</item>
         <item name="android:progressBarStyle">@style/ProgressBar.Nimple</item>
     </style>
 
-    <style name="ActionBar.Transparent.Nimple" parent="@style/Widget.Sherlock.ActionBar">
-        <item name="background">@drawable/ab_transparent_nimple</item>
-        <item name="progressBarStyle">@style/ProgressBar.Nimple</item>
+    <style name="ActionBar.Transparent.Nimple" parent="@android:style/Widget.Holo.ActionBar">
         <item name="android:background">@drawable/ab_transparent_nimple</item>
         <item name="android:progressBarStyle">@style/ProgressBar.Nimple</item>
     </style>
 
-    <style name="PopupMenu.Nimple" parent="@style/Widget.Sherlock.ListPopupWindow">
+    <style name="PopupMenu.Nimple" parent="@android:style/Widget.Holo.ListPopupWindow">
         <item name="android:popupBackground">@drawable/menu_dropdown_panel_nimple</item>
     </style>
 
-    <style name="DropDownListView.Nimple" parent="@style/Widget.Sherlock.ListView.DropDown">
+    <style name="DropDownListView.Nimple" parent="@android:style/Widget.Holo.ListView.DropDown">
         <item name="android:listSelector">@drawable/selectable_background_nimple</item>
     </style>
 
-    <style name="DropDownNav.Nimple" parent="@style/Widget.Sherlock.Spinner.DropDown.ActionBar">
+    <style name="DropDownNav.Nimple" parent="@android:style/Widget.Holo.Light.Spinner">
         <item name="android:background">@drawable/spinner_background_ab_nimple</item>
         <item name="android:popupBackground">@drawable/menu_dropdown_panel_nimple</item>
         <item name="android:dropDownSelector">@drawable/selectable_background_nimple</item>
     </style>
 
-    <style name="ProgressBar.Nimple" parent="@style/Widget.Sherlock.ProgressBar.Horizontal">
+    <style name="ProgressBar.Nimple" parent="@android:style/Widget.Holo.ProgressBar.Horizontal">
         <item name="android:progressDrawable">@drawable/progress_horizontal_nimple</item>
     </style>
 
-    <style name="ActionButton.CloseMode.Nimple" parent="@style/Widget.Sherlock.ActionButton.CloseMode">
+    <style name="ActionButton.CloseMode.Nimple" parent="@android:style/Widget.Holo.ActionButton.CloseMode">
         <item name="android:background">@drawable/btn_cab_done_nimple</item>
     </style>
 
-    <style name="OverflowReplacement" parent="@style/Widget.Sherlock.Light.ActionButton.Overflow">
+    <style name="OverflowReplacement" parent="@android:style/Widget.Holo.Light.ActionButton.Overflow">
         <item name="android:src">@drawable/ic_action_overflow</item>
     </style>
 
     <!-- this style is only referenced in a Light.DarkActionBar based theme -->
-    <style name="Theme.Nimple.Widget" parent="@style/Theme.Sherlock">
-        <item name="popupMenuStyle">@style/PopupMenu.Nimple</item>
-        <item name="dropDownListViewStyle">@style/DropDownListView.Nimple</item>
+    <style name="Theme.Nimple.Widget" parent="@android:style/Theme.Holo">
         <item name="android:popupMenuStyle">@style/PopupMenu.Nimple</item>
         <item name="android:dropDownListViewStyle">@style/DropDownListView.Nimple</item>
     </style>

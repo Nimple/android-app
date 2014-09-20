@@ -1,7 +1,6 @@
 package de.nimple.ui.main.fragments;
 
-import java.util.List;
-
+import android.app.Fragment;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -10,11 +9,11 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.List;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
-
-import com.actionbarsherlock.app.SherlockFragment;
-
 import de.greenrobot.event.EventBus;
 import de.nimple.R;
 import de.nimple.domain.Contact;
@@ -22,7 +21,7 @@ import de.nimple.events.ContactAddedEvent;
 import de.nimple.events.ContactDeletedEvent;
 import de.nimple.persistence.ContactsPersistenceManager;
 
-public class ContactListFragment extends SherlockFragment {
+public class ContactListFragment extends Fragment {
 	public static final ContactListFragment newInstance() {
 		return new ContactListFragment();
 	}
@@ -38,7 +37,7 @@ public class ContactListFragment extends SherlockFragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		ctx = getSherlockActivity().getApplicationContext();
+		ctx = getActivity().getApplicationContext();
 		final View view = inflater.inflate(R.layout.contacts_fragment, container, false);
 		ButterKnife.inject(this, view);
 
