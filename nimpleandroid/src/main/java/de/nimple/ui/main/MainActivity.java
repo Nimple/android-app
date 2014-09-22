@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.Window;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
@@ -37,7 +38,6 @@ public class MainActivity extends Activity {
 	PagerSlidingTabStrip tabs;
 	@InjectView(R.id.pager)
 	ViewPager pager;
-
 
 	public static final int SCAN_REQUEST_CODE = 0x0000c0de;
 

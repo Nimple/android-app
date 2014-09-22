@@ -12,11 +12,14 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import java.util.List;
 import java.util.zip.Inflater;
 
 import butterknife.ButterKnife;
@@ -100,6 +103,7 @@ public class NimpleCardFragment extends Fragment implements IExportExtender {
     }
 
 	private void addSpinnerFunc() {
+        refreshSpinnerAdapter();
 		spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 			@Override
 			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -113,6 +117,19 @@ public class NimpleCardFragment extends Fragment implements IExportExtender {
 			}
 		});
 	}
+
+    private void refreshSpinnerAdapter(){
+        List<String> cards = NimpleCodeHelper.getCardNames(ctx);
+        ArrayAdapter adapter = new ArrayAdapter<String>(ctx, android.R.layout.simple_spinner_item,
+                NimpleCodeHelper.getCardNames(ctx));
+        spinner.setAdapter(adapter);
+    }
+
+    @OnClick({R.id.ncard_add})
+    void addCard(){
+        NimpleCodeHelper.addCard(ctx);
+        refreshSpinnerAdapter();
+    }
 
 	@Override
 	public void onDestroyView() {

@@ -2,6 +2,9 @@ package de.nimple.util.nimplecode;
 
 import android.content.Context;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import de.nimple.R;
 import de.nimple.util.SharedPrefHelper;
 
@@ -115,11 +118,43 @@ public class NimpleCodeHelper {
 		return !SharedPrefHelper.getBoolean(NC_INIT, ctx);
 	}
 
+    public static List<String> getCardNames(Context ctx) {
+        int amount = SharedPrefHelper.getInt(NC_CARDS, ctx);
+        List<String> cards = new ArrayList<String>();
+
+        for (int i = 0; i < amount; i++) {
+            String name = "";
+
+            if (i != 0) {
+                name = SharedPrefHelper.getString(NC_CARD_NAME + i, ctx);
+            } else {
+                name = SharedPrefHelper.getString(NC_CARD_NAME, ctx);
+            }
+
+            if (name != null && !name.equals("")) {
+                cards.add(name);
+            }
+        }
+        if(cards.size() == 0){
+            SharedPrefHelper.putString(NC_CARD_NAME , ctx.getString(R.string.nimpleCards_defaultName), ctx);
+            SharedPrefHelper.putInt(NC_CARDS , 1 , ctx);
+            cards.add(ctx.getString(R.string.nimpleCards_defaultName));
+        }
+        return cards;
+    }
+
+    public static void addCard(Context ctx){
+        int id = getCardNames(ctx).size();
+        id++;
+        SharedPrefHelper.putInt(NC_CARDS , id , ctx);
+        SharedPrefHelper.putString(NC_CARD_NAME + id , ctx.getString(R.string.nimpleCards_defaultName) + "_" + id, ctx);
+    }
+
     public static int getCurrentId(){
         return m_curId;
     }
 
-    public static void setCurrentId(int id){
+    public static void setCurrentId(int  id){
          m_curId = id;
     }
 
@@ -165,9 +200,10 @@ public class NimpleCodeHelper {
 	}
 
 	// ////////////////////////// constants /////////////////////////////
-	private final String NC_INIT = "nimple_code_init";
+    private static final String NC_CARDS = "nimple_cards";
+    private static final String NC_CARD_NAME = "nimple_card_name";
 
-    private final String NC_CARD_NAME = "nimple_card_name";
+	private final String NC_INIT = "nimple_code_init";
 
 	private final String NC_VALUE_FIRSTNAME = "nimple_code_firstname";
 	private final String NC_VALUE_LASTNAME = "nimple_code_lastname";
@@ -198,7 +234,4 @@ public class NimpleCodeHelper {
 	private final String NC_SHOW_TWITTER = "nimple_code_twitter_show";
 	private final String NC_SHOW_FACEBOOK = "nimple_code_facebook_show";
 	private final String NC_SHOW_WEBSITE = "nimple_code_website_show";
-
-//    public static final String NC_CARD_1 ="";
-//    public static final String NC_CARD_2 ="2";
 }

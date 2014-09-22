@@ -5,6 +5,9 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.preference.PreferenceManager;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public abstract class SharedPrefHelper {
 	public static boolean exists(String key, Context ctx) {
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
@@ -27,6 +30,18 @@ public abstract class SharedPrefHelper {
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
 		return prefs.getString(key, "");
 	}
+
+    public static void putInt(String key, int value, Context ctx) {
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
+        Editor edit = prefs.edit();
+        edit.putInt(key, value);
+        edit.commit();
+    }
+
+    public static int getInt(String key, Context ctx){
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
+        return prefs.getInt(key,0);
+    }
 
 	public static void putBoolean(String key, boolean value, Context ctx) {
 		SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);

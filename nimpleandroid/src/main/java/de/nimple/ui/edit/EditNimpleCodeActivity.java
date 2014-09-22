@@ -38,6 +38,8 @@ import de.nimple.util.nimplecode.Address;
 import de.nimple.util.nimplecode.NimpleCodeHelper;
 
 public class EditNimpleCodeActivity extends Activity implements ActionBarDoneCancel.ActionBarDoneCancelCallback {
+	@InjectView(R.id.cardNameEditText)
+    public EditText cardName;
 	// personal information
 	@InjectView(R.id.firstnameEditText)
 	public EditText firstname;
@@ -162,6 +164,7 @@ public class EditNimpleCodeActivity extends Activity implements ActionBarDoneCan
 		// set all views
 		NimpleCodeHelper ncode = new NimpleCodeHelper(ctx);
 
+        cardName.setText(ncode.holder.cardName);
 		firstname.setText(ncode.holder.firstname);
 		lastname.setText(ncode.holder.lastname);
 		mail.setText(ncode.holder.mail);
@@ -240,13 +243,21 @@ public class EditNimpleCodeActivity extends Activity implements ActionBarDoneCan
 			hasErrors = true;
 		}
 
-		return hasErrors;
+        if (cardName.getText().length() == 0) {
+            cardName.setError(getText(R.string.form_error_card_invalid));
+            cardName.requestFocus();
+            hasErrors = true;
+        }
+
+
+        return hasErrors;
 	}
 
 	private void save() {
 		// read out all views and save them into sharedPreferences
 		NimpleCodeHelper ncode = new NimpleCodeHelper(getApplicationContext());
 
+        ncode.holder.cardName = cardName.getText().toString();
 		// EditPersonalFragment
 		ncode.holder.firstname = firstname.getText().toString();
 		ncode.holder.lastname = lastname.getText().toString();

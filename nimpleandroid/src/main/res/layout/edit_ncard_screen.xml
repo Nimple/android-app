@@ -1,9 +1,9 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#ffffff"
-            android:clipToPadding="false"
-            android:fillViewport="false">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:clipToPadding="false"
+    android:fillViewport="false">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -26,10 +26,10 @@
                 android:id="@+id/checkboxInfoHint"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignEnd="@+id/firstname_lastname_layout"
-                android:layout_alignLeft="@+id/firstname_lastname_layout"
-                android:layout_alignRight="@+id/firstname_lastname_layout"
-                android:layout_alignStart="@+id/firstname_lastname_layout"
+                android:layout_alignEnd="@+id/cardNameEditText"
+                android:layout_alignLeft="@+id/cardNameEditText"
+                android:layout_alignRight="@+id/cardNameEditText"
+                android:layout_alignStart="@+id/cardNameEditText"
                 android:layout_marginLeft="6dp"
                 android:layout_marginRight="6dp"
                 android:layout_marginTop="4dp"
@@ -37,11 +37,25 @@
                 android:textColor="@color/nimple_color"
                 android:textSize="12sp"/>
 
+            <EditText
+                android:id="@+id/cardNameEditText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/checkboxInfoHint"
+                android:layout_alignEnd="@+id/firstname_lastname_layout"
+                android:layout_alignLeft="@+id/firstname_lastname_layout"
+                android:layout_alignRight="@+id/firstname_lastname_layout"
+                android:layout_alignStart="@+id/firstname_lastname_layout"
+                android:layout_weight="0.5"
+                android:hint="@string/personal_input_card"
+                android:inputType="textPersonName|textCapSentences|textNoSuggestions"
+                android:nextFocusDown="@+id/firstnameEditText"/>
+
             <LinearLayout
                 android:id="@+id/firstname_lastname_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/checkboxInfoHint"
+                android:layout_below="@+id/cardNameEditText"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="4dp"
@@ -85,27 +99,6 @@
                 android:layout_toRightOf="@+id/phoneHomeCheckbox"
                 android:hint="@string/personal_input_phone"
                 android:inputType="phone"/>
-
-<!--            <CheckBox
-                android:id="@+id/phoneMobileCheckbox"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/phoneMobileEditText"
-                android:layout_marginLeft="10dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="4dp"/>
-
-            <EditText
-                android:id="@+id/phoneMobileEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/firstname_lastname_layout"
-                android:layout_marginLeft="4dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="5dp"
-                android:layout_toRightOf="@+id/phoneMobileCheckbox"
-                android:hint="@string/personal_input_mobile"
-                android:inputType="phone"/>-->
 
             <CheckBox
                 android:id="@+id/phoneMobileCheckbox"
