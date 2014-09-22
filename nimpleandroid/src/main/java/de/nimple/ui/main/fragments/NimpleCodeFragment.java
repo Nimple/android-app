@@ -9,9 +9,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
+import android.widget.Spinner;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -21,10 +23,13 @@ import de.nimple.events.NimpleCodeChangedEvent;
 import de.nimple.util.DensityHelper;
 import de.nimple.util.SharedPrefHelper;
 import de.nimple.util.VersionResolver;
-import de.nimple.util.nimplecode.QRCodeCreator;
-import de.nimple.util.nimplecode.VCardHelper;
+import de.nimple.services.export.Export;
+import de.nimple.services.export.IExportExtender;
+import de.nimple.services.nimplecode.NimpleCodeHelper;
+import de.nimple.services.nimplecode.QRCodeCreator;
+import de.nimple.services.nimplecode.VCardHelper;
 
-public class NimpleCodeFragment extends Fragment {
+public class NimpleCodeFragment extends Fragment implements IExportExtender {
 	public static final NimpleCodeFragment newInstance() {
 		return new NimpleCodeFragment();
 	}
@@ -40,14 +45,33 @@ public class NimpleCodeFragment extends Fragment {
 	@InjectView(R.id.arrow_up)
 	ImageView arrowUp;
 
+	@InjectView(R.id.spinner)
+	Spinner spinner;
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		ctx = getActivity().getApplicationContext();
 		view = inflater.inflate(R.layout.main_ncode_fragment, container, false);
 		ButterKnife.inject(this, view);
 		EventBus.getDefault().register(this);
+		addSpinnerFunc();
 		refreshUi();
 		return view;
+	}
+
+	private void addSpinnerFunc() {
+		spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+				NimpleCodeHelper.setCurrentId(position);
+				refreshUi();
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+
+			}
+		});
 	}
 
 	@Override
@@ -116,5 +140,10 @@ public class NimpleCodeFragment extends Fragment {
 
 	private boolean checkForNimpleCode() {
 		return SharedPrefHelper.getBoolean("nimple_code_init", ctx);
+	}
+
+	@Override
+	public Export getExport() {
+		return new Export<Bitmap>(QRCodeCreator.generateQrCode(VCardHelper.getCardFromSharedPrefs(ctx)));
 	}
 }

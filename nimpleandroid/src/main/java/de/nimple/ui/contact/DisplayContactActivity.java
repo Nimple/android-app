@@ -1,6 +1,5 @@
 package de.nimple.ui.contact;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
 import android.content.Context;
@@ -8,10 +7,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -21,19 +22,28 @@ import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import javax.inject.Inject;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 import de.nimple.R;
+import de.nimple.dagger.BaseActivity;
 import de.nimple.domain.Contact;
 import de.nimple.events.ContactDeletedEvent;
 import de.nimple.events.ContactTransferredEvent;
-import de.nimple.persistence.ContactsPersistenceManager;
+import de.nimple.services.contacts.ContactsService;
+import de.nimple.ui.dialog.ExportDialog;
 import de.nimple.util.IntentHelper;
-import de.nimple.util.logging.Lg;
+import de.nimple.services.export.Export;
+import de.nimple.util.Lg;
+import de.nimple.services.nimplecode.VCardHelper;
 
-public class DisplayContactActivity extends Activity {
+public class DisplayContactActivity extends BaseActivity {
+	@Inject
+	ContactsService contactsService;
+
 	private Context ctx;
 	private Contact contact;
 
@@ -42,6 +52,8 @@ public class DisplayContactActivity extends Activity {
 	TextView mailTextView;
 	@InjectView(R.id.phoneTextView)
 	TextView phoneTextView;
+	@InjectView(R.id.phoneWorkTextView)
+	TextView phoneWorkTextView;
 
 	// created / notes
 	@InjectView(R.id.contact_created)
@@ -82,7 +94,7 @@ public class DisplayContactActivity extends Activity {
 	TextView linkedinProfile;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		setContentView(R.layout.display_contact_screen);
@@ -95,7 +107,7 @@ public class DisplayContactActivity extends Activity {
 		ctx = getApplicationContext();
 
 		long contactId = getIntent().getLongExtra("CONTACT_ID", -1);
-		contact = ContactsPersistenceManager.getInstance(ctx).findContactById(contactId);
+		contact = contactsService.findContactById(contactId);
 
 		getActionBar().setTitle(contact.getName());
 
@@ -106,7 +118,7 @@ public class DisplayContactActivity extends Activity {
 
 	private void save() {
 		contact.setNote(notesText.getText().toString());
-		ContactsPersistenceManager.getInstance(ctx).update(contact);
+		contactsService.update(contact);
 	}
 
 	@Override
@@ -161,6 +173,18 @@ public class DisplayContactActivity extends Activity {
 		dialog.show();
 	}
 
+	@OnClick({R.id.contact_export_text, R.id.contact_export})
+	public void showExportContact() {
+		LayoutInflater layoutInflater
+				= (LayoutInflater) ctx
+				.getSystemService(LAYOUT_INFLATER_SERVICE);
+		View popupView = layoutInflater.inflate(R.layout.popup_export, null);
+		Export<String> export = new Export<String>(VCardHelper.getCardFromContact(contact, ctx));
+		ExportDialog exportDialog = new ExportDialog(popupView, ViewGroup.LayoutParams.WRAP_CONTENT,
+				ViewGroup.LayoutParams.WRAP_CONTENT, export, this);
+		exportDialog.showAsDropDown(mailTextView);
+	}
+
 	//@OnClick(R.id.contact_delete)
 	public void showDeleteContact() {
 		Builder builder = new AlertDialog.Builder(this);
@@ -169,7 +193,7 @@ public class DisplayContactActivity extends Activity {
 		builder.setPositiveButton(getString(R.string.button_ok), new DialogInterface.OnClickListener() {
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				ContactsPersistenceManager.getInstance(getApplicationContext()).remove(contact);
+				contactsService.remove(contact);
 				EventBus.getDefault().post(new ContactDeletedEvent(contact));
 				finish();
 			}
@@ -220,6 +244,25 @@ public class DisplayContactActivity extends Activity {
 			phoneTextView.setVisibility(View.VISIBLE);
 		} else {
 			phoneTextView.setVisibility(View.INVISIBLE);
+		}
+
+		final String numberWork = contact.getTelephoneWork();
+		if (numberWork != null && numberWork.length() != 0) {
+			phoneWorkTextView.setText(numberWork);
+			phoneWorkTextView.setOnClickListener(new OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					if (contact.getCreated() == 0L) {
+						Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(numberWork));
+						startActivity(browserIntent);
+					} else {
+						IntentHelper.callContact(DisplayContactActivity.this, contact);
+					}
+				}
+			});
+			phoneWorkTextView.setVisibility(View.VISIBLE);
+		} else {
+			phoneWorkTextView.setVisibility(View.INVISIBLE);
 		}
 
 		final String website = contact.getWebsite();

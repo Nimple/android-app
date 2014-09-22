@@ -1,4 +1,4 @@
-package de.nimple.util.logging;
+package de.nimple.util;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -15,8 +15,8 @@ import de.nimple.events.ApplicationStartedEvent;
 import de.nimple.events.ContactAddedEvent;
 import de.nimple.events.ContactTransferredEvent;
 import de.nimple.events.NimpleCodeChangedEvent;
-import de.nimple.util.nimplecode.NimpleCodeHelper;
-import de.nimple.util.nimplecode.NimpleCodeHelper.NimpleCode;
+import de.nimple.services.nimplecode.NimpleCodeHelper;
+import de.nimple.services.nimplecode.NimpleCodeHelper.NimpleCode;
 
 public class Mixpanel {
 	private static Mixpanel instance;

@@ -1,4 +1,4 @@
-package de.nimple.util.logging;
+package de.nimple.util;
 
 import android.util.Log;
 import de.nimple.BuildConfig;

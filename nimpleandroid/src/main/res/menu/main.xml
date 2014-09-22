@@ -5,6 +5,12 @@
         android:icon="@drawable/ic_action_add_person"
         android:showAsAction="always"
         android:title="@string/ab_add"/>
+
+    <item
+        android:id="@+id/menu_save"
+        android:showAsAction="never"
+        android:icon="@drawable/ic_action_export"
+        android:title="@string/ab_export"/>
     <item
         android:id="@+id/menu_share"
         android:showAsAction="never"
@@ -12,6 +18,7 @@
     <item
         android:id="@+id/menu_feedback"
         android:showAsAction="never"
+        android:title="@string/ab_feedback"/>
         android:title="@string/ab_feedback"/>
     <item
         android:id="@+id/menu_about"

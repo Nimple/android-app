@@ -4,6 +4,16 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:entries="@array/nimpleCards"
+        android:spinnerMode="dropdown"/>
+
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -64,11 +74,31 @@
                 android:textAppearance="@style/NimpleTextDefault" />
 
             <ImageView
-                android:id="@+id/mailIcon"
+                android:id="@+id/phoneWorkIcon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/phoneIcon"
                 android:layout_below="@+id/phoneTextView"
+                android:layout_marginTop="10dp"
+                android:src="@drawable/ic_nimple_phone" />
+
+            <TextView
+                android:id="@+id/phoneWorkTextView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/phoneWorkIcon"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="-2dp"
+                android:layout_toRightOf="@+id/phoneWorkIcon"
+                android:text="@string/ncard_phone_work"
+                android:textAppearance="@style/NimpleTextDefault" />
+
+            <ImageView
+                android:id="@+id/mailIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/phoneWorkIcon"
+                android:layout_below="@+id/phoneWorkTextView"
                 android:layout_marginTop="10dp"
                 android:src="@drawable/ic_nimple_email" />
 
@@ -76,7 +106,7 @@
                 android:id="@+id/mailTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/phoneTextView"
+                android:layout_alignLeft="@+id/phoneWorkTextView"
                 android:layout_alignTop="@+id/mailIcon"
                 android:layout_marginTop="-2dp"
                 android:text="@string/ncard_mail"

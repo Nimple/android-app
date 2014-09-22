@@ -27,21 +27,22 @@ public class ContactDao extends AbstractDao<Contact, Long> {
         public final static Property Name = new Property(1, String.class, "name", false, "name");
         public final static Property Email = new Property(2, String.class, "email", false, "email");
         public final static Property Telephone = new Property(3, String.class, "telephone", false, "telephone");
-        public final static Property Website = new Property(4, String.class, "website", false, "website");
-        public final static Property Street = new Property(5, String.class, "street", false, "street");
-        public final static Property Postal = new Property(6, String.class, "postal", false, "postal");
-        public final static Property City = new Property(7, String.class, "city", false, "city");
-        public final static Property Company = new Property(8, String.class, "company", false, "company");
-        public final static Property Position = new Property(9, String.class, "position", false, "position");
-        public final static Property FacebookId = new Property(10, String.class, "facebookId", false, "facebookId");
-        public final static Property FacebookUrl = new Property(11, String.class, "facebookUrl", false, "facebookUrl");
-        public final static Property TwitterId = new Property(12, String.class, "twitterId", false, "twitterId");
-        public final static Property TwitterUrl = new Property(13, String.class, "twitterUrl", false, "twitterUrl");
-        public final static Property XingUrl = new Property(14, String.class, "xingUrl", false, "xingUrl");
-        public final static Property LinkedinUrl = new Property(15, String.class, "linkedinUrl", false, "linkedinUrl");
-        public final static Property Hash = new Property(16, String.class, "hash", false, "hash");
-        public final static Property Created = new Property(17, Long.class, "created", false, "created");
-        public final static Property Note = new Property(18, String.class, "note", false, "note");
+        public final static Property TelephoneWork = new Property(4, String.class, "telephoneWork", false, "telephoneWork");
+        public final static Property Website = new Property(5, String.class, "website", false, "website");
+        public final static Property Street = new Property(6, String.class, "street", false, "street");
+        public final static Property Postal = new Property(7, String.class, "postal", false, "postal");
+        public final static Property City = new Property(8, String.class, "city", false, "city");
+        public final static Property Company = new Property(9, String.class, "company", false, "company");
+        public final static Property Position = new Property(10, String.class, "position", false, "position");
+        public final static Property FacebookId = new Property(11, String.class, "facebookId", false, "facebookId");
+        public final static Property FacebookUrl = new Property(12, String.class, "facebookUrl", false, "facebookUrl");
+        public final static Property TwitterId = new Property(13, String.class, "twitterId", false, "twitterId");
+        public final static Property TwitterUrl = new Property(14, String.class, "twitterUrl", false, "twitterUrl");
+        public final static Property XingUrl = new Property(15, String.class, "xingUrl", false, "xingUrl");
+        public final static Property LinkedinUrl = new Property(16, String.class, "linkedinUrl", false, "linkedinUrl");
+        public final static Property Hash = new Property(17, String.class, "hash", false, "hash");
+        public final static Property Created = new Property(18, Long.class, "created", false, "created");
+        public final static Property Note = new Property(19, String.class, "note", false, "note");
     };
 
 
@@ -61,21 +62,22 @@ public class ContactDao extends AbstractDao<Contact, Long> {
                 "'name' TEXT," + // 1: name
                 "'email' TEXT," + // 2: email
                 "'telephone' TEXT," + // 3: telephone
-                "'website' TEXT," + // 4: website
-                "'street' TEXT," + // 5: street
-                "'postal' TEXT," + // 6: postal
-                "'city' TEXT," + // 7: city
-                "'company' TEXT," + // 8: company
-                "'position' TEXT," + // 9: position
-                "'facebookId' TEXT," + // 10: facebookId
-                "'facebookUrl' TEXT," + // 11: facebookUrl
-                "'twitterId' TEXT," + // 12: twitterId
-                "'twitterUrl' TEXT," + // 13: twitterUrl
-                "'xingUrl' TEXT," + // 14: xingUrl
-                "'linkedinUrl' TEXT," + // 15: linkedinUrl
-                "'hash' TEXT," + // 16: hash
-                "'created' INTEGER," + // 17: created
-                "'note' TEXT);"); // 18: note
+                "'telephoneWork' TEXT," + // 4: telephoneWork
+                "'website' TEXT," + // 5: website
+                "'street' TEXT," + // 6: street
+                "'postal' TEXT," + // 7: postal
+                "'city' TEXT," + // 8: city
+                "'company' TEXT," + // 9: company
+                "'position' TEXT," + // 10: position
+                "'facebookId' TEXT," + // 11: facebookId
+                "'facebookUrl' TEXT," + // 12: facebookUrl
+                "'twitterId' TEXT," + // 13: twitterId
+                "'twitterUrl' TEXT," + // 14: twitterUrl
+                "'xingUrl' TEXT," + // 15: xingUrl
+                "'linkedinUrl' TEXT," + // 16: linkedinUrl
+                "'hash' TEXT," + // 17: hash
+                "'created' INTEGER," + // 18: created
+                "'note' TEXT);"); // 19: note
     }
 
     /** Drops the underlying database table. */
@@ -109,79 +111,84 @@ public class ContactDao extends AbstractDao<Contact, Long> {
             stmt.bindString(4, telephone);
         }
  
+        String telephoneWork = entity.getTelephoneWork();
+        if (telephoneWork != null) {
+            stmt.bindString(5, telephoneWork);
+        }
+ 
         String website = entity.getWebsite();
         if (website != null) {
-            stmt.bindString(5, website);
+            stmt.bindString(6, website);
         }
  
         String street = entity.getStreet();
         if (street != null) {
-            stmt.bindString(6, street);
+            stmt.bindString(7, street);
         }
  
         String postal = entity.getPostal();
         if (postal != null) {
-            stmt.bindString(7, postal);
+            stmt.bindString(8, postal);
         }
  
         String city = entity.getCity();
         if (city != null) {
-            stmt.bindString(8, city);
+            stmt.bindString(9, city);
         }
  
         String company = entity.getCompany();
         if (company != null) {
-            stmt.bindString(9, company);
+            stmt.bindString(10, company);
         }
  
         String position = entity.getPosition();
         if (position != null) {
-            stmt.bindString(10, position);
+            stmt.bindString(11, position);
         }
  
         String facebookId = entity.getFacebookId();
         if (facebookId != null) {
-            stmt.bindString(11, facebookId);
+            stmt.bindString(12, facebookId);
         }
  
         String facebookUrl = entity.getFacebookUrl();
         if (facebookUrl != null) {
-            stmt.bindString(12, facebookUrl);
+            stmt.bindString(13, facebookUrl);
         }
  
         String twitterId = entity.getTwitterId();
         if (twitterId != null) {
-            stmt.bindString(13, twitterId);
+            stmt.bindString(14, twitterId);
         }
  
         String twitterUrl = entity.getTwitterUrl();
         if (twitterUrl != null) {
-            stmt.bindString(14, twitterUrl);
+            stmt.bindString(15, twitterUrl);
         }
  
         String xingUrl = entity.getXingUrl();
         if (xingUrl != null) {
-            stmt.bindString(15, xingUrl);
+            stmt.bindString(16, xingUrl);
         }
  
         String linkedinUrl = entity.getLinkedinUrl();
         if (linkedinUrl != null) {
-            stmt.bindString(16, linkedinUrl);
+            stmt.bindString(17, linkedinUrl);
         }
  
         String hash = entity.getHash();
         if (hash != null) {
-            stmt.bindString(17, hash);
+            stmt.bindString(18, hash);
         }
  
         Long created = entity.getCreated();
         if (created != null) {
-            stmt.bindLong(18, created);
+            stmt.bindLong(19, created);
         }
  
         String note = entity.getNote();
         if (note != null) {
-            stmt.bindString(19, note);
+            stmt.bindString(20, note);
         }
     }
 
@@ -199,21 +206,22 @@ public class ContactDao extends AbstractDao<Contact, Long> {
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // name
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // email
             cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // telephone
-            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // website
-            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // street
-            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // postal
-            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // city
-            cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // company
-            cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // position
-            cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10), // facebookId
-            cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11), // facebookUrl
-            cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12), // twitterId
-            cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13), // twitterUrl
-            cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14), // xingUrl
-            cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15), // linkedinUrl
-            cursor.isNull(offset + 16) ? null : cursor.getString(offset + 16), // hash
-            cursor.isNull(offset + 17) ? null : cursor.getLong(offset + 17), // created
-            cursor.isNull(offset + 18) ? null : cursor.getString(offset + 18) // note
+            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // telephoneWork
+            cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // website
+            cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // street
+            cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // postal
+            cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8), // city
+            cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9), // company
+            cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10), // position
+            cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11), // facebookId
+            cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12), // facebookUrl
+            cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13), // twitterId
+            cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14), // twitterUrl
+            cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15), // xingUrl
+            cursor.isNull(offset + 16) ? null : cursor.getString(offset + 16), // linkedinUrl
+            cursor.isNull(offset + 17) ? null : cursor.getString(offset + 17), // hash
+            cursor.isNull(offset + 18) ? null : cursor.getLong(offset + 18), // created
+            cursor.isNull(offset + 19) ? null : cursor.getString(offset + 19) // note
         );
         return entity;
     }
@@ -225,21 +233,22 @@ public class ContactDao extends AbstractDao<Contact, Long> {
         entity.setName(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
         entity.setEmail(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
         entity.setTelephone(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
-        entity.setWebsite(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
-        entity.setStreet(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
-        entity.setPostal(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
-        entity.setCity(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
-        entity.setCompany(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
-        entity.setPosition(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
-        entity.setFacebookId(cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10));
-        entity.setFacebookUrl(cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11));
-        entity.setTwitterId(cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12));
-        entity.setTwitterUrl(cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13));
-        entity.setXingUrl(cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14));
-        entity.setLinkedinUrl(cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15));
-        entity.setHash(cursor.isNull(offset + 16) ? null : cursor.getString(offset + 16));
-        entity.setCreated(cursor.isNull(offset + 17) ? null : cursor.getLong(offset + 17));
-        entity.setNote(cursor.isNull(offset + 18) ? null : cursor.getString(offset + 18));
+        entity.setTelephoneWork(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
+        entity.setWebsite(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
+        entity.setStreet(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
+        entity.setPostal(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));
+        entity.setCity(cursor.isNull(offset + 8) ? null : cursor.getString(offset + 8));
+        entity.setCompany(cursor.isNull(offset + 9) ? null : cursor.getString(offset + 9));
+        entity.setPosition(cursor.isNull(offset + 10) ? null : cursor.getString(offset + 10));
+        entity.setFacebookId(cursor.isNull(offset + 11) ? null : cursor.getString(offset + 11));
+        entity.setFacebookUrl(cursor.isNull(offset + 12) ? null : cursor.getString(offset + 12));
+        entity.setTwitterId(cursor.isNull(offset + 13) ? null : cursor.getString(offset + 13));
+        entity.setTwitterUrl(cursor.isNull(offset + 14) ? null : cursor.getString(offset + 14));
+        entity.setXingUrl(cursor.isNull(offset + 15) ? null : cursor.getString(offset + 15));
+        entity.setLinkedinUrl(cursor.isNull(offset + 16) ? null : cursor.getString(offset + 16));
+        entity.setHash(cursor.isNull(offset + 17) ? null : cursor.getString(offset + 17));
+        entity.setCreated(cursor.isNull(offset + 18) ? null : cursor.getLong(offset + 18));
+        entity.setNote(cursor.isNull(offset + 19) ? null : cursor.getString(offset + 19));
      }
     
     /** @inheritdoc */

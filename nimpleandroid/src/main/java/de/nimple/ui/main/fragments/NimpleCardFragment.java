@@ -7,21 +7,26 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
-
 import de.greenrobot.event.EventBus;
 import de.nimple.R;
 import de.nimple.events.NimpleCodeChangedEvent;
 import de.nimple.ui.edit.EditNimpleCodeActivity;
-import de.nimple.util.nimplecode.Address;
-import de.nimple.util.nimplecode.NimpleCodeHelper;
+import de.nimple.services.export.Export;
+import de.nimple.services.export.IExportExtender;
+import de.nimple.services.nimplecode.Address;
+import de.nimple.services.nimplecode.NimpleCodeHelper;
+import de.nimple.services.nimplecode.VCardHelper;
 
-public class NimpleCardFragment extends Fragment {
+public class NimpleCardFragment extends Fragment implements IExportExtender {
 	public static final NimpleCardFragment newInstance() {
 		return new NimpleCardFragment();
 	}
@@ -32,6 +37,8 @@ public class NimpleCardFragment extends Fragment {
 	TextView mailTextView;
 	@InjectView(R.id.phoneTextView)
 	TextView phoneTextView;
+	@InjectView(R.id.phoneWorkTextView)
+	TextView phoneWorkTextView;
 	@InjectView(R.id.companyTextView)
 	TextView companyTextView;
 	@InjectView(R.id.jobTextView)
@@ -42,7 +49,7 @@ public class NimpleCardFragment extends Fragment {
 	TextView addressStreetTextView;
 	@InjectView(R.id.addressCityTextView)
 	TextView addressCityTextView;
-	
+
 	@InjectView(R.id.facebookRoundIcon)
 	ImageView facebookImageView;
 	@InjectView(R.id.twitterRoundIcon)
@@ -55,6 +62,9 @@ public class NimpleCardFragment extends Fragment {
 	@InjectView(R.id.ncard_layout)
 	RelativeLayout ncardLayout;
 
+	@InjectView(R.id.spinner)
+	Spinner spinner;
+
 	private Context ctx;
 	private View view;
 
@@ -64,8 +74,24 @@ public class NimpleCardFragment extends Fragment {
 		view = inflater.inflate(R.layout.main_ncard_fragment, container, false);
 		ButterKnife.inject(this, view);
 		EventBus.getDefault().register(this);
+		addSpinnerFunc();
 		refreshUi();
 		return view;
+	}
+
+	private void addSpinnerFunc() {
+		spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+				NimpleCodeHelper.setCurrentId(position);
+				refreshUi();
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> parent) {
+
+			}
+		});
 	}
 
 	@Override
@@ -95,51 +121,58 @@ public class NimpleCardFragment extends Fragment {
 		if (!ncode.isInitialState()) {
 			String name = ncode.holder.firstname + " " + ncode.holder.lastname;
 			String phone = ncode.holder.phone;
+			String phone_work = ncode.holder.phone_work;
 			String mail = ncode.holder.mail;
 			String company = ncode.holder.company;
 			String position = ncode.holder.position;
-			String website  = ncode.holder.websiteUrl;
+			String website = ncode.holder.websiteUrl;
 			Address address = ncode.holder.address;
 
 			nameTextView.setText(name);
 			phoneTextView.setText(phone);
+			phoneWorkTextView.setText(phone_work);
 			mailTextView.setText(mail);
 			companyTextView.setText(company);
 			positionTextView.setText(position);
 			websiteTextView.setText(website);
-			
+
 			addressStreetTextView.setText(address.getStreet());
 			addressCityTextView.setText(address.getPostalCode() + " " + address.getLocality());
 		}
 
 		this.checkIfTextViewIsEmpty(ncode.holder.show.phone, phoneTextView);
+		this.checkIfTextViewIsEmpty(ncode.holder.show.phone_work, phoneWorkTextView);
 		this.checkIfTextViewIsEmpty(ncode.holder.show.mail, mailTextView);
 		this.checkIfTextViewIsEmpty(ncode.holder.show.company, companyTextView);
 		this.checkIfTextViewIsEmpty(ncode.holder.show.position, positionTextView);
 		this.checkIfTextViewIsEmpty(ncode.holder.show.website, websiteTextView);
 		this.checkIfTextViewIsEmpty(ncode.holder.show.address, addressStreetTextView);
 		this.checkIfTextViewIsEmpty(ncode.holder.show.address, addressCityTextView);
-		
-		this.checkIfSocialMediaIsEmpty(ncode.holder.show.facebook,ncode.holder.facebookUrl,facebookImageView);
-		this.checkIfSocialMediaIsEmpty(ncode.holder.show.twitter,ncode.holder.twitterUrl,twitterImageView);
-		this.checkIfSocialMediaIsEmpty(ncode.holder.show.xing,ncode.holder.xingUrl,xingImageView);
-		this.checkIfSocialMediaIsEmpty(ncode.holder.show.linkedin,ncode.holder.linkedinUrl,linkedinImageView);
+
+		this.checkIfSocialMediaIsEmpty(ncode.holder.show.facebook, ncode.holder.facebookUrl, facebookImageView);
+		this.checkIfSocialMediaIsEmpty(ncode.holder.show.twitter, ncode.holder.twitterUrl, twitterImageView);
+		this.checkIfSocialMediaIsEmpty(ncode.holder.show.xing, ncode.holder.xingUrl, xingImageView);
+		this.checkIfSocialMediaIsEmpty(ncode.holder.show.linkedin, ncode.holder.linkedinUrl, linkedinImageView);
 	}
-	
-	private void checkIfTextViewIsEmpty(boolean isShown, TextView vi){
-		if(isShown){
+
+	private void checkIfTextViewIsEmpty(boolean isShown, TextView vi) {
+		if (isShown) {
 			vi.setTextColor(getResources().getColor(R.color.nimple_default_text_color));
 		} else {
 			vi.setTextColor(getResources().getColor(R.color.nimple_text_color_hint));
 		}
 	}
-	
-	private void checkIfSocialMediaIsEmpty(boolean isShown,String content, ImageView iv){
-		if(isShown && content.length() != 0){
+
+	private void checkIfSocialMediaIsEmpty(boolean isShown, String content, ImageView iv) {
+		if (isShown && content.length() != 0) {
 			iv.setAlpha(255);
 		} else {
 			iv.setAlpha(30);
 		}
 	}
 
+	@Override
+	public Export getExport() {
+		return new Export<String>(VCardHelper.getCardFromSharedPrefs(ctx));
+	}
 }
