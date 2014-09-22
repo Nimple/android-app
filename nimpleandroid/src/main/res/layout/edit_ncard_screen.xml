@@ -100,6 +100,25 @@
                 android:hint="@string/personal_input_phone"
                 android:inputType="phone"/>
 
+<!--            <CheckBox
+                android:id="@+id/phoneMobileCheckbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignTop="@+id/phoneMobileEditText"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="4dp"/>
+
+            <EditText
+                android:id="@+id/phoneMobileEditText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/phoneHomeEditText"
+                android:layout_alignRight="@id/phoneHomeEditText"
+                android:layout_below="@+id/phoneHomeEditText"
+                android:layout_marginTop="5dp"
+                android:hint="@string/personal_input_mobile"
+                android:inputType="phone"/>-->
+
             <CheckBox
                 android:id="@+id/phoneMobileCheckbox"
                 android:layout_width="wrap_content"
