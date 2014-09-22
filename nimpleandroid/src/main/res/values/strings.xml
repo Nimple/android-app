@@ -158,5 +158,4 @@
     <string name="personal_input_mobile">Mobile number</string>
     <string name="personal_input_card">Cardname</string>
     <string name="form_error_card_invalid">Card name is invalid.</string>
-
 </resources>
