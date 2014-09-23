@@ -34,6 +34,7 @@ import de.nimple.util.Lg;
  * Generic social network connection class.
  *
  * @param <T> Scribe Provider API
+ * @author Ben John
  */
 public abstract class AbstractSocialActivity<T extends Api> extends Activity {
 	@InjectView(R.id.webview_callback)
