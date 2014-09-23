@@ -12,6 +12,8 @@ import de.nimple.services.billing.BillingInAppImpl;
 import de.nimple.services.billing.BillingService;
 import de.nimple.services.contacts.ContactsSQLiteImpl;
 import de.nimple.services.contacts.ContactsService;
+import de.nimple.services.nimplecode.NimpleCodeHelper;
+import de.nimple.services.nimplecode.NimpleCodeService;
 import de.nimple.ui.contact.DisplayContactActivity;
 import de.nimple.ui.main.MainActivity;
 import de.nimple.ui.main.fragments.ContactListFragment;
@@ -21,10 +23,10 @@ import de.nimple.ui.main.fragments.ContactListFragment;
  */
 @Module(injects = {DataSyncController.class, MainActivity.class, ContactListFragment.class, DisplayContactActivity.class},
 		library = true, complete = false)
-public class NimpleModule {
+public class DaggerModule {
 	private Context context;
 
-	public NimpleModule(Context context) {
+	public DaggerModule(Context context) {
 		this.context = context;
 	}
 
@@ -44,5 +46,11 @@ public class NimpleModule {
 	@Singleton
 	public BillingService provideBillingService(@Named("App") Context context) {
 		return new BillingInAppImpl(context);
+	}
+
+	@Provides
+	@Singleton
+	public NimpleCodeService provideNimpleCodeService(@Named("App") Context context) {
+		return new NimpleCodeHelper(context);
 	}
 }

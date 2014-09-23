@@ -29,13 +29,13 @@ import de.nimple.enums.SocialNetwork;
 import de.nimple.events.NimpleCodeChangedEvent;
 import de.nimple.events.SocialConnectedEvent;
 import de.nimple.events.SocialDisconnectedEvent;
+import de.nimple.services.nimplecode.Address;
+import de.nimple.services.nimplecode.NimpleCodeHelper;
 import de.nimple.ui.edit.social.SocialLinkedinActivity;
 import de.nimple.ui.edit.social.SocialTwitterActivity;
 import de.nimple.ui.edit.social.SocialXingActivity;
 import de.nimple.ui.parts.ActionBarDoneCancel;
 import de.nimple.util.Lg;
-import de.nimple.services.nimplecode.Address;
-import de.nimple.services.nimplecode.NimpleCodeHelper;
 
 public class EditNimpleCodeActivity extends Activity implements ActionBarDoneCancel.ActionBarDoneCancelCallback {
 	// personal information
@@ -51,10 +51,10 @@ public class EditNimpleCodeActivity extends Activity implements ActionBarDoneCan
 	public CheckBox mailCheck;
 	@InjectView(R.id.phoneCheckbox)
 	public CheckBox phoneCheck;
-    @InjectView(R.id.phoneWorkEditText)
-    public EditText phone_work;
-    @InjectView(R.id.phoneWorkCheckbox)
-    public CheckBox phoneWorkCheck;
+	@InjectView(R.id.phoneWorkEditText)
+	public EditText phone_work;
+	@InjectView(R.id.phoneWorkCheckbox)
+	public CheckBox phoneWorkCheck;
 	// business information
 	@InjectView(R.id.companyEditText)
 	public TextView company;
@@ -166,7 +166,7 @@ public class EditNimpleCodeActivity extends Activity implements ActionBarDoneCan
 		lastname.setText(ncode.holder.lastname);
 		mail.setText(ncode.holder.mail);
 		phone.setText(ncode.holder.phone);
-        phone_work.setText(ncode.holder.phone_work);
+		phone_work.setText(ncode.holder.phone_work);
 		website.setText(ncode.holder.websiteUrl);
 		addressStreet.setText(ncode.holder.address.getStreet());
 		addressPostal.setText(ncode.holder.address.getPostalCode());
@@ -174,7 +174,7 @@ public class EditNimpleCodeActivity extends Activity implements ActionBarDoneCan
 
 		mailCheck.setChecked(ncode.holder.show.mail);
 		phoneCheck.setChecked(ncode.holder.show.phone);
-        phoneWorkCheck.setChecked(ncode.holder.show.phone_work);
+		phoneWorkCheck.setChecked(ncode.holder.show.phone_work);
 
 		company.setText(ncode.holder.company);
 		position.setText(ncode.holder.position);
@@ -253,10 +253,10 @@ public class EditNimpleCodeActivity extends Activity implements ActionBarDoneCan
 		ncode.holder.mail = mail.getText().toString();
 
 		ncode.holder.phone = phone.getText().toString();
-        ncode.holder.phone_work = phone_work.getText().toString();
+		ncode.holder.phone_work = phone_work.getText().toString();
 		ncode.holder.show.mail = mailCheck.isChecked();
 		ncode.holder.show.phone = phoneCheck.isChecked();
-        ncode.holder.show.phone_work = phoneWorkCheck.isChecked();
+		ncode.holder.show.phone_work = phoneWorkCheck.isChecked();
 		ncode.holder.show.website = websiteCheck.isChecked();
 		ncode.holder.show.address = addressCheck.isChecked();
 		ncode.holder.websiteUrl = website.getText().toString();
@@ -274,7 +274,7 @@ public class EditNimpleCodeActivity extends Activity implements ActionBarDoneCan
 		ncode.holder.show.company = companyCheck.isChecked();
 		ncode.holder.show.position = positionCheck.isChecked();
 
-		ncode.save();
+		ncode.save(ncode.holder);
 		EventBus.getDefault().post(new NimpleCodeChangedEvent());
 	}
 

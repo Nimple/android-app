@@ -18,11 +18,17 @@ public abstract class DaggerApplication extends Application {
 		objectGraph = ObjectGraph.create(getModules());
 	}
 
-	public void inject(Object target) {
-		objectGraph.inject(target);
+	public Object[] getModules() {
+		return Arrays.asList(new DaggerModule(this)).toArray();
 	}
 
-	public Object[] getModules() {
-		return Arrays.asList(new NimpleModule(this)).toArray();
+	/**
+	 * Inject every dependency declared in the object with the @Inject annotation if the dependency
+	 * has been already declared in a module and already initialized by Dagger.
+	 *
+	 * @param target to inject.
+	 */
+	public void inject(Object target) {
+		objectGraph.inject(target);
 	}
 }

@@ -1,11 +1,11 @@
 package de.nimple.util;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import android.content.Context;
 
 import com.mixpanel.android.mpmetrics.MixpanelAPI;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import de.greenrobot.event.EventBus;
 import de.nimple.config.Config;
@@ -16,7 +16,7 @@ import de.nimple.events.ContactAddedEvent;
 import de.nimple.events.ContactTransferredEvent;
 import de.nimple.events.NimpleCodeChangedEvent;
 import de.nimple.services.nimplecode.NimpleCodeHelper;
-import de.nimple.services.nimplecode.NimpleCodeHelper.NimpleCode;
+import de.nimple.services.nimplecode.dto.NimpleCode;
 
 public class Mixpanel {
 	private static Mixpanel instance;

@@ -1,10 +1,7 @@
 package de.nimple.ui.main.fragments;
 
 import android.content.Context;
-import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -13,7 +10,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import butterknife.ButterKnife;
 import butterknife.InjectView;
 import de.greenrobot.event.EventBus;
 import de.nimple.R;
@@ -23,11 +19,11 @@ import de.nimple.events.ContactAddedEvent;
 import de.nimple.events.ContactDeletedEvent;
 import de.nimple.exceptions.DuplicatedContactException;
 import de.nimple.services.contacts.ContactsService;
-import de.nimple.util.SharedPrefHelper;
 import de.nimple.services.export.Export;
 import de.nimple.services.export.IExportExtender;
-import de.nimple.util.Lg;
 import de.nimple.services.nimplecode.VCardHelper;
+import de.nimple.util.Lg;
+import de.nimple.util.SharedPrefHelper;
 
 public class ContactListFragment extends BaseFragment implements IExportExtender {
 	public static final ContactListFragment newInstance() {
@@ -47,22 +43,28 @@ public class ContactListFragment extends BaseFragment implements IExportExtender
 	TextView noContactsTextView;
 
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-		ctx = getActivity().getApplicationContext();
+	public void onResume() {
+		super.onResume();
 		onBootstrap();
-
-		final View view = inflater.inflate(R.layout.contacts_fragment, container, false);
-		ButterKnife.inject(this, view);
-
 		listOfContacts = contactsService.findAllContacts();
 
 		EventBus.getDefault().register(this);
 
-		contactsAdapter = new ContactsListAdapter(this.getActivity(), R.layout.single_contact, listOfContacts, inflater);
+		contactsAdapter = new ContactsListAdapter(this.getActivity(), R.layout.single_contact, listOfContacts, getActivity().getLayoutInflater());
 		contactsList.setAdapter(contactsAdapter);
 
 		toggleInfoText();
-		return view;
+	}
+
+	@Override
+	public void onPause() {
+		EventBus.getDefault().unregister(this);
+		super.onPause();
+	}
+
+	@Override
+	protected int getFragmentLayout() {
+		return R.layout.contacts_fragment;
 	}
 
 	private boolean isInitial() {
@@ -92,12 +94,6 @@ public class ContactListFragment extends BaseFragment implements IExportExtender
 		} else {
 			noContactsTextView.setVisibility(View.VISIBLE);
 		}
-	}
-
-	@Override
-	public void onDestroyView() {
-		super.onDestroyView();
-		EventBus.getDefault().unregister(this);
 	}
 
 	public void onEvent(ContactAddedEvent ev) {
