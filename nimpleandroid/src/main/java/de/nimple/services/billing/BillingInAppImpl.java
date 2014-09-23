@@ -34,8 +34,12 @@ public class BillingInAppImpl implements BillingService {
 		};
 	}
 
-
 	public BillingInAppImpl(Context context) {
 		super();
+	}
+
+	@Override
+	public boolean isProVersion() {
+		return true;
 	}
 }
