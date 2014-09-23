@@ -1,7 +1,5 @@
 package de.nimple.ui.edit;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -20,24 +18,27 @@ import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.model.GraphUser;
 
-import butterknife.ButterKnife;
+import javax.inject.Inject;
+
 import butterknife.InjectView;
 import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 import de.nimple.R;
+import de.nimple.dagger.BaseActivity;
 import de.nimple.enums.SocialNetwork;
 import de.nimple.events.NimpleCodeChangedEvent;
 import de.nimple.events.SocialConnectedEvent;
 import de.nimple.events.SocialDisconnectedEvent;
 import de.nimple.services.nimplecode.Address;
 import de.nimple.services.nimplecode.NimpleCodeHelper;
+import de.nimple.services.nimplecode.NimpleCodeService;
 import de.nimple.ui.edit.social.SocialLinkedinActivity;
 import de.nimple.ui.edit.social.SocialTwitterActivity;
 import de.nimple.ui.edit.social.SocialXingActivity;
 import de.nimple.ui.parts.ActionBarDoneCancel;
 import de.nimple.util.Lg;
 
-public class EditNimpleCodeActivity extends Activity implements ActionBarDoneCancel.ActionBarDoneCancelCallback {
+public class EditNimpleCodeActivity extends BaseActivity implements ActionBarDoneCancel.ActionBarDoneCancelCallback {
 	// personal information
 	@InjectView(R.id.firstnameEditText)
 	public EditText firstname;
@@ -101,7 +102,9 @@ public class EditNimpleCodeActivity extends Activity implements ActionBarDoneCan
 	TextView xingTextView;
 	@InjectView(R.id.linkedinTextView)
 	TextView linkedinTextView;
-	private Context ctx;
+
+	@Inject
+	NimpleCodeService nimpleCodeService;
 
 	public final static boolean isValidEmail(CharSequence target) {
 		if (target == null) {
@@ -118,8 +121,6 @@ public class EditNimpleCodeActivity extends Activity implements ActionBarDoneCan
 		setContentView(R.layout.edit_ncard_screen);
 		setProgressBarIndeterminateVisibility(false);
 		ActionBarDoneCancel.apply(this, getActionBar());
-		ButterKnife.inject(this);
-		ctx = getApplicationContext();
 		EventBus.getDefault().register(this);
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 	}
@@ -160,7 +161,7 @@ public class EditNimpleCodeActivity extends Activity implements ActionBarDoneCan
 
 	private void fillUi() {
 		// set all views
-		NimpleCodeHelper ncode = new NimpleCodeHelper(ctx);
+		NimpleCodeHelper ncode = new NimpleCodeHelper(this);
 
 		firstname.setText(ncode.holder.firstname);
 		lastname.setText(ncode.holder.lastname);
@@ -245,7 +246,7 @@ public class EditNimpleCodeActivity extends Activity implements ActionBarDoneCan
 
 	private void save() {
 		// read out all views and save them into sharedPreferences
-		NimpleCodeHelper ncode = new NimpleCodeHelper(getApplicationContext());
+		NimpleCodeHelper ncode = new NimpleCodeHelper(this);
 
 		// EditPersonalFragment
 		ncode.holder.firstname = firstname.getText().toString();
@@ -279,49 +280,49 @@ public class EditNimpleCodeActivity extends Activity implements ActionBarDoneCan
 	}
 
 	@OnClick({R.id.twitterTextView, R.id.twitterRoundIcon})
-	void openConnectTwitterActivity() {
+	protected void openConnectTwitterActivity() {
 		if (TextUtils.equals(twitterTextView.getText(), getText(R.string.social_disconnected))) {
 			save();
 
-			Intent intent = new Intent(ctx, SocialTwitterActivity.class);
+			Intent intent = new Intent(this, SocialTwitterActivity.class);
 			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			startActivity(intent);
 		} else {
-			Toast.makeText(ctx, String.format(getString(R.string.social_disconnected_toast), "twitter"), Toast.LENGTH_LONG).show();
+			Toast.makeText(this, String.format(getString(R.string.social_disconnected_toast), "twitter"), Toast.LENGTH_LONG).show();
 			EventBus.getDefault().post(new SocialDisconnectedEvent(SocialNetwork.TWITTER));
 		}
 	}
 
 	@OnClick({R.id.xingTextView, R.id.xingRoundIcon})
-	void openConnectXingActivity() {
+	protected void openConnectXingActivity() {
 		if (xingTextView.getText().equals(getString(R.string.social_disconnected))) {
 			save();
 
-			Intent intent = new Intent(ctx, SocialXingActivity.class);
+			Intent intent = new Intent(this, SocialXingActivity.class);
 			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			startActivity(intent);
 		} else {
-			Toast.makeText(ctx, String.format(getString(R.string.social_disconnected_toast), "xing"), Toast.LENGTH_LONG).show();
+			Toast.makeText(this, String.format(getString(R.string.social_disconnected_toast), "xing"), Toast.LENGTH_LONG).show();
 			EventBus.getDefault().post(new SocialDisconnectedEvent(SocialNetwork.XING));
 		}
 	}
 
 	@OnClick({R.id.linkedinTextView, R.id.linkedinRoundIcon})
-	void openConnectLinkedinActivity() {
+	protected void openConnectLinkedinActivity() {
 		if (linkedinTextView.getText().equals(getString(R.string.social_disconnected))) {
 			save();
 
-			Intent intent = new Intent(ctx, SocialLinkedinActivity.class);
+			Intent intent = new Intent(this, SocialLinkedinActivity.class);
 			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			startActivity(intent);
 		} else {
-			Toast.makeText(ctx, String.format(getString(R.string.social_disconnected_toast), "linkedin"), Toast.LENGTH_LONG).show();
+			Toast.makeText(this, String.format(getString(R.string.social_disconnected_toast), "linkedin"), Toast.LENGTH_LONG).show();
 			EventBus.getDefault().post(new SocialDisconnectedEvent(SocialNetwork.LINKEDIN));
 		}
 	}
 
 	@OnClick({R.id.facebookTextView, R.id.facebookRoundIcon})
-	void openConnectFacebookActivity() {
+	protected void openConnectFacebookActivity() {
 		if (facebookTextView.getText().equals(getString(R.string.social_disconnected))) {
 			save();
 
@@ -340,7 +341,7 @@ public class EditNimpleCodeActivity extends Activity implements ActionBarDoneCan
 								if (user != null) {
 									// String token = Session.getActiveSession().getAccessToken();
 									Lg.d("Facebook login succeeded.");
-									Toast.makeText(ctx, String.format(getString(R.string.social_connected_toast), "facebook"), Toast.LENGTH_LONG).show();
+									Toast.makeText(EditNimpleCodeActivity.this, String.format(getString(R.string.social_connected_toast), "facebook"), Toast.LENGTH_LONG).show();
 									EventBus.getDefault().post(new SocialConnectedEvent(SocialNetwork.FACEBOOK, user.getInnerJSONObject()));
 								}
 							}
@@ -349,7 +350,7 @@ public class EditNimpleCodeActivity extends Activity implements ActionBarDoneCan
 				}
 			});
 		} else {
-			Toast.makeText(ctx, String.format(getString(R.string.social_disconnected_toast), "facebook"), Toast.LENGTH_LONG).show();
+			Toast.makeText(this, String.format(getString(R.string.social_disconnected_toast), "facebook"), Toast.LENGTH_LONG).show();
 			EventBus.getDefault().post(new SocialDisconnectedEvent(SocialNetwork.FACEBOOK));
 		}
 	}
