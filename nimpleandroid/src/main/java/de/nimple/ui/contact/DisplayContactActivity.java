@@ -114,6 +114,10 @@ public class DisplayContactActivity extends Activity implements IExportExtender 
 		ContactsPersistenceManager.getInstance(ctx).update(contact);
 	}
 
+    public void share() {
+        MenuHelper.export(getExport(),this);
+    }
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.display_contact, menu);
@@ -136,8 +140,11 @@ public class DisplayContactActivity extends Activity implements IExportExtender 
 				finish();
 				return true;
 			case R.id.menu_del:
-				showDeleteContact();
-				return true;
+                showDeleteContact();
+                return true;
+            case R.id.menu_share:
+                share();
+                return true;
 			default:
 				return false;
 		}

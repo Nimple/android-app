@@ -46,10 +46,13 @@ public class MenuHelper {
         if(!(frag instanceof IExportExtender)){
             return;
         }
-        Export export = ((IExportExtender)frag).getExport();
+        export(((IExportExtender)frag).getExport(),frag.getActivity());
+    }
+
+    public static void export(Export export, Activity act){
         File file = new File(export.getPath(), export.getFilename() + export.getExtension());
         ExportHelper.save(export, file);
-        shareApp(frag.getActivity(), Uri.fromFile(file));
+        shareApp(act, Uri.fromFile(file));
     }
 
     public static void save(Export export, Context ctx) {

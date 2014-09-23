@@ -119,8 +119,7 @@ public class NimpleCardFragment extends Fragment implements IExportExtender {
 	}
 
     private void refreshSpinnerAdapter(){
-        List<String> cards = NimpleCodeHelper.getCardNames(ctx);
-        ArrayAdapter adapter = new ArrayAdapter<String>(ctx, android.R.layout.simple_spinner_item,
+        ArrayAdapter adapter = new ArrayAdapter<String>(ctx, R.layout.spinner,
                 NimpleCodeHelper.getCardNames(ctx));
         spinner.setAdapter(adapter);
     }
@@ -139,6 +138,7 @@ public class NimpleCardFragment extends Fragment implements IExportExtender {
 
 	public void onEvent(NimpleCodeChangedEvent ev) {
 		refreshUi();
+        refreshSpinnerAdapter();
 	}
 
 	// @OnClick(R.id.ncard_layout) public void showEditHint() {

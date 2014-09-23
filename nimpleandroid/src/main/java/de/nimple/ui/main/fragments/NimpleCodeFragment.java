@@ -13,13 +13,17 @@ import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.Spinner;
 
+import java.util.List;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 import de.nimple.R;
 import de.nimple.events.NimpleCodeChangedEvent;
@@ -76,20 +80,33 @@ public class NimpleCodeFragment extends Fragment implements IExportExtender {
         return super.onOptionsItemSelected(item);
     }
 
-	private void addSpinnerFunc() {
-		spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-			@Override
-			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-				NimpleCodeHelper.setCurrentId(position);
-				refreshUi();
-			}
+    private void addSpinnerFunc() {
+        refreshSpinnerAdapter();
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                NimpleCodeHelper.setCurrentId(position);
+                refreshUi();
+            }
 
-			@Override
-			public void onNothingSelected(AdapterView<?> parent) {
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
 
-			}
-		});
-	}
+            }
+        });
+    }
+
+    private void refreshSpinnerAdapter(){
+        ArrayAdapter adapter = new ArrayAdapter<String>(ctx, R.layout.spinner,
+                NimpleCodeHelper.getCardNames(ctx));
+        spinner.setAdapter(adapter);
+    }
+
+    @OnClick({R.id.ncard_add})
+    void addCard(){
+        NimpleCodeHelper.addCard(ctx);
+        refreshSpinnerAdapter();
+    }
 
 	@Override
 	public void onDestroyView() {

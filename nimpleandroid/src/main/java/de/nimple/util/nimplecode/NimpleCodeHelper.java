@@ -123,7 +123,7 @@ public class NimpleCodeHelper {
         List<String> cards = new ArrayList<String>();
 
         for (int i = 0; i < amount; i++) {
-            String name = "";
+            String name;
 
             if (i != 0) {
                 name = SharedPrefHelper.getString(NC_CARD_NAME + i, ctx);
@@ -145,8 +145,7 @@ public class NimpleCodeHelper {
 
     public static void addCard(Context ctx){
         int id = getCardNames(ctx).size();
-        id++;
-        SharedPrefHelper.putInt(NC_CARDS , id , ctx);
+        SharedPrefHelper.putInt(NC_CARDS , id + 1 , ctx);
         SharedPrefHelper.putString(NC_CARD_NAME + id , ctx.getString(R.string.nimpleCards_defaultName) + "_" + id, ctx);
     }
 

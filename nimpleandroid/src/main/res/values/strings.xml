@@ -142,6 +142,7 @@
 
     <!-- share -->
     <string name="ab_share_contacts">Share Contacts</string>
+    <string name="ab_share_contact">Share Contact</string>
     <string name="ab_share_code">Share Barcode</string>
     <string name="ab_share_card">Share Card</string>
 
@@ -157,8 +158,5 @@
     <string name="personal_input_mobile">Mobile number</string>
     <string name="personal_input_card">Cardname</string>
     <string name="form_error_card_invalid">Card name is invalid.</string>
-    <array name="nimpleCards">
-        <item>private</item>
-        <item>business</item>
-    </array>
+
 </resources>
