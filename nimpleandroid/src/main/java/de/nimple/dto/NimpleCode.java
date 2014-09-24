@@ -1,4 +1,4 @@
-package de.nimple.services.nimplecode.dto;
+package de.nimple.dto;
 
 import de.nimple.services.nimplecode.Address;
 

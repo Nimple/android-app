@@ -3,7 +3,7 @@ package de.nimple.services.nimplecode;
 import android.content.Context;
 
 import de.nimple.R;
-import de.nimple.services.nimplecode.dto.NimpleCode;
+import de.nimple.dto.NimpleCode;
 import de.nimple.util.SharedPrefHelper;
 
 public class NimpleCodeHelper implements NimpleCodeService {

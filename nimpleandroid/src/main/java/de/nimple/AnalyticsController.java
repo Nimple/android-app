@@ -1,4 +1,4 @@
-package de.nimple.util;
+package de.nimple;
 
 import android.content.Context;
 
@@ -6,6 +6,9 @@ import com.mixpanel.android.mpmetrics.MixpanelAPI;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import javax.inject.Inject;
+import javax.inject.Named;
 
 import de.greenrobot.event.EventBus;
 import de.nimple.config.Config;
@@ -16,27 +19,28 @@ import de.nimple.events.ContactAddedEvent;
 import de.nimple.events.ContactTransferredEvent;
 import de.nimple.events.NimpleCodeChangedEvent;
 import de.nimple.services.nimplecode.NimpleCodeHelper;
-import de.nimple.services.nimplecode.dto.NimpleCode;
+import de.nimple.dto.NimpleCode;
 
-public class Mixpanel {
-	private static Mixpanel instance;
+/**
+ * Created by bjohn on 25/09/14.
+ */
+public class AnalyticsController {
+	@Inject
+	@Named("App")
+	Context ctx;
+
+	@Inject
+	EventBus eventBus;
+
 	private MixpanelAPI mixpanel;
-	private Context ctx;
 
-	public static Mixpanel getInstance(Context ctx) {
-		if (instance == null) {
-			instance = new Mixpanel(ctx);
-		}
-		return instance;
-	}
-
-	private Mixpanel(Context ctx) {
-		this.ctx = ctx;
+	public AnalyticsController() {
 		mixpanel = MixpanelAPI.getInstance(ctx, Config.MIXPANEL_TOKEN);
-		EventBus.getDefault().register(this);
+		eventBus.register(this);
 	}
 
-	public void flush() {
+	public void finish() {
+		eventBus.unregister(this);
 		mixpanel.flush();
 	}
 
