@@ -10,8 +10,6 @@ import dagger.Provides;
 import de.greenrobot.event.EventBus;
 import de.nimple.AnalyticsController;
 import de.nimple.DataSyncController;
-import de.nimple.services.billing.BillingInAppImpl;
-import de.nimple.services.billing.BillingService;
 import de.nimple.services.contacts.ContactsSQLiteImpl;
 import de.nimple.services.contacts.ContactsService;
 import de.nimple.services.nimplecode.NimpleCodeHelper;
@@ -53,12 +51,6 @@ public class DaggerModule {
 	@Singleton
 	public ContactsService provideContactsService(@Named("App") Context context) {
 		return new ContactsSQLiteImpl(context);
-	}
-
-	@Provides
-	@Singleton
-	public BillingService provideBillingService(@Named("App") Context context) {
-		return new BillingInAppImpl(context);
 	}
 
 	@Provides
