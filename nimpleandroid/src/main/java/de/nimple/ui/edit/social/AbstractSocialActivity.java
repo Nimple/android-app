@@ -211,8 +211,6 @@ public abstract class AbstractSocialActivity<T extends Api> extends Activity {
 				progressBar.setVisibility(View.VISIBLE);
 			}
 
-			;
-
 			@Override
 			protected Void doInBackground(Void... params) {
 				Verifier v = new Verifier(verifier);

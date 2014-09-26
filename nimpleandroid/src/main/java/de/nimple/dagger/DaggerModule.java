@@ -7,6 +7,8 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import de.greenrobot.event.EventBus;
+import de.nimple.AnalyticsController;
 import de.nimple.DataSyncController;
 import de.nimple.services.billing.BillingInAppImpl;
 import de.nimple.services.billing.BillingService;
@@ -21,8 +23,13 @@ import de.nimple.ui.main.fragments.ContactListFragment;
 /**
  * Modules which uses injection are declared here.
  */
-@Module(injects = {DataSyncController.class, MainActivity.class, ContactListFragment.class, DisplayContactActivity.class},
-		library = true, complete = false)
+@Module(injects = {
+		AnalyticsController.class,
+		DataSyncController.class,
+		MainActivity.class,
+		ContactListFragment.class,
+		DisplayContactActivity.class
+}, library = true, complete = false)
 public class DaggerModule {
 	private Context context;
 
@@ -34,6 +41,12 @@ public class DaggerModule {
 	@Named("App")
 	public Context provideAppContext() {
 		return context;
+	}
+
+	@Provides
+	@Singleton
+	public EventBus provideEventBus() {
+		return EventBus.getDefault();
 	}
 
 	@Provides

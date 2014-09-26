@@ -7,9 +7,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import javax.inject.Inject;
+
 import butterknife.ButterKnife;
+import de.greenrobot.event.EventBus;
+import de.nimple.events.NoOpEvent;
 
 public abstract class BaseFragment extends Fragment {
+	@Inject
+	EventBus eventBus;
+
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
@@ -18,6 +25,7 @@ public abstract class BaseFragment extends Fragment {
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+		eventBus.register(this);
 		return inflater.inflate(getFragmentLayout(), container, false);
 	}
 
@@ -26,6 +34,14 @@ public abstract class BaseFragment extends Fragment {
 		super.onViewCreated(view, savedInstanceState);
 		ButterKnife.inject(this, view);
 	}
+
+	@Override
+	public void onDestroyView() {
+		eventBus.unregister(this);
+		super.onDestroyView();
+	}
+
+	public void onEvent(NoOpEvent ev) {}
 
 	/**
 	 * Every fragment has to inflate a layout in the onCreateView method. We have added this method to

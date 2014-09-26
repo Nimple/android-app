@@ -1,6 +1,6 @@
 package de.nimple.services.nimplecode;
 
-import de.nimple.services.nimplecode.dto.NimpleCode;
+import de.nimple.dto.NimpleCode;
 
 /**
  * Created by bjohn on 23/09/14.

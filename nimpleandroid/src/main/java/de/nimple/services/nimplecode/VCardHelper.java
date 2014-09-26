@@ -6,7 +6,7 @@ import java.util.Locale;
 
 import de.nimple.R;
 import de.nimple.domain.Contact;
-import de.nimple.services.nimplecode.dto.NimpleCode;
+import de.nimple.dto.NimpleCode;
 import de.nimple.util.Crypto;
 import de.nimple.util.Lg;
 import de.nimple.util.StringMap;

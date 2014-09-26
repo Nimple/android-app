@@ -21,7 +21,7 @@ import de.nimple.exceptions.DuplicatedContactException;
 import de.nimple.services.contacts.ContactsService;
 import de.nimple.services.nimplecode.NimpleCodeService;
 import de.nimple.services.nimplecode.VCardHelper;
-import de.nimple.services.nimplecode.dto.NimpleCode;
+import de.nimple.dto.NimpleCode;
 import de.nimple.util.Lg;
 
 public class DataSyncController {
@@ -30,17 +30,20 @@ public class DataSyncController {
 	Context ctx;
 
 	@Inject
+	EventBus eventBus;
+
+	@Inject
 	ContactsService contactsService;
 
 	@Inject
 	NimpleCodeService nimpleCodeService;
 
 	public DataSyncController() {
-		EventBus.getDefault().register(this);
+		eventBus.register(this);
 	}
 
 	public void finish() {
-		EventBus.getDefault().unregister(this);
+		eventBus.unregister(this);
 	}
 
 	public void onEventMainThread(SocialConnectedEvent ev) {
