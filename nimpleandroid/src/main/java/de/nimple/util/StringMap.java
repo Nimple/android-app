@@ -1,5 +1,7 @@
 package de.nimple.util;
 
+import android.text.TextUtils;
+
 import java.util.HashMap;
 import java.util.Map;
 

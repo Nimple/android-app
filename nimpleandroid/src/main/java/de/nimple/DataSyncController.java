@@ -1,8 +1,12 @@
 package de.nimple;
 
+import android.content.Context;
+
 import org.json.JSONObject;
 
-import android.content.Context;
+import javax.inject.Inject;
+import javax.inject.Named;
+
 import de.greenrobot.event.EventBus;
 import de.nimple.domain.Contact;
 import de.nimple.enums.SocialNetwork;
@@ -14,51 +18,62 @@ import de.nimple.events.NimpleCodeScannedEvent;
 import de.nimple.events.SocialConnectedEvent;
 import de.nimple.events.SocialDisconnectedEvent;
 import de.nimple.exceptions.DuplicatedContactException;
-import de.nimple.persistence.ContactsPersistenceManager;
-import de.nimple.util.logging.Lg;
-import de.nimple.util.nimplecode.NimpleCodeHelper;
-import de.nimple.util.nimplecode.VCardHelper;
+import de.nimple.services.contacts.ContactsService;
+import de.nimple.services.nimplecode.NimpleCodeService;
+import de.nimple.services.nimplecode.VCardHelper;
+import de.nimple.dto.NimpleCode;
+import de.nimple.util.Lg;
 
 public class DataSyncController {
-	private Context ctx;
+	@Inject
+	@Named("App")
+	Context ctx;
 
-	public DataSyncController(Context ctx) {
-		this.ctx = ctx;
-		EventBus.getDefault().register(this);
+	@Inject
+	EventBus eventBus;
+
+	@Inject
+	ContactsService contactsService;
+
+	@Inject
+	NimpleCodeService nimpleCodeService;
+
+	public DataSyncController() {
+		eventBus.register(this);
 	}
 
 	public void finish() {
-		EventBus.getDefault().unregister(this);
+		eventBus.unregister(this);
 	}
 
 	public void onEventMainThread(SocialConnectedEvent ev) {
-		NimpleCodeHelper ncode = new NimpleCodeHelper(ctx);
+		NimpleCode nimpleCode = nimpleCodeService.load();
 
 		try {
 			JSONObject json = ev.getResponse();
-			// Lg.d(json.toString());
+			Lg.d(json.toString());
 
 			// parse facebook json
 			if (ev.getType() == SocialNetwork.FACEBOOK) {
 				String id = json.getString("id");
 				String link = json.getString("link");
-				ncode.holder.facebookId = id;
-				ncode.holder.facebookUrl = link;
+				nimpleCode.facebookId = id;
+				nimpleCode.facebookUrl = link;
 			}
 
 			// parse twitter json
 			if (ev.getType() == SocialNetwork.TWITTER) {
 				int id = json.getInt("id");
 				String screen_name = json.getString("screen_name");
-				ncode.holder.twitterId = Integer.toString(id);
-				ncode.holder.twitterUrl = "https://twitter.com/" + screen_name;
+				nimpleCode.twitterId = Integer.toString(id);
+				nimpleCode.twitterUrl = "https://twitter.com/" + screen_name;
 			}
 
 			// parse xing json
 			if (ev.getType() == SocialNetwork.XING) {
 				JSONObject idCard = json.getJSONObject("id_card");
 				String permalink = idCard.getString("permalink");
-				ncode.holder.xingUrl = permalink;
+				nimpleCode.xingUrl = permalink;
 			}
 
 			// parse linkedin json
@@ -67,10 +82,10 @@ public class DataSyncController {
 				String url = siteStandardProfileRequest.getString("url");
 				url = url.substring(0, url.indexOf("&"));
 				Lg.d("linkedin url=" + url);
-				ncode.holder.linkedinUrl = url;
+				nimpleCode.linkedinUrl = url;
 			}
 
-			ncode.save();
+			nimpleCodeService.save(nimpleCode);
 			EventBus.getDefault().post(new NimpleCodeChangedEvent());
 		} catch (Exception e) {
 			// should never happen
@@ -79,31 +94,31 @@ public class DataSyncController {
 	}
 
 	public void onEventMainThread(SocialDisconnectedEvent ev) {
-		NimpleCodeHelper ncode = new NimpleCodeHelper(ctx);
+		NimpleCode nimpleCode = nimpleCodeService.load();
 
 		// remove facebook
 		if (ev.getType() == SocialNetwork.FACEBOOK) {
-			ncode.holder.facebookId = "";
-			ncode.holder.facebookUrl = "";
+			nimpleCode.facebookId = "";
+			nimpleCode.facebookUrl = "";
 		}
 
 		// remove twitter
 		if (ev.getType() == SocialNetwork.TWITTER) {
-			ncode.holder.twitterId = "";
-			ncode.holder.twitterUrl = "";
+			nimpleCode.twitterId = "";
+			nimpleCode.twitterUrl = "";
 		}
 
 		// remove xing
 		if (ev.getType() == SocialNetwork.XING) {
-			ncode.holder.xingUrl = "";
+			nimpleCode.xingUrl = "";
 		}
 
 		// remove linkedin
 		if (ev.getType() == SocialNetwork.LINKEDIN) {
-			ncode.holder.linkedinUrl = "";
+			nimpleCode.linkedinUrl = "";
 		}
 
-		ncode.save();
+		nimpleCodeService.save(nimpleCode);
 		EventBus.getDefault().post(new NimpleCodeChangedEvent());
 	}
 
@@ -113,7 +128,7 @@ public class DataSyncController {
 			Lg.d("hash of contact = " + contact.getHash());
 
 			try {
-				ContactsPersistenceManager.getInstance(ctx).persist(contact);
+				contactsService.persist(contact);
 				EventBus.getDefault().post(new ContactAddedEvent(contact));
 			} catch (DuplicatedContactException e) {
 				EventBus.getDefault().post(new DuplicatedContactEvent(contact));

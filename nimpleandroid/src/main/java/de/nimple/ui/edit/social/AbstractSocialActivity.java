@@ -28,12 +28,13 @@ import org.scribe.oauth.OAuthService;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import de.nimple.R;
-import de.nimple.util.logging.Lg;
+import de.nimple.util.Lg;
 
 /**
  * Generic social network connection class.
  *
  * @param <T> Scribe Provider API
+ * @author Ben John
  */
 public abstract class AbstractSocialActivity<T extends Api> extends Activity {
 	@InjectView(R.id.webview_callback)
@@ -209,8 +210,6 @@ public abstract class AbstractSocialActivity<T extends Api> extends Activity {
 			protected void onPreExecute() {
 				progressBar.setVisibility(View.VISIBLE);
 			}
-
-			;
 
 			@Override
 			protected Void doInBackground(Void... params) {

@@ -1,14 +1,15 @@
-package de.nimple.util.nimplecode;
+package de.nimple.services.nimplecode;
+
+import android.content.Context;
 
 import java.util.Locale;
 
-import android.content.Context;
 import de.nimple.R;
 import de.nimple.domain.Contact;
+import de.nimple.dto.NimpleCode;
 import de.nimple.util.Crypto;
+import de.nimple.util.Lg;
 import de.nimple.util.StringMap;
-import de.nimple.util.logging.Lg;
-import de.nimple.util.nimplecode.NimpleCodeHelper.NimpleCode;
 
 public class VCardHelper {
 	public final static String ls = System.getProperty("line.separator");
@@ -18,6 +19,10 @@ public class VCardHelper {
 	private final static String LINKEDIN = "linkedin";
 	private final static String WEBSITE = "website";
 	private final static String ADDRESS = "address";
+<<<<<<< HEAD:nimpleandroid/src/main/java/de/nimple/util/nimplecode/VCardHelper.java
+=======
+	private final static String PHONE_2 = "phone_2";
+>>>>>>> master:nimpleandroid/src/main/java/de/nimple/services/nimplecode/VCardHelper.java
 
 	// This method solves the special case if a barcode should be generated from SharedPrefs
 	public static String getCardFromSharedPrefs(Context ctx) {
@@ -32,8 +37,13 @@ public class VCardHelper {
 		sb.append(VCardConstants.PROPERTY_N + VCardConstants.DEF_SEPARATOR + code.lastname + VCardConstants.VALUE_SEPARATOR + code.firstname + ls);
 		addToStringIfNotEmpty(sb, VCardConstants.PROPERTY_TEL + VCardConstants.VALUE_SEPARATOR + VCardConstants.PARAM_TYPE_HOME, code.phone_home);
 
+<<<<<<< HEAD:nimpleandroid/src/main/java/de/nimple/util/nimplecode/VCardHelper.java
         if(code.show.phone_mobile)
             addToStringIfNotEmpty(sb, VCardConstants.PROPERTY_TEL + VCardConstants.VALUE_SEPARATOR + VCardConstants.PARAM_TYPE_CELL, code.phone_mobile);
+=======
+		if (code.show.phone_work)
+			addToStringIfNotEmpty(sb, VCardConstants.PROPERTY_TEL + VCardConstants.VALUE_SEPARATOR + VCardConstants.PARAM_TYPE_HOME, code.phone_work);
+>>>>>>> master:nimpleandroid/src/main/java/de/nimple/services/nimplecode/VCardHelper.java
 
 		if (code.show.mail)
 			addToStringIfNotEmpty(sb, VCardConstants.PROPERTY_EMAIL, code.mail);
@@ -75,40 +85,48 @@ public class VCardHelper {
 		return sb.toString();
 	}
 
-    public static String getCardFromContact(Contact contact, Context ctx){
-        StringBuilder sb = new StringBuilder();
+	public static String getCardFromContact(Contact contact, Context ctx) {
+		StringBuilder sb = new StringBuilder();
 
+<<<<<<< HEAD:nimpleandroid/src/main/java/de/nimple/util/nimplecode/VCardHelper.java
         sb.append(VCardConstants.PROPERTY_BEGIN + VCardConstants.DEF_SEPARATOR + VCardConstants.LOG_TAG + ls);
         sb.append(VCardConstants.PROPERTY_VERSION + VCardConstants.DEF_SEPARATOR + VCardConstants.VERSION_V30 + ls);
         sb.append(VCardConstants.PROPERTY_N + VCardConstants.DEF_SEPARATOR).append(contact.getName()).append(ls);
         addToStringIfNotEmpty(sb, VCardConstants.PROPERTY_TEL + VCardConstants.VALUE_SEPARATOR + VCardConstants.PARAM_TYPE_CELL, contact.getTelephoneHome());
         addToStringIfNotEmpty(sb, VCardConstants.PROPERTY_TEL + VCardConstants.VALUE_SEPARATOR + VCardConstants.PARAM_TYPE_HOME, contact.getTelephoneMobile());
+=======
+		sb.append(VCardConstants.PROPERTY_BEGIN + VCardConstants.DEF_SEPARATOR + VCardConstants.LOG_TAG + ls);
+		sb.append(VCardConstants.PROPERTY_VERSION + VCardConstants.DEF_SEPARATOR + VCardConstants.VERSION_V30 + ls);
+		sb.append(VCardConstants.PROPERTY_N + VCardConstants.DEF_SEPARATOR).append(contact.getName()).append(ls);
+		addToStringIfNotEmpty(sb, VCardConstants.PROPERTY_TEL + VCardConstants.VALUE_SEPARATOR + VCardConstants.PARAM_TYPE_CELL, contact.getTelephone());
+		addToStringIfNotEmpty(sb, VCardConstants.PROPERTY_TEL + VCardConstants.VALUE_SEPARATOR + VCardConstants.PARAM_TYPE_HOME, contact.getTelephoneWork());
+>>>>>>> master:nimpleandroid/src/main/java/de/nimple/services/nimplecode/VCardHelper.java
 
 
-        addToStringIfNotEmpty(sb, VCardConstants.PROPERTY_EMAIL, contact.getEmail());
-        addToStringIfNotEmpty(sb, VCardConstants.PROPERTY_ORG, contact.getCompany());
-        addToStringIfNotEmpty(sb, VCardConstants.PROPERTY_TITLE, contact.getPosition());
-        sb.append(new Address(contact.getAddress()).toVcard3Attr());
-        sb.append(ls);
-        addToStringIfNotEmpty(sb, VCardConstants.PROPERTY_URL,contact.getWebsite());
+		addToStringIfNotEmpty(sb, VCardConstants.PROPERTY_EMAIL, contact.getEmail());
+		addToStringIfNotEmpty(sb, VCardConstants.PROPERTY_ORG, contact.getCompany());
+		addToStringIfNotEmpty(sb, VCardConstants.PROPERTY_TITLE, contact.getPosition());
+		sb.append(new Address(contact.getAddress()).toVcard3Attr());
+		sb.append(ls);
+		addToStringIfNotEmpty(sb, VCardConstants.PROPERTY_URL, contact.getWebsite());
 
-        addToStringIfNotEmpty(sb, VCardConstants.PROPERTY_URL,contact.getFacebookUrl());
-        addToStringIfNotEmpty(sb, VCardConstants.PROPERTY_X_FACEBOOK_ID,contact.getFacebookId());
+		addToStringIfNotEmpty(sb, VCardConstants.PROPERTY_URL, contact.getFacebookUrl());
+		addToStringIfNotEmpty(sb, VCardConstants.PROPERTY_X_FACEBOOK_ID, contact.getFacebookId());
 
-        addToStringIfNotEmpty(sb, VCardConstants.PROPERTY_URL,contact.getTwitterUrl());
-        addToStringIfNotEmpty(sb, VCardConstants.PROPERTY_X_TWITTER_ID,contact.getTwitterId());
+		addToStringIfNotEmpty(sb, VCardConstants.PROPERTY_URL, contact.getTwitterUrl());
+		addToStringIfNotEmpty(sb, VCardConstants.PROPERTY_X_TWITTER_ID, contact.getTwitterId());
 
-        addToStringIfNotEmpty(sb, VCardConstants.PROPERTY_URL,contact.getXingUrl());
+		addToStringIfNotEmpty(sb, VCardConstants.PROPERTY_URL, contact.getXingUrl());
 
-        addToStringIfNotEmpty(sb, VCardConstants.PROPERTY_URL,contact.getLinkedinUrl());
+		addToStringIfNotEmpty(sb, VCardConstants.PROPERTY_URL, contact.getLinkedinUrl());
 
-        addToStringIfNotEmpty(sb, VCardConstants.PROPERTY_NOTE, ctx.getString(R.string.created_note));
+		addToStringIfNotEmpty(sb, VCardConstants.PROPERTY_NOTE, ctx.getString(R.string.created_note));
 
-        sb.append(VCardConstants.PROPERTY_END + VCardConstants.DEF_SEPARATOR + VCardConstants.LOG_TAG + ls);
+		sb.append(VCardConstants.PROPERTY_END + VCardConstants.DEF_SEPARATOR + VCardConstants.LOG_TAG + ls);
 
-        Lg.d(sb.toString());
-        return sb.toString();
-    }
+		Lg.d(sb.toString());
+		return sb.toString();
+	}
 
 	private static void addToStringIfNotEmpty(StringBuilder sb, String key, String value) {
 		if (value == null || value.length() == 0) {
@@ -134,8 +152,13 @@ public class VCardHelper {
 			contact.setName("");
 		}
 		contact.setEmail(map.get(VCardConstants.PROPERTY_EMAIL));
+<<<<<<< HEAD:nimpleandroid/src/main/java/de/nimple/util/nimplecode/VCardHelper.java
 		contact.setTelephoneHome(map.get(VCardConstants.PARAM_TYPE_HOME));
         contact.setTelephoneMobile(map.get(VCardConstants.PARAM_TYPE_CELL));
+=======
+		contact.setTelephone(map.get(VCardConstants.PARAM_TYPE_CELL));
+		contact.setTelephoneWork(map.get(VCardConstants.PARAM_TYPE_HOME));
+>>>>>>> master:nimpleandroid/src/main/java/de/nimple/services/nimplecode/VCardHelper.java
 
 		// takes care of multiple units
 		if (map.get(VCardConstants.PROPERTY_ORG).contains(VCardConstants.VALUE_SEPARATOR)) {
@@ -203,11 +226,11 @@ public class VCardHelper {
 			} else if (contact.contains(VCardConstants.PROPERTY_ADR + VCardConstants.VALUE_SEPARATOR)) {
 				map.put(ADDRESS, value);
 			} else if (contact.startsWith(VCardConstants.PROPERTY_TEL)) {
-                if(contact.contains(VCardConstants.PARAM_TYPE_HOME)){
-                    map.put(VCardConstants.PARAM_TYPE_HOME, value);
-                }else if(contact.contains(VCardConstants.PARAM_TYPE_CELL)){
-                    map.put(VCardConstants.PARAM_TYPE_CELL, value);
-                }
+				if (contact.contains(VCardConstants.PARAM_TYPE_HOME)) {
+					map.put(VCardConstants.PARAM_TYPE_HOME, value);
+				} else if (contact.contains(VCardConstants.PARAM_TYPE_CELL)) {
+					map.put(VCardConstants.PARAM_TYPE_CELL, value);
+				}
 			} else if (contact.startsWith(VCardConstants.PROPERTY_EMAIL)) {
 				map.put(VCardConstants.PROPERTY_EMAIL, value);
 			} else {

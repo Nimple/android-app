@@ -1,7 +1,5 @@
 package de.nimple.ui.edit;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -20,26 +18,33 @@ import com.facebook.Session;
 import com.facebook.SessionState;
 import com.facebook.model.GraphUser;
 
-import butterknife.ButterKnife;
+import javax.inject.Inject;
+
 import butterknife.InjectView;
 import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 import de.nimple.R;
+import de.nimple.dagger.BaseActivity;
 import de.nimple.enums.SocialNetwork;
 import de.nimple.events.NimpleCodeChangedEvent;
 import de.nimple.events.SocialConnectedEvent;
 import de.nimple.events.SocialDisconnectedEvent;
+import de.nimple.services.nimplecode.Address;
+import de.nimple.services.nimplecode.NimpleCodeHelper;
+import de.nimple.services.nimplecode.NimpleCodeService;
 import de.nimple.ui.edit.social.SocialLinkedinActivity;
 import de.nimple.ui.edit.social.SocialTwitterActivity;
 import de.nimple.ui.edit.social.SocialXingActivity;
 import de.nimple.ui.parts.ActionBarDoneCancel;
-import de.nimple.util.logging.Lg;
-import de.nimple.util.nimplecode.Address;
-import de.nimple.util.nimplecode.NimpleCodeHelper;
+import de.nimple.util.Lg;
 
+<<<<<<< HEAD
 public class EditNimpleCodeActivity extends Activity implements ActionBarDoneCancel.ActionBarDoneCancelCallback {
 	@InjectView(R.id.cardNameEditText)
     public EditText cardName;
+=======
+public class EditNimpleCodeActivity extends BaseActivity implements ActionBarDoneCancel.ActionBarDoneCancelCallback {
+>>>>>>> master
 	// personal information
 	@InjectView(R.id.firstnameEditText)
 	public EditText firstname;
@@ -51,12 +56,21 @@ public class EditNimpleCodeActivity extends Activity implements ActionBarDoneCan
 	public EditText phoneHome;
 	@InjectView(R.id.mailCheckbox)
 	public CheckBox mailCheck;
+<<<<<<< HEAD
 	@InjectView(R.id.phoneHomeCheckbox)
 	public CheckBox phoneHomeCheck;
     @InjectView(R.id.phoneMobileEditText)
     public EditText phone_mobile;
     @InjectView(R.id.phoneMobileCheckbox)
     public CheckBox phoneMobileCheck;
+=======
+	@InjectView(R.id.phoneCheckbox)
+	public CheckBox phoneCheck;
+	@InjectView(R.id.phoneWorkEditText)
+	public EditText phone_work;
+	@InjectView(R.id.phoneWorkCheckbox)
+	public CheckBox phoneWorkCheck;
+>>>>>>> master
 	// business information
 	@InjectView(R.id.companyEditText)
 	public TextView company;
@@ -103,7 +117,9 @@ public class EditNimpleCodeActivity extends Activity implements ActionBarDoneCan
 	TextView xingTextView;
 	@InjectView(R.id.linkedinTextView)
 	TextView linkedinTextView;
-	private Context ctx;
+
+	@Inject
+	NimpleCodeService nimpleCodeService;
 
 	public final static boolean isValidEmail(CharSequence target) {
 		if (target == null) {
@@ -120,8 +136,6 @@ public class EditNimpleCodeActivity extends Activity implements ActionBarDoneCan
 		setContentView(R.layout.edit_ncard_screen);
 		setProgressBarIndeterminateVisibility(false);
 		ActionBarDoneCancel.apply(this, getActionBar());
-		ButterKnife.inject(this);
-		ctx = getApplicationContext();
 		EventBus.getDefault().register(this);
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 	}
@@ -162,22 +176,32 @@ public class EditNimpleCodeActivity extends Activity implements ActionBarDoneCan
 
 	private void fillUi() {
 		// set all views
-		NimpleCodeHelper ncode = new NimpleCodeHelper(ctx);
+		NimpleCodeHelper ncode = new NimpleCodeHelper(this);
 
         cardName.setText(ncode.holder.cardName);
 		firstname.setText(ncode.holder.firstname);
 		lastname.setText(ncode.holder.lastname);
 		mail.setText(ncode.holder.mail);
+<<<<<<< HEAD
 		phoneHome.setText(ncode.holder.phone_home);
         phone_mobile.setText(ncode.holder.phone_mobile);
+=======
+		phone.setText(ncode.holder.phone);
+		phone_work.setText(ncode.holder.phone_work);
+>>>>>>> master
 		website.setText(ncode.holder.websiteUrl);
 		addressStreet.setText(ncode.holder.address.getStreet());
 		addressPostal.setText(ncode.holder.address.getPostalCode());
 		addressCity.setText(ncode.holder.address.getLocality());
 
 		mailCheck.setChecked(ncode.holder.show.mail);
+<<<<<<< HEAD
 		phoneHomeCheck.setChecked(ncode.holder.show.phone_home);
         phoneMobileCheck.setChecked(ncode.holder.show.phone_mobile);
+=======
+		phoneCheck.setChecked(ncode.holder.show.phone);
+		phoneWorkCheck.setChecked(ncode.holder.show.phone_work);
+>>>>>>> master
 
 		company.setText(ncode.holder.company);
 		position.setText(ncode.holder.position);
@@ -255,7 +279,7 @@ public class EditNimpleCodeActivity extends Activity implements ActionBarDoneCan
 
 	private void save() {
 		// read out all views and save them into sharedPreferences
-		NimpleCodeHelper ncode = new NimpleCodeHelper(getApplicationContext());
+		NimpleCodeHelper ncode = new NimpleCodeHelper(this);
 
         ncode.holder.cardName = cardName.getText().toString();
 		// EditPersonalFragment
@@ -263,11 +287,19 @@ public class EditNimpleCodeActivity extends Activity implements ActionBarDoneCan
 		ncode.holder.lastname = lastname.getText().toString();
 		ncode.holder.mail = mail.getText().toString();
 
+<<<<<<< HEAD
 		ncode.holder.phone_home = phoneHome.getText().toString();
         ncode.holder.phone_mobile = phone_mobile.getText().toString();
 		ncode.holder.show.mail = mailCheck.isChecked();
 		ncode.holder.show.phone_home = phoneHomeCheck.isChecked();
         ncode.holder.show.phone_mobile = phoneMobileCheck.isChecked();
+=======
+		ncode.holder.phone = phone.getText().toString();
+		ncode.holder.phone_work = phone_work.getText().toString();
+		ncode.holder.show.mail = mailCheck.isChecked();
+		ncode.holder.show.phone = phoneCheck.isChecked();
+		ncode.holder.show.phone_work = phoneWorkCheck.isChecked();
+>>>>>>> master
 		ncode.holder.show.website = websiteCheck.isChecked();
 		ncode.holder.show.address = addressCheck.isChecked();
 		ncode.holder.websiteUrl = website.getText().toString();
@@ -285,54 +317,54 @@ public class EditNimpleCodeActivity extends Activity implements ActionBarDoneCan
 		ncode.holder.show.company = companyCheck.isChecked();
 		ncode.holder.show.position = positionCheck.isChecked();
 
-		ncode.save();
+		ncode.save(ncode.holder);
 		EventBus.getDefault().post(new NimpleCodeChangedEvent());
 	}
 
 	@OnClick({R.id.twitterTextView, R.id.twitterRoundIcon})
-	void openConnectTwitterActivity() {
+	protected void openConnectTwitterActivity() {
 		if (TextUtils.equals(twitterTextView.getText(), getText(R.string.social_disconnected))) {
 			save();
 
-			Intent intent = new Intent(ctx, SocialTwitterActivity.class);
+			Intent intent = new Intent(this, SocialTwitterActivity.class);
 			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			startActivity(intent);
 		} else {
-			Toast.makeText(ctx, String.format(getString(R.string.social_disconnected_toast), "twitter"), Toast.LENGTH_LONG).show();
+			Toast.makeText(this, String.format(getString(R.string.social_disconnected_toast), "twitter"), Toast.LENGTH_LONG).show();
 			EventBus.getDefault().post(new SocialDisconnectedEvent(SocialNetwork.TWITTER));
 		}
 	}
 
 	@OnClick({R.id.xingTextView, R.id.xingRoundIcon})
-	void openConnectXingActivity() {
+	protected void openConnectXingActivity() {
 		if (xingTextView.getText().equals(getString(R.string.social_disconnected))) {
 			save();
 
-			Intent intent = new Intent(ctx, SocialXingActivity.class);
+			Intent intent = new Intent(this, SocialXingActivity.class);
 			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			startActivity(intent);
 		} else {
-			Toast.makeText(ctx, String.format(getString(R.string.social_disconnected_toast), "xing"), Toast.LENGTH_LONG).show();
+			Toast.makeText(this, String.format(getString(R.string.social_disconnected_toast), "xing"), Toast.LENGTH_LONG).show();
 			EventBus.getDefault().post(new SocialDisconnectedEvent(SocialNetwork.XING));
 		}
 	}
 
 	@OnClick({R.id.linkedinTextView, R.id.linkedinRoundIcon})
-	void openConnectLinkedinActivity() {
+	protected void openConnectLinkedinActivity() {
 		if (linkedinTextView.getText().equals(getString(R.string.social_disconnected))) {
 			save();
 
-			Intent intent = new Intent(ctx, SocialLinkedinActivity.class);
+			Intent intent = new Intent(this, SocialLinkedinActivity.class);
 			intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 			startActivity(intent);
 		} else {
-			Toast.makeText(ctx, String.format(getString(R.string.social_disconnected_toast), "linkedin"), Toast.LENGTH_LONG).show();
+			Toast.makeText(this, String.format(getString(R.string.social_disconnected_toast), "linkedin"), Toast.LENGTH_LONG).show();
 			EventBus.getDefault().post(new SocialDisconnectedEvent(SocialNetwork.LINKEDIN));
 		}
 	}
 
 	@OnClick({R.id.facebookTextView, R.id.facebookRoundIcon})
-	void openConnectFacebookActivity() {
+	protected void openConnectFacebookActivity() {
 		if (facebookTextView.getText().equals(getString(R.string.social_disconnected))) {
 			save();
 
@@ -351,7 +383,7 @@ public class EditNimpleCodeActivity extends Activity implements ActionBarDoneCan
 								if (user != null) {
 									// String token = Session.getActiveSession().getAccessToken();
 									Lg.d("Facebook login succeeded.");
-									Toast.makeText(ctx, String.format(getString(R.string.social_connected_toast), "facebook"), Toast.LENGTH_LONG).show();
+									Toast.makeText(EditNimpleCodeActivity.this, String.format(getString(R.string.social_connected_toast), "facebook"), Toast.LENGTH_LONG).show();
 									EventBus.getDefault().post(new SocialConnectedEvent(SocialNetwork.FACEBOOK, user.getInnerJSONObject()));
 								}
 							}
@@ -360,7 +392,7 @@ public class EditNimpleCodeActivity extends Activity implements ActionBarDoneCan
 				}
 			});
 		} else {
-			Toast.makeText(ctx, String.format(getString(R.string.social_disconnected_toast), "facebook"), Toast.LENGTH_LONG).show();
+			Toast.makeText(this, String.format(getString(R.string.social_disconnected_toast), "facebook"), Toast.LENGTH_LONG).show();
 			EventBus.getDefault().post(new SocialDisconnectedEvent(SocialNetwork.FACEBOOK));
 		}
 	}

@@ -15,7 +15,7 @@
  *
  * https://android.googlesource.com/platform/frameworks/opt/vcard/+/idea133/java/com/android/vcard/VCardConstants.java
  */
-package de.nimple.util.nimplecode;
+package de.nimple.services.nimplecode;
 
 /**
  * Constants used in both exporter and importer code.
