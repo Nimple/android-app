@@ -28,12 +28,20 @@ import de.greenrobot.event.EventBus;
 import de.nimple.R;
 import de.nimple.events.NimpleCodeChangedEvent;
 import de.nimple.ui.edit.EditNimpleCodeActivity;
+<<<<<<< HEAD
 import de.nimple.util.export.Export;
 import de.nimple.util.export.IExportExtender;
 import de.nimple.util.fragment.MenuHelper;
 import de.nimple.util.nimplecode.Address;
 import de.nimple.util.nimplecode.NimpleCodeHelper;
 import de.nimple.util.nimplecode.VCardHelper;
+=======
+import de.nimple.services.export.Export;
+import de.nimple.services.export.IExportExtender;
+import de.nimple.services.nimplecode.Address;
+import de.nimple.services.nimplecode.NimpleCodeHelper;
+import de.nimple.services.nimplecode.VCardHelper;
+>>>>>>> master
 
 public class NimpleCardFragment extends Fragment implements IExportExtender {
 	public static final NimpleCardFragment newInstance() {

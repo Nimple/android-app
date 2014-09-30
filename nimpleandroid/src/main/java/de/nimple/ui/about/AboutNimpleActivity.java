@@ -8,7 +8,7 @@ import android.preference.PreferenceActivity;
 import android.view.MenuItem;
 
 import de.nimple.R;
-import de.nimple.util.logging.Lg;
+import de.nimple.util.Lg;
 
 public class AboutNimpleActivity extends PreferenceActivity {
 	@Override

@@ -1,6 +1,4 @@
-package de.nimple.util.export;
-
-import de.nimple.util.export.Export;
+package de.nimple.services.export;
 
 /**
  * Created by dennis on 15.09.2014.

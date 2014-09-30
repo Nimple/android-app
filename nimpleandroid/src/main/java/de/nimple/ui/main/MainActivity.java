@@ -1,6 +1,5 @@
 package de.nimple.ui.main;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
@@ -14,10 +13,10 @@ import android.widget.Toast;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
-import butterknife.ButterKnife;
 import butterknife.InjectView;
 import de.greenrobot.event.EventBus;
 import de.nimple.R;
+import de.nimple.dagger.BaseActivity;
 import de.nimple.events.ApplicationStartedEvent;
 import de.nimple.events.ContactAddedEvent;
 import de.nimple.events.DuplicatedContactEvent;
@@ -27,9 +26,15 @@ import de.nimple.ui.main.fragments.ContactListFragment;
 import de.nimple.ui.main.fragments.NimpleCardFragment;
 import de.nimple.ui.main.fragments.NimpleCodeFragment;
 import de.nimple.ui.parts.PagerSlidingTabStrip;
+<<<<<<< HEAD
 import de.nimple.util.logging.Lg;
+=======
+import de.nimple.services.export.Export;
+import de.nimple.services.export.IExportExtender;
+import de.nimple.util.Lg;
+>>>>>>> master
 
-public class MainActivity extends Activity {
+public class MainActivity extends BaseActivity {
 	private static Context ctx;
 	private NimplePagerAdapter adapter;
 
@@ -38,7 +43,11 @@ public class MainActivity extends Activity {
 	@InjectView(R.id.pager)
 	ViewPager pager;
 
+<<<<<<< HEAD
 	public static final int SCAN_REQUEST_CODE = 0x0000c0de;
+=======
+	private static final int SCAN_REQUEST_CODE = 0x0000c0de;
+>>>>>>> master
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -46,7 +55,6 @@ public class MainActivity extends Activity {
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		setContentView(R.layout.main);
 		setProgressBarIndeterminateVisibility(false);
-		ButterKnife.inject(this);
 
 		ctx = getApplicationContext();
 		adapter = new NimplePagerAdapter(getFragmentManager());
