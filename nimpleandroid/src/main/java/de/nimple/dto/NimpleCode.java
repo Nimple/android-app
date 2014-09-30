@@ -12,8 +12,8 @@ public class NimpleCode {
 	public String firstname;
 	public String lastname;
 	public String mail;
-	public String phone;
-	public String phone_work;
+	public String phone_home;
+	public String phone_mobile;
 	public String company;
 	public String position;
 	public Address address;
@@ -32,8 +32,8 @@ public class NimpleCode {
 
 	public class Show {
 		public boolean mail;
-		public boolean phone;
-		public boolean phone_work;
+		public boolean phone_home;
+		public boolean phone_mobile;
 		public boolean company;
 		public boolean position;
 		public boolean address;

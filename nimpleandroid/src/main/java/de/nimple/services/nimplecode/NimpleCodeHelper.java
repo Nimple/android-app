@@ -18,7 +18,7 @@ public class NimpleCodeHelper implements NimpleCodeService {
 		this.ctx = ctx;
 	}
 
-	@Override
+    @Override
 	public NimpleCode load() {
 		String curId = "";
 
@@ -32,13 +32,8 @@ public class NimpleCodeHelper implements NimpleCodeService {
 		holder.firstname = SharedPrefHelper.getString(NC_VALUE_FIRSTNAME + curId, ctx);
 		holder.lastname = SharedPrefHelper.getString(NC_VALUE_LASTNAME + curId, ctx);
 		holder.mail = SharedPrefHelper.getString(NC_VALUE_MAIL + curId, ctx);
-<<<<<<< HEAD:nimpleandroid/src/main/java/de/nimple/util/nimplecode/NimpleCodeHelper.java
 		holder.phone_home = SharedPrefHelper.getString(NC_VALUE_PHONE_HOME + curId, ctx);
         holder.phone_mobile = SharedPrefHelper.getString(NC_VALUE_PHONE_MOBILE + curId, ctx);
-=======
-		holder.phone = SharedPrefHelper.getString(NC_VALUE_PHONE + curId, ctx);
-		holder.phone_work = SharedPrefHelper.getString(NC_VALUE_PHONE_WORK + curId, ctx);
->>>>>>> master:nimpleandroid/src/main/java/de/nimple/services/nimplecode/NimpleCodeHelper.java
 
 		holder.company = SharedPrefHelper.getString(NC_VALUE_COMPANY + curId, ctx);
 		holder.position = SharedPrefHelper.getString(NC_VALUE_POSITION + curId, ctx);
@@ -57,13 +52,8 @@ public class NimpleCodeHelper implements NimpleCodeService {
 		holder.linkedinUrl = SharedPrefHelper.getString(NC_VALUE_URL_LINKEDIN + curId, ctx);
 
 		holder.show.mail = SharedPrefHelper.getBoolean(NC_SHOW_MAIL + curId, true, ctx);
-<<<<<<< HEAD:nimpleandroid/src/main/java/de/nimple/util/nimplecode/NimpleCodeHelper.java
 		holder.show.phone_home = SharedPrefHelper.getBoolean(NC_SHOW_PHONE_HOME + curId, true, ctx);
         holder.show.phone_mobile = SharedPrefHelper.getBoolean(NC_SHOW_PHONE_MOBILE + curId, true, ctx);
-=======
-		holder.show.phone = SharedPrefHelper.getBoolean(NC_SHOW_PHONE + curId, true, ctx);
-		holder.show.phone_work = SharedPrefHelper.getBoolean(NC_SHOW_PHONE_WORK + curId, true, ctx);
->>>>>>> master:nimpleandroid/src/main/java/de/nimple/services/nimplecode/NimpleCodeHelper.java
 		holder.show.company = SharedPrefHelper.getBoolean(NC_SHOW_COMPANY + curId, true, ctx);
 		holder.show.position = SharedPrefHelper.getBoolean(NC_SHOW_POSITION + curId, true, ctx);
 		holder.show.address = SharedPrefHelper.getBoolean(NC_SHOW_ADDRESS + curId, true, ctx);
@@ -99,13 +89,8 @@ public class NimpleCodeHelper implements NimpleCodeService {
 		SharedPrefHelper.putString(NC_VALUE_FIRSTNAME + curId, holder.firstname, ctx);
 		SharedPrefHelper.putString(NC_VALUE_LASTNAME + curId, holder.lastname, ctx);
 		SharedPrefHelper.putString(NC_VALUE_MAIL + curId, holder.mail, ctx);
-<<<<<<< HEAD:nimpleandroid/src/main/java/de/nimple/util/nimplecode/NimpleCodeHelper.java
 		SharedPrefHelper.putString(NC_VALUE_PHONE_HOME + curId, holder.phone_home, ctx);
         SharedPrefHelper.putString(NC_VALUE_PHONE_MOBILE + curId, holder.phone_mobile, ctx);
-=======
-		SharedPrefHelper.putString(NC_VALUE_PHONE + curId, holder.phone, ctx);
-		SharedPrefHelper.putString(NC_VALUE_PHONE_WORK + curId, holder.phone_work, ctx);
->>>>>>> master:nimpleandroid/src/main/java/de/nimple/services/nimplecode/NimpleCodeHelper.java
 
 		SharedPrefHelper.putString(NC_VALUE_COMPANY + curId, holder.company, ctx);
 		SharedPrefHelper.putString(NC_VALUE_POSITION + curId, holder.position, ctx);
@@ -121,13 +106,8 @@ public class NimpleCodeHelper implements NimpleCodeService {
 
 		// Show
 		SharedPrefHelper.putBoolean(NC_SHOW_MAIL + curId, holder.show.mail, ctx);
-<<<<<<< HEAD:nimpleandroid/src/main/java/de/nimple/util/nimplecode/NimpleCodeHelper.java
 		SharedPrefHelper.putBoolean(NC_SHOW_PHONE_HOME + curId, holder.show.phone_home, ctx);
         SharedPrefHelper.putBoolean(NC_SHOW_PHONE_MOBILE + curId, holder.show.phone_mobile, ctx);
-=======
-		SharedPrefHelper.putBoolean(NC_SHOW_PHONE + curId, holder.show.phone, ctx);
-		SharedPrefHelper.putBoolean(NC_SHOW_PHONE_WORK + curId, holder.show.phone, ctx);
->>>>>>> master:nimpleandroid/src/main/java/de/nimple/services/nimplecode/NimpleCodeHelper.java
 		SharedPrefHelper.putBoolean(NC_SHOW_COMPANY + curId, holder.show.company, ctx);
 		SharedPrefHelper.putBoolean(NC_SHOW_POSITION + curId, holder.show.position, ctx);
 		SharedPrefHelper.putBoolean(NC_SHOW_ADDRESS + curId, holder.show.address, ctx);
@@ -143,7 +123,6 @@ public class NimpleCodeHelper implements NimpleCodeService {
 		return !SharedPrefHelper.getBoolean(NC_INIT, ctx);
 	}
 
-<<<<<<< HEAD:nimpleandroid/src/main/java/de/nimple/util/nimplecode/NimpleCodeHelper.java
     public static List<String> getCardNames(Context ctx) {
         int amount = SharedPrefHelper.getInt(NC_CARDS, ctx);
         List<String> cards = new ArrayList<String>();
@@ -183,68 +162,18 @@ public class NimpleCodeHelper implements NimpleCodeService {
          m_curId = id;
     }
 
-	public class NimpleCode {
-		public Show show = new Show();
-        public String cardName;
-
-		public String firstname;
-		public String lastname;
-		public String mail;
-		public String phone_home;
-        public String phone_mobile;
-		public String company;
-		public String position;
-		public Address address;
-
-		public String websiteUrl;
-
-		public String facebookUrl;
-		public String facebookId;
-
-		public String twitterUrl;
-		public String twitterId;
-
-		public String xingUrl;
-
-		public String linkedinUrl;
-
-		public class Show {
-			public boolean mail;
-			public boolean phone_home;
-            public boolean phone_mobile;
-			public boolean company;
-			public boolean position;
-			public boolean address;
-=======
-	public static int getCurrentId() {
-		return m_curId;
-	}
->>>>>>> master:nimpleandroid/src/main/java/de/nimple/services/nimplecode/NimpleCodeHelper.java
-
-	public static void setCurrentId(int id) {
-		m_curId = id;
-	}
 
 	// ////////////////////////// constants /////////////////////////////
     private static final String NC_CARDS = "nimple_cards";
     private static final String NC_CARD_NAME = "nimple_card_name";
 
-<<<<<<< HEAD:nimpleandroid/src/main/java/de/nimple/util/nimplecode/NimpleCodeHelper.java
 	private final String NC_INIT = "nimple_code_init";
-=======
-	private final String NC_CARD_NAME = "nimple_card_name";
->>>>>>> master:nimpleandroid/src/main/java/de/nimple/services/nimplecode/NimpleCodeHelper.java
 
 	private final String NC_VALUE_FIRSTNAME = "nimple_code_firstname";
 	private final String NC_VALUE_LASTNAME = "nimple_code_lastname";
 	private final String NC_VALUE_MAIL = "nimple_code_mail";
-<<<<<<< HEAD:nimpleandroid/src/main/java/de/nimple/util/nimplecode/NimpleCodeHelper.java
 	private final String NC_VALUE_PHONE_HOME = "nimple_code_phone_home";
     private final String NC_VALUE_PHONE_MOBILE = "nimple_code_phone_mobile";
-=======
-	private final String NC_VALUE_PHONE = "nimple_code_phone";
-	private final String NC_VALUE_PHONE_WORK = "nimple_code_phone_work";
->>>>>>> master:nimpleandroid/src/main/java/de/nimple/services/nimplecode/NimpleCodeHelper.java
 	private final String NC_VALUE_ADDRESS = "nimple_code_address";
 	private final String NC_VALUE_POSITION = "nimple_code_position";
 	private final String NC_VALUE_COMPANY = "nimple_code_company";
@@ -259,13 +188,8 @@ public class NimpleCodeHelper implements NimpleCodeService {
 
 	// Show
 	private final String NC_SHOW_MAIL = "nimple_code_mail_show";
-<<<<<<< HEAD:nimpleandroid/src/main/java/de/nimple/util/nimplecode/NimpleCodeHelper.java
 	private final String NC_SHOW_PHONE_HOME = "nimple_code_phone_home_show";
     private final String NC_SHOW_PHONE_MOBILE = "nimple_code_phone_work_show";
-=======
-	private final String NC_SHOW_PHONE = "nimple_code_phone_show";
-	private final String NC_SHOW_PHONE_WORK = "nimple_code_phone_show_work";
->>>>>>> master:nimpleandroid/src/main/java/de/nimple/services/nimplecode/NimpleCodeHelper.java
 	private final String NC_SHOW_COMPANY = "nimple_code_company_show";
 	private final String NC_SHOW_POSITION = "nimple_code_position_show";
 	private final String NC_SHOW_ADDRESS = "nimple_code_address_show";

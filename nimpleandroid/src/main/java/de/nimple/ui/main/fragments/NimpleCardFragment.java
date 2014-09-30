@@ -4,7 +4,6 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.ShareCompat;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -13,13 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import java.util.List;
-import java.util.zip.Inflater;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -27,21 +23,13 @@ import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 import de.nimple.R;
 import de.nimple.events.NimpleCodeChangedEvent;
-import de.nimple.ui.edit.EditNimpleCodeActivity;
-<<<<<<< HEAD
-import de.nimple.util.export.Export;
-import de.nimple.util.export.IExportExtender;
-import de.nimple.util.fragment.MenuHelper;
-import de.nimple.util.nimplecode.Address;
-import de.nimple.util.nimplecode.NimpleCodeHelper;
-import de.nimple.util.nimplecode.VCardHelper;
-=======
 import de.nimple.services.export.Export;
 import de.nimple.services.export.IExportExtender;
 import de.nimple.services.nimplecode.Address;
 import de.nimple.services.nimplecode.NimpleCodeHelper;
 import de.nimple.services.nimplecode.VCardHelper;
->>>>>>> master
+import de.nimple.ui.edit.EditNimpleCodeActivity;
+import de.nimple.util.fragment.MenuHelper;
 
 public class NimpleCardFragment extends Fragment implements IExportExtender {
 	public static final NimpleCardFragment newInstance() {

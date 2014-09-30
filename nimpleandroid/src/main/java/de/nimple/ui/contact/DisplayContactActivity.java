@@ -31,29 +31,17 @@ import de.nimple.dagger.BaseActivity;
 import de.nimple.domain.Contact;
 import de.nimple.events.ContactDeletedEvent;
 import de.nimple.events.ContactTransferredEvent;
-<<<<<<< HEAD
-import de.nimple.persistence.ContactsPersistenceManager;
-import de.nimple.util.IntentHelper;
-import de.nimple.util.export.Export;
-import de.nimple.util.export.IExportExtender;
-import de.nimple.util.fragment.MenuHelper;
-import de.nimple.util.logging.Lg;
-import de.nimple.util.nimplecode.VCardHelper;
-
-public class DisplayContactActivity extends Activity implements IExportExtender {
-=======
 import de.nimple.services.contacts.ContactsService;
-import de.nimple.ui.dialog.ExportDialog;
-import de.nimple.util.IntentHelper;
 import de.nimple.services.export.Export;
-import de.nimple.util.Lg;
+import de.nimple.services.export.IExportExtender;
 import de.nimple.services.nimplecode.VCardHelper;
+import de.nimple.util.IntentHelper;
+import de.nimple.util.Lg;
+import de.nimple.util.fragment.MenuHelper;
 
-public class DisplayContactActivity extends BaseActivity {
+public class DisplayContactActivity extends BaseActivity implements IExportExtender {
 	@Inject
 	ContactsService contactsService;
-
->>>>>>> master
 	private Context ctx;
 	private Contact contact;
 
@@ -131,7 +119,7 @@ public class DisplayContactActivity extends BaseActivity {
 	}
 
     public void share() {
-        MenuHelper.export(getExport(),this);
+        MenuHelper.export(getExport(), this);
     }
 
 	@Override
@@ -191,7 +179,7 @@ public class DisplayContactActivity extends BaseActivity {
 
 	@OnClick({R.id.contact_export_text, R.id.contact_export})
 	public void showExportContact() {
-        MenuHelper.save(this.getExport(),getApplicationContext());
+        MenuHelper.save(this.getExport(), getApplication().getApplicationContext());
 	}
 
 	//@OnClick(R.id.contact_delete)

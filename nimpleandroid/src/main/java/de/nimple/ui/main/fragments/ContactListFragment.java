@@ -1,14 +1,6 @@
 package de.nimple.ui.main.fragments;
 
 import android.content.Context;
-<<<<<<< HEAD
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-=======
->>>>>>> master
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -25,15 +17,6 @@ import de.nimple.dagger.BaseFragment;
 import de.nimple.domain.Contact;
 import de.nimple.events.ContactAddedEvent;
 import de.nimple.events.ContactDeletedEvent;
-<<<<<<< HEAD
-import de.nimple.persistence.ContactsPersistenceManager;
-import de.nimple.util.export.Export;
-import de.nimple.util.export.IExportExtender;
-import de.nimple.util.fragment.MenuHelper;
-import de.nimple.util.nimplecode.VCardHelper;
-
-public class ContactListFragment extends Fragment implements IExportExtender {
-=======
 import de.nimple.exceptions.DuplicatedContactException;
 import de.nimple.services.contacts.ContactsService;
 import de.nimple.services.export.Export;
@@ -43,7 +26,6 @@ import de.nimple.util.Lg;
 import de.nimple.util.SharedPrefHelper;
 
 public class ContactListFragment extends BaseFragment implements IExportExtender {
->>>>>>> master
 	public static final ContactListFragment newInstance() {
 		return new ContactListFragment();
 	}
@@ -72,23 +54,6 @@ public class ContactListFragment extends BaseFragment implements IExportExtender
 		contactsList.setAdapter(contactsAdapter);
 
 		toggleInfoText();
-<<<<<<< HEAD
-        setHasOptionsMenu(true);
-        return view;
-    }
-
-    @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-        super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.contacts_fragment, menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        MenuHelper.selectMenuItem(item, this);
-        return super.onOptionsItemSelected(item);
-    }
-=======
 	}
 
 	@Override
@@ -122,7 +87,6 @@ public class ContactListFragment extends BaseFragment implements IExportExtender
 			SharedPrefHelper.putBoolean("nimple_app_launched", true, ctx);
 		}
 	}
->>>>>>> master
 
 	private void toggleInfoText() {
 		if (listOfContacts.size() > 2) {

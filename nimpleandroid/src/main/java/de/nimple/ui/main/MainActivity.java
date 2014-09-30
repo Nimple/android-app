@@ -8,8 +8,8 @@ import android.os.Bundle;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.Toast;
+
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
@@ -26,13 +26,7 @@ import de.nimple.ui.main.fragments.ContactListFragment;
 import de.nimple.ui.main.fragments.NimpleCardFragment;
 import de.nimple.ui.main.fragments.NimpleCodeFragment;
 import de.nimple.ui.parts.PagerSlidingTabStrip;
-<<<<<<< HEAD
-import de.nimple.util.logging.Lg;
-=======
-import de.nimple.services.export.Export;
-import de.nimple.services.export.IExportExtender;
 import de.nimple.util.Lg;
->>>>>>> master
 
 public class MainActivity extends BaseActivity {
 	private static Context ctx;
@@ -43,11 +37,7 @@ public class MainActivity extends BaseActivity {
 	@InjectView(R.id.pager)
 	ViewPager pager;
 
-<<<<<<< HEAD
 	public static final int SCAN_REQUEST_CODE = 0x0000c0de;
-=======
-	private static final int SCAN_REQUEST_CODE = 0x0000c0de;
->>>>>>> master
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
