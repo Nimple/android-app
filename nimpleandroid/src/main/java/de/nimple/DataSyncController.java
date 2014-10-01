@@ -7,7 +7,9 @@ import org.json.JSONObject;
 import javax.inject.Inject;
 import javax.inject.Named;
 
+import dagger.ObjectGraph;
 import de.greenrobot.event.EventBus;
+import de.nimple.dagger.DaggerApplication;
 import de.nimple.domain.Contact;
 import de.nimple.enums.SocialNetwork;
 import de.nimple.events.ContactAddedEvent;
@@ -38,7 +40,8 @@ public class DataSyncController {
 	@Inject
 	NimpleCodeService nimpleCodeService;
 
-	public DataSyncController() {
+	public DataSyncController(DaggerApplication dagger) {
+		dagger.inject(this);
 		eventBus.register(this);
 	}
 

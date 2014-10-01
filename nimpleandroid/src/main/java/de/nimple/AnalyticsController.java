@@ -13,6 +13,7 @@ import javax.inject.Named;
 import de.greenrobot.event.EventBus;
 import de.nimple.config.Config;
 import de.nimple.config.Constants;
+import de.nimple.dagger.DaggerApplication;
 import de.nimple.domain.Contact;
 import de.nimple.events.ApplicationStartedEvent;
 import de.nimple.events.ContactAddedEvent;
@@ -34,7 +35,8 @@ public class AnalyticsController {
 
 	private MixpanelAPI mixpanel;
 
-	public AnalyticsController() {
+	public AnalyticsController(DaggerApplication dagger) {
+		dagger.inject(this);
 		mixpanel = MixpanelAPI.getInstance(ctx, Config.MIXPANEL_TOKEN);
 		eventBus.register(this);
 	}
