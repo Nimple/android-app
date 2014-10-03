@@ -45,10 +45,9 @@ public class ContactListFragment extends BaseFragment implements IExportExtender
 	@Override
 	public void onResume() {
 		super.onResume();
+        ctx = getActivity().getApplicationContext();
 		onBootstrap();
 		listOfContacts = contactsService.findAllContacts();
-
-		EventBus.getDefault().register(this);
 
 		contactsAdapter = new ContactsListAdapter(this.getActivity(), R.layout.single_contact, listOfContacts, getActivity().getLayoutInflater());
 		contactsList.setAdapter(contactsAdapter);

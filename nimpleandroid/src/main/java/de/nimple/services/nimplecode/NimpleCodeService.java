@@ -9,6 +9,8 @@ public interface NimpleCodeService {
 
 	public abstract void save(NimpleCode code);
 
+    public abstract void delete(NimpleCode code);
+
 	public abstract NimpleCode load();
 
 }

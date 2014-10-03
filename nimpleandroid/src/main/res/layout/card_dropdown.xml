@@ -10,7 +10,7 @@
         android:id="@+id/ncard_listShow"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:background="color/#fff"
+        android:background="#FFFFFF"
         android:src="@drawable/ic_action_card_show" />
 
     <TextView
@@ -18,19 +18,20 @@
         android:layout_height="match_parent"
         android:layout_weight="1.0"
         android:gravity="fill"
-        android:text="testCard" />
+        android:text="testCard"
+        android:background="#FFFFFF"/>
 
     <ImageButton
         android:id="@+id/ncard_add"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:background="color/#fff"
+        android:background="#FFFFFF"
         android:src="@drawable/ic_action_add_card" />
 
     <ImageButton
         android:id="@+id/ncard_del"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:background="color/#fff"
+        android:background="#FFFFFF"
         android:src="@drawable/ic_action_discard_dark" />
 </LinearLayout>

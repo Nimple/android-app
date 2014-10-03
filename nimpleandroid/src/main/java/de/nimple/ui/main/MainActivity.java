@@ -55,7 +55,7 @@ public class MainActivity extends BaseActivity {
 		tabs.setViewPager(pager);
 		pager.setCurrentItem(0);
 
-		EventBus.getDefault().register(this);
+		//EventBus.getDefault().register(this);
 		EventBus.getDefault().post(new ApplicationStartedEvent());
 	}
 

@@ -12,12 +12,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
-import android.widget.Spinner;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -27,7 +24,6 @@ import de.nimple.R;
 import de.nimple.events.NimpleCodeChangedEvent;
 import de.nimple.services.export.Export;
 import de.nimple.services.export.IExportExtender;
-import de.nimple.services.nimplecode.NimpleCodeHelper;
 import de.nimple.services.nimplecode.QRCodeCreator;
 import de.nimple.services.nimplecode.VCardHelper;
 import de.nimple.util.DensityHelper;
@@ -51,16 +47,13 @@ public class NimpleCodeFragment extends Fragment implements IExportExtender {
 	@InjectView(R.id.arrow_up)
 	ImageView arrowUp;
 
-	@InjectView(R.id.spinner)
-	Spinner spinner;
-
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		ctx = getActivity().getApplicationContext();
 		view = inflater.inflate(R.layout.main_ncode_fragment, container, false);
 		ButterKnife.inject(this, view);
 		EventBus.getDefault().register(this);
-		addSpinnerFunc();
+		//addSpinnerFunc();
 		refreshUi();
         setHasOptionsMenu(true);
         return view;
@@ -78,6 +71,7 @@ public class NimpleCodeFragment extends Fragment implements IExportExtender {
         return super.onOptionsItemSelected(item);
     }
 
+/*
     private void addSpinnerFunc() {
         refreshSpinnerAdapter();
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -104,6 +98,12 @@ public class NimpleCodeFragment extends Fragment implements IExportExtender {
     void addCard(){
         NimpleCodeHelper.addCard(ctx);
         refreshSpinnerAdapter();
+    }
+*/
+
+    @OnClick({R.id.ncard_listShow})
+    public void showNCardList(){
+       //Todo Implement popupdialog
     }
 
 	@Override

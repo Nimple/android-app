@@ -36,11 +36,18 @@ public class SharedPrefHelper {
     }
 
     public static void putBoolean(String key, boolean value, Context ctx) {
+        if(ctx == null || key == null ){
+            Lg.d("SharedPreHelper:putBoolean:Context or key is empty");
+        }
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
         prefs.edit().putBoolean(key, value).apply();
     }
 
     public static boolean getBoolean(String key, Context ctx) {
+        if(ctx == null || key == null ){
+            Lg.d("SharedPreHelper:getBoolean:Context or key is empty");
+            return false;
+        }
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
         return prefs.getBoolean(key, false);
     }

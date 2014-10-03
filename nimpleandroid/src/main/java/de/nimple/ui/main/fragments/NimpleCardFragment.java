@@ -10,11 +10,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 
 import butterknife.ButterKnife;
@@ -67,9 +64,6 @@ public class NimpleCardFragment extends Fragment implements IExportExtender {
 	@InjectView(R.id.ncard_layout)
 	RelativeLayout ncardLayout;
 
-	@InjectView(R.id.spinner)
-	Spinner spinner;
-
 	private Context ctx;
 	private View view;
 
@@ -79,7 +73,7 @@ public class NimpleCardFragment extends Fragment implements IExportExtender {
 		view = inflater.inflate(R.layout.main_ncard_fragment, container, false);
 		ButterKnife.inject(this, view);
 		EventBus.getDefault().register(this);
-		addSpinnerFunc();
+		//addSpinnerFunc();
 		refreshUi();
         setHasOptionsMenu(true);
 		return view;
@@ -97,7 +91,7 @@ public class NimpleCardFragment extends Fragment implements IExportExtender {
         return super.onOptionsItemSelected(item);
     }
 
-	private void addSpinnerFunc() {
+	/*private void addSpinnerFunc() {
         refreshSpinnerAdapter();
 		spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 			@Override
@@ -123,6 +117,23 @@ public class NimpleCardFragment extends Fragment implements IExportExtender {
     void addCard(){
         NimpleCodeHelper.addCard(ctx);
         refreshSpinnerAdapter();
+    }*/
+
+    @OnClick({R.id.ncard_listShow})
+    public void showNCardList(){
+        //Todo Implement popupdialog
+        refreshUi();
+    }
+
+    @OnClick({R.id.ncard_add})
+    public void addCard(){
+        NimpleCodeHelper.addCard(ctx);
+    }
+
+    @OnClick({R.id.ncard_del})
+    public void delCard(){
+        NimpleCodeHelper ncode = new NimpleCodeHelper(ctx);
+        ncode.delete(ncode.holder);
     }
 
 	@Override
@@ -133,7 +144,6 @@ public class NimpleCardFragment extends Fragment implements IExportExtender {
 
 	public void onEvent(NimpleCodeChangedEvent ev) {
 		refreshUi();
-        refreshSpinnerAdapter();
 	}
 
 	// @OnClick(R.id.ncard_layout) public void showEditHint() {
