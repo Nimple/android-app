@@ -8,6 +8,7 @@ import de.nimple.services.nimplecode.Address;
 public class NimpleCode {
 	public Show show = new Show();
 	public String cardName;
+    public int id;
 
 	public String firstname;
 	public String lastname;

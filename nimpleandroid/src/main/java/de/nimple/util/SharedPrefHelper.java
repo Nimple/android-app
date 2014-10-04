@@ -27,7 +27,7 @@ public class SharedPrefHelper {
 
     public static void putInt(String key, int value, Context ctx) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(ctx);
-        prefs.edit().putInt(key, value);
+        prefs.edit().putInt(key, value).apply();
     }
 
     public static int getInt(String key, Context ctx){

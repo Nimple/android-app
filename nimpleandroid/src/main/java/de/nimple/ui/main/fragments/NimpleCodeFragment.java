@@ -24,6 +24,7 @@ import de.nimple.R;
 import de.nimple.events.NimpleCodeChangedEvent;
 import de.nimple.services.export.Export;
 import de.nimple.services.export.IExportExtender;
+import de.nimple.services.nimplecode.NimpleCodeHelper;
 import de.nimple.services.nimplecode.QRCodeCreator;
 import de.nimple.services.nimplecode.VCardHelper;
 import de.nimple.util.DensityHelper;
@@ -54,9 +55,15 @@ public class NimpleCodeFragment extends Fragment implements IExportExtender {
 		ButterKnife.inject(this, view);
 		EventBus.getDefault().register(this);
 		//addSpinnerFunc();
+        onBootstrap();
 		refreshUi();
         setHasOptionsMenu(true);
         return view;
+    }
+
+    private void onBootstrap(){
+        //is necassary for compatibility
+        NimpleCodeHelper.initCardNameFunctionality(ctx);
     }
 
     @Override

@@ -10,9 +10,13 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListPopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -25,7 +29,7 @@ import de.nimple.services.export.IExportExtender;
 import de.nimple.services.nimplecode.Address;
 import de.nimple.services.nimplecode.NimpleCodeHelper;
 import de.nimple.services.nimplecode.VCardHelper;
-import de.nimple.ui.dialog.NCardPopUpDialog;
+import de.nimple.ui.dialog.NimpleCard;
 import de.nimple.ui.edit.EditNimpleCodeActivity;
 import de.nimple.util.fragment.MenuHelper;
 
@@ -64,6 +68,9 @@ public class NimpleCardFragment extends Fragment implements IExportExtender {
 
 	@InjectView(R.id.ncard_layout)
 	RelativeLayout ncardLayout;
+
+    @InjectView(R.id.ncard_name)
+    TextView nCardName;
 
 	private Context ctx;
 	private View view;
@@ -127,24 +134,46 @@ public class NimpleCardFragment extends Fragment implements IExportExtender {
     @OnClick({R.id.ncard_listShow})
     public void showNCardList(){
         LayoutInflater layoutInflater
-                = (LayoutInflater)ctx
+                = (LayoutInflater)getActivity()
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View popupView = layoutInflater.inflate(R.layout.cards_popup, null);
-        NCardPopUpDialog popupDialog = new NCardPopUpDialog(popupView, ViewGroup.LayoutParams.WRAP_CONTENT,
-                ViewGroup.LayoutParams.WRAP_CONTENT,this.getActivity());
-        popupDialog.showAsDropDown(this.getActivity().findViewById(R.id.tabs),0,0);
-        //refreshUi();
+        View popupView = layoutInflater.inflate(R.layout.cards_popup_row, null);
+        final ListPopupWindow popupDialog = new ListPopupWindow(getActivity(),null);
+
+        popupDialog.setAdapter(new ArrayAdapter<NimpleCard>(
+                getActivity(),
+                R.layout.cards_popup_row, R.id.textView, NimpleCodeHelper.getCards(getActivity())));
+        popupDialog.setAnchorView(getActivity().findViewById(R.id.tabs));
+        popupDialog.setWidth(300);
+        popupDialog.setModal(true);
+        popupDialog.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                NimpleCard cards = (NimpleCard) parent.getAdapter().getItem(position);
+                NimpleCodeHelper.setCurrentId(cards.getId());
+                refreshUi();
+                popupDialog.dismiss();
+            }
+        });
+        popupDialog.show();
     }
 
     @OnClick({R.id.ncard_add})
     public void addCard(){
         NimpleCodeHelper.addCard(ctx);
+        Toast.makeText(ctx,"Nimple Card wurde hinzugefügt", Toast.LENGTH_SHORT).show();
     }
 
     @OnClick({R.id.ncard_del})
     public void delCard(){
         NimpleCodeHelper ncode = new NimpleCodeHelper(ctx);
-        ncode.delete(ncode.holder);
+        if(ncode.holder.id != 0) {
+            ncode.delete(ncode.holder);
+            Toast.makeText(ctx, "Nimple Card wurde gelöscht", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(ctx, "Die letzte Nimple Karte kann nicht gelöscht werden", Toast.LENGTH_SHORT).show();
+        }
+        ncode.setCurrentId(0);
+        refreshUi();
     }
 
 	@Override
@@ -178,7 +207,7 @@ public class NimpleCardFragment extends Fragment implements IExportExtender {
 			Address address = ncode.holder.address;
 
 			nameTextView.setText(name);
-			phoneTextView.setText(phone_mobile);
+			phoneTextView.setText(phone_home);
 			phoneWorkTextView.setText(phone_mobile);
 			mailTextView.setText(mail);
 			companyTextView.setText(company);
@@ -188,6 +217,8 @@ public class NimpleCardFragment extends Fragment implements IExportExtender {
 			addressStreetTextView.setText(address.getStreet());
 			addressCityTextView.setText(address.getPostalCode() + " " + address.getLocality());
 		}
+
+        nCardName.setText(ncode.holder.cardName);
 
 		this.checkIfTextViewIsEmpty(ncode.holder.show.phone_home, phoneTextView);
 		this.checkIfTextViewIsEmpty(ncode.holder.show.phone_mobile, phoneWorkTextView);

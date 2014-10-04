@@ -19,6 +19,7 @@
         android:layout_weight="1.0"
         android:gravity="fill"
         android:text="testCard"
+        android:id="@+id/ncard_name"
         android:background="#FFFFFF"/>
 
     <ImageButton
