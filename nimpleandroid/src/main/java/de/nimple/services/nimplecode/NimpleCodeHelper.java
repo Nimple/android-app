@@ -7,6 +7,7 @@ import java.util.List;
 
 import de.nimple.R;
 import de.nimple.dto.NimpleCode;
+import de.nimple.ui.dialog.NimpleCard;
 import de.nimple.util.SharedPrefHelper;
 
 public class NimpleCodeHelper implements NimpleCodeService {
@@ -132,7 +133,7 @@ public class NimpleCodeHelper implements NimpleCodeService {
 	}
 
     public static List<String> getCardNames(Context ctx) {
-        int amount = SharedPrefHelper.getInt(NC_CARDS, ctx);
+        int amount = SharedPrefHelper.getInt(NC_CARDS_GLOBALE_ID_RIDER, ctx);
         List<String> cards = new ArrayList<String>();
 
         for (int i = 0; i < amount; i++) {
@@ -150,15 +151,40 @@ public class NimpleCodeHelper implements NimpleCodeService {
         }
         if(cards.size() == 0){
             SharedPrefHelper.putString(NC_CARD_NAME , ctx.getString(R.string.nimpleCards_defaultName), ctx);
-            SharedPrefHelper.putInt(NC_CARDS , 1 , ctx);
+            SharedPrefHelper.putInt(NC_CARDS_GLOBALE_ID_RIDER , 1 , ctx);
             cards.add(ctx.getString(R.string.nimpleCards_defaultName));
+        }
+        return cards;
+    }
+
+    public static List<NimpleCard> getCards(Context ctx){
+        List<NimpleCard> cards = new ArrayList<NimpleCard>();
+        int rider = SharedPrefHelper.getInt(NC_CARDS_GLOBALE_ID_RIDER, ctx);
+        for (int i = 0; i < rider; i++) {
+            String name;
+
+            if (i != 0) {
+                name = SharedPrefHelper.getString(NC_CARD_NAME + i, ctx);
+            } else {
+                name = SharedPrefHelper.getString(NC_CARD_NAME, ctx);
+            }
+
+            if (name != null && !name.equals("")) {
+                cards.add(new NimpleCard(i, name));
+            }
+        }
+
+        if(cards.size() == 0){
+            SharedPrefHelper.putString(NC_CARD_NAME , ctx.getString(R.string.nimpleCards_defaultName), ctx);
+            SharedPrefHelper.putInt(NC_CARDS_GLOBALE_ID_RIDER , 1 , ctx);
+            cards.add(new NimpleCard(1, ctx.getString(R.string.nimpleCards_defaultName)));
         }
         return cards;
     }
 
     public static void addCard(Context ctx){
         int id = getCardNames(ctx).size();
-        SharedPrefHelper.putInt(NC_CARDS , id + 1 , ctx);
+        SharedPrefHelper.putInt(NC_CARDS_GLOBALE_ID_RIDER , id + 1 , ctx);
         SharedPrefHelper.putString(NC_CARD_NAME + id , ctx.getString(R.string.nimpleCards_defaultName) + "_" + id, ctx);
     }
 
@@ -172,7 +198,7 @@ public class NimpleCodeHelper implements NimpleCodeService {
 
 
 	// ////////////////////////// constants /////////////////////////////
-    private static final String NC_CARDS = "nimple_cards";
+    private static final String NC_CARDS_GLOBALE_ID_RIDER = "nimple_cards_id";
     private static final String NC_CARD_NAME = "nimple_card_name";
 
 	private final String NC_INIT = "nimple_code_init";

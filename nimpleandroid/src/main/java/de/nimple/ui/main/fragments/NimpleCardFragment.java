@@ -25,6 +25,7 @@ import de.nimple.services.export.IExportExtender;
 import de.nimple.services.nimplecode.Address;
 import de.nimple.services.nimplecode.NimpleCodeHelper;
 import de.nimple.services.nimplecode.VCardHelper;
+import de.nimple.ui.dialog.NCardPopUpDialog;
 import de.nimple.ui.edit.EditNimpleCodeActivity;
 import de.nimple.util.fragment.MenuHelper;
 
@@ -119,10 +120,20 @@ public class NimpleCardFragment extends Fragment implements IExportExtender {
         refreshSpinnerAdapter();
     }*/
 
+    // @OnClick(R.id.ncard_layout) public void showEditHint() {
+    // Toast.makeText(ctx, R.string.edit_ncard_hint, Toast.LENGTH_LONG).show();
+    // }
+
     @OnClick({R.id.ncard_listShow})
     public void showNCardList(){
-        //Todo Implement popupdialog
-        refreshUi();
+        LayoutInflater layoutInflater
+                = (LayoutInflater)ctx
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View popupView = layoutInflater.inflate(R.layout.cards_popup, null);
+        NCardPopUpDialog popupDialog = new NCardPopUpDialog(popupView, ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT,this.getActivity());
+        popupDialog.showAsDropDown(this.getActivity().findViewById(R.id.tabs),0,0);
+        //refreshUi();
     }
 
     @OnClick({R.id.ncard_add})
@@ -145,10 +156,6 @@ public class NimpleCardFragment extends Fragment implements IExportExtender {
 	public void onEvent(NimpleCodeChangedEvent ev) {
 		refreshUi();
 	}
-
-	// @OnClick(R.id.ncard_layout) public void showEditHint() {
-	// Toast.makeText(ctx, R.string.edit_ncard_hint, Toast.LENGTH_LONG).show();
-	// }
 
 	@OnClick(R.id.edit_nimple_card)
 	public void startEditNimpleCodeActivity() {
