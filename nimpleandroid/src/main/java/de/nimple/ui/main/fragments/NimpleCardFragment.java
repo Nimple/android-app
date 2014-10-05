@@ -29,8 +29,8 @@ import de.nimple.services.export.IExportExtender;
 import de.nimple.services.nimplecode.Address;
 import de.nimple.services.nimplecode.NimpleCodeHelper;
 import de.nimple.services.nimplecode.VCardHelper;
-import de.nimple.ui.dialog.NimpleCard;
 import de.nimple.ui.edit.EditNimpleCodeActivity;
+import de.nimple.util.NimpleCard;
 import de.nimple.util.fragment.MenuHelper;
 
 public class NimpleCardFragment extends Fragment implements IExportExtender {
@@ -138,13 +138,20 @@ public class NimpleCardFragment extends Fragment implements IExportExtender {
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View popupView = layoutInflater.inflate(R.layout.cards_popup_row, null);
         final ListPopupWindow popupDialog = new ListPopupWindow(getActivity(),null);
-
-        popupDialog.setAdapter(new ArrayAdapter<NimpleCard>(
+        ArrayAdapter<NimpleCard> adaper = new ArrayAdapter<NimpleCard>(
                 getActivity(),
-                R.layout.cards_popup_row, R.id.textView, NimpleCodeHelper.getCards(getActivity())));
+                R.layout.cards_popup_row, R.id.textView, NimpleCodeHelper.getCards(getActivity()));
+        popupDialog.setAdapter(adaper);
         popupDialog.setAnchorView(getActivity().findViewById(R.id.tabs));
         popupDialog.setWidth(300);
+        popupDialog.setHorizontalOffset(-10);
         popupDialog.setModal(true);
+        for(int i = 0; i < adaper.getCount(); i++){
+           if( ((NimpleCard)adaper.getItem(i)).getId() == NimpleCodeHelper.getCurrentId()){
+               popupDialog.getListView().setSelection(i);
+               i = adaper.getCount();
+           }
+        }
         popupDialog.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

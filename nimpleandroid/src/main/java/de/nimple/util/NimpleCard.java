@@ -1,4 +1,4 @@
-package de.nimple.ui.dialog;
+package de.nimple.util;
 
 /**
  * Created by dennis on 04.10.2014.

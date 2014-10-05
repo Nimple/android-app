@@ -7,7 +7,7 @@ import java.util.List;
 
 import de.nimple.R;
 import de.nimple.dto.NimpleCode;
-import de.nimple.ui.dialog.NimpleCard;
+import de.nimple.util.NimpleCard;
 import de.nimple.util.SharedPrefHelper;
 
 public class NimpleCodeHelper implements NimpleCodeService {
@@ -207,6 +207,10 @@ public class NimpleCodeHelper implements NimpleCodeService {
 
     public static void setCurrentId(int  id){
          m_curId = id;
+    }
+
+    public static int getCurrentId(){
+        return m_curId;
     }
 
 

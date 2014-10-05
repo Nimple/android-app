@@ -3,11 +3,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="300dp"
     android:layout_height="wrap_content"
-    android:background="@android:color/background_light"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@android:color/background_light">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="30dp"
-        android:id="@+id/textView" />
+        android:id="@+id/textView"
+        android:text="@string/nimpleCards_defaultName"
+        android:textAppearance="@style/NimpleTextHeading"
+        android:textColor="@drawable/cards_popup_item_selector"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginBottom="10dp"/>
 </LinearLayout>
