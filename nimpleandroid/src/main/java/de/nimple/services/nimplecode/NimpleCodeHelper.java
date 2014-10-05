@@ -82,7 +82,7 @@ public class NimpleCodeHelper implements NimpleCodeService {
             curId = String.valueOf(m_curId);
         }
         
-        SharedPrefHelper.putString(NC_CARD_NAME + curId, holder.cardName + "_" + curId, ctx);
+        SharedPrefHelper.putString(NC_CARD_NAME + curId, holder.cardName, ctx);
         SharedPrefHelper.putString(NC_VALUE_FIRSTNAME + curId, holder.firstname, ctx);
         SharedPrefHelper.putString(NC_VALUE_LASTNAME + curId, holder.lastname, ctx);
         SharedPrefHelper.putString(NC_VALUE_MAIL + curId, holder.mail, ctx);
@@ -199,6 +199,8 @@ public class NimpleCodeHelper implements NimpleCodeService {
         int id = SharedPrefHelper.getInt(NC_CARDS_GLOBALE_ID_RIDER, ctx);
         SharedPrefHelper.putString(NC_CARD_NAME + id , ctx.getString(R.string.nimpleCards_defaultName) + "_" + id, ctx);
         SharedPrefHelper.putInt(NC_CARD_ID + id, id, ctx);
+        SharedPrefHelper.putString(NC_VALUE_FIRSTNAME + id, SharedPrefHelper.getString(NC_VALUE_FIRSTNAME, ctx), ctx);
+        SharedPrefHelper.putString(NC_VALUE_LASTNAME + id, SharedPrefHelper.getString(NC_VALUE_LASTNAME, ctx), ctx);
         id++;
         SharedPrefHelper.putInt(NC_CARDS_GLOBALE_ID_RIDER , id , ctx);
     }
@@ -215,8 +217,8 @@ public class NimpleCodeHelper implements NimpleCodeService {
 
 	private final String NC_INIT = "nimple_code_init";
 
-	private final String NC_VALUE_FIRSTNAME = "nimple_code_firstname";
-	private final String NC_VALUE_LASTNAME = "nimple_code_lastname";
+	private static final String NC_VALUE_FIRSTNAME = "nimple_code_firstname";
+	private static final String NC_VALUE_LASTNAME = "nimple_code_lastname";
 	private final String NC_VALUE_MAIL = "nimple_code_mail";
 	private final String NC_VALUE_PHONE_HOME = "nimple_code_phone_home";
     private final String NC_VALUE_PHONE_MOBILE = "nimple_code_phone_mobile";

@@ -21,6 +21,7 @@ import com.facebook.model.GraphUser;
 
 import javax.inject.Inject;
 
+import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
@@ -125,6 +126,7 @@ public class EditNimpleCodeActivity extends Activity implements ActionBarDoneCan
 		ActionBarDoneCancel.apply(this, getActionBar());
 		EventBus.getDefault().register(this);
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+        ButterKnife.inject(this);
 	}
 
 	@Override
