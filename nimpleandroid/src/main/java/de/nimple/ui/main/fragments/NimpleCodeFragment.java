@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.ListPopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import butterknife.ButterKnife;
@@ -52,6 +53,9 @@ public class NimpleCodeFragment extends Fragment implements IExportExtender {
 
 	@InjectView(R.id.arrow_up)
 	ImageView arrowUp;
+
+    @InjectView(R.id.ncard_name)
+    TextView nCardName;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -100,7 +104,7 @@ public class NimpleCodeFragment extends Fragment implements IExportExtender {
         popupDialog.setModal(true);
         for(int i = 0; i < adaper.getCount(); i++){
             if( ((NimpleCard)adaper.getItem(i)).getId() == NimpleCodeHelper.getCurrentId()){
-                popupDialog.getListView().setSelection(i);
+               //TODO
                 i = adaper.getCount();
             }
         }
@@ -158,6 +162,8 @@ public class NimpleCodeFragment extends Fragment implements IExportExtender {
 			bitmap.setDensity(DisplayMetrics.DENSITY_HIGH);
 
 			imgQRCode.setImageBitmap(bitmap);
+            NimpleCodeHelper ncode = new NimpleCodeHelper(ctx);
+            nCardName.setText(ncode.holder.cardName);
 		}
 
 		// if nimple code does NOT exist show "fill out nimple code text and button"

@@ -169,6 +169,7 @@ public class NimpleCodeHelper implements NimpleCodeService {
             SharedPrefHelper.putString(NC_CARD_NAME , ctx.getString(R.string.nimpleCards_defaultName), ctx);
             SharedPrefHelper.putInt(NC_CARD_ID, 0, ctx);
             SharedPrefHelper.putInt(NC_CARDS_GLOBALE_ID_RIDER , 1 , ctx);
+            setCurrentId(0);
         }
     }
 

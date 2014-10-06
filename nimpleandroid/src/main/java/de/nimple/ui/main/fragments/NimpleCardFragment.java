@@ -14,7 +14,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListPopupWindow;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -66,9 +65,6 @@ public class NimpleCardFragment extends Fragment implements IExportExtender {
 	@InjectView(R.id.linkedinRoundIcon)
 	ImageView linkedinImageView;
 
-	@InjectView(R.id.ncard_layout)
-	RelativeLayout ncardLayout;
-
     @InjectView(R.id.ncard_name)
     TextView nCardName;
 
@@ -99,38 +95,6 @@ public class NimpleCardFragment extends Fragment implements IExportExtender {
         return super.onOptionsItemSelected(item);
     }
 
-	/*private void addSpinnerFunc() {
-        refreshSpinnerAdapter();
-		spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-			@Override
-			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-				NimpleCodeHelper.setCurrentId(position);
-				refreshUi();
-			}
-
-			@Override
-			public void onNothingSelected(AdapterView<?> parent) {
-
-			}
-		});
-	}
-
-    private void refreshSpinnerAdapter(){
-        ArrayAdapter adapter = new ArrayAdapter<String>(ctx, R.layout.spinner,
-                NimpleCodeHelper.getCardNames(ctx));
-        spinner.setAdapter(adapter);
-    }
-
-    @OnClick({R.id.ncard_add})
-    void addCard(){
-        NimpleCodeHelper.addCard(ctx);
-        refreshSpinnerAdapter();
-    }*/
-
-    // @OnClick(R.id.ncard_layout) public void showEditHint() {
-    // Toast.makeText(ctx, R.string.edit_ncard_hint, Toast.LENGTH_LONG).show();
-    // }
-
     @OnClick({R.id.ncard_listShow})
     public void showNCardList(){
         LayoutInflater layoutInflater
@@ -148,7 +112,7 @@ public class NimpleCardFragment extends Fragment implements IExportExtender {
         popupDialog.setModal(true);
         for(int i = 0; i < adaper.getCount(); i++){
            if( ((NimpleCard)adaper.getItem(i)).getId() == NimpleCodeHelper.getCurrentId()){
-               popupDialog.getListView().setSelection(i);
+               //TODO
                i = adaper.getCount();
            }
         }

@@ -1,6 +1,9 @@
 package de.nimple.ui.main.fragments;
 
 import android.content.Context;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -24,6 +27,7 @@ import de.nimple.services.export.IExportExtender;
 import de.nimple.services.nimplecode.VCardHelper;
 import de.nimple.util.Lg;
 import de.nimple.util.SharedPrefHelper;
+import de.nimple.util.fragment.MenuHelper;
 
 public class ContactListFragment extends BaseFragment implements IExportExtender {
 	public static final ContactListFragment newInstance() {
@@ -54,6 +58,18 @@ public class ContactListFragment extends BaseFragment implements IExportExtender
 
 		toggleInfoText();
 	}
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.contacts_fragment, menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        MenuHelper.selectMenuItem(item, this);
+        return super.onOptionsItemSelected(item);
+    }
 
 	@Override
 	public void onPause() {

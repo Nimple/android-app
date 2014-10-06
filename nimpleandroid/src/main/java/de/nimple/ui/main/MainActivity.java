@@ -53,7 +53,7 @@ public class MainActivity extends BaseActivity {
 		pager.setOffscreenPageLimit(2);
 
 		tabs.setViewPager(pager);
-		pager.setCurrentItem(0);
+		pager.setCurrentItem(1);
 
 		//EventBus.getDefault().register(this);
 		EventBus.getDefault().post(new ApplicationStartedEvent());
