@@ -12,9 +12,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ListPopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
+import android.widget.Toast;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -28,6 +32,7 @@ import de.nimple.services.nimplecode.NimpleCodeHelper;
 import de.nimple.services.nimplecode.QRCodeCreator;
 import de.nimple.services.nimplecode.VCardHelper;
 import de.nimple.util.DensityHelper;
+import de.nimple.util.NimpleCard;
 import de.nimple.util.SharedPrefHelper;
 import de.nimple.util.VersionResolver;
 import de.nimple.util.fragment.MenuHelper;
@@ -78,39 +83,56 @@ public class NimpleCodeFragment extends Fragment implements IExportExtender {
         return super.onOptionsItemSelected(item);
     }
 
-/*
-    private void addSpinnerFunc() {
-        refreshSpinnerAdapter();
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                NimpleCodeHelper.setCurrentId(position);
-                refreshUi();
+    @OnClick({R.id.ncard_listShow})
+    public void showNCardList(){
+        LayoutInflater layoutInflater
+                = (LayoutInflater)getActivity()
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View popupView = layoutInflater.inflate(R.layout.cards_popup_row, null);
+        final ListPopupWindow popupDialog = new ListPopupWindow(getActivity(),null);
+        ArrayAdapter<NimpleCard> adaper = new ArrayAdapter<NimpleCard>(
+                getActivity(),
+                R.layout.cards_popup_row, R.id.textView, NimpleCodeHelper.getCards(getActivity()));
+        popupDialog.setAdapter(adaper);
+        popupDialog.setAnchorView(getActivity().findViewById(R.id.tabs));
+        popupDialog.setWidth(300);
+        popupDialog.setHorizontalOffset(-10);
+        popupDialog.setModal(true);
+        for(int i = 0; i < adaper.getCount(); i++){
+            if( ((NimpleCard)adaper.getItem(i)).getId() == NimpleCodeHelper.getCurrentId()){
+                popupDialog.getListView().setSelection(i);
+                i = adaper.getCount();
             }
-
+        }
+        popupDialog.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                NimpleCard cards = (NimpleCard) parent.getAdapter().getItem(position);
+                NimpleCodeHelper.setCurrentId(cards.getId());
+                refreshUi();
+                popupDialog.dismiss();
             }
         });
-    }
-
-    private void refreshSpinnerAdapter(){
-        ArrayAdapter adapter = new ArrayAdapter<String>(ctx, R.layout.spinner,
-                NimpleCodeHelper.getCardNames(ctx));
-        spinner.setAdapter(adapter);
+        popupDialog.show();
     }
 
     @OnClick({R.id.ncard_add})
-    void addCard(){
+    public void addCard(){
         NimpleCodeHelper.addCard(ctx);
-        refreshSpinnerAdapter();
+        Toast.makeText(ctx, "Nimple Card wurde hinzugefügt", Toast.LENGTH_SHORT).show();
     }
-*/
 
-    @OnClick({R.id.ncard_listShow})
-    public void showNCardList(){
-       //Todo Implement popupdialog
+    @OnClick({R.id.ncard_del})
+    public void delCard(){
+        NimpleCodeHelper ncode = new NimpleCodeHelper(ctx);
+        if(ncode.holder.id != 0) {
+            ncode.delete(ncode.holder);
+            Toast.makeText(ctx, "Nimple Card wurde gelöscht", Toast.LENGTH_SHORT).show();
+        }else{
+            Toast.makeText(ctx, "Die letzte Nimple Karte kann nicht gelöscht werden", Toast.LENGTH_SHORT).show();
+        }
+        ncode.setCurrentId(0);
+        refreshUi();
     }
 
 	@Override
