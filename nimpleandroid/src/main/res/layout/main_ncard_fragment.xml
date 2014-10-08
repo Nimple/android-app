@@ -63,7 +63,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@+id/phoneIcon"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="-2dp"
+                android:layout_marginTop="2dp"
                 android:layout_toRightOf="@+id/phoneIcon"
                 android:text="@string/ncard_phone_home"
                 android:textAppearance="@style/NimpleTextDefault" />
@@ -74,7 +74,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/phoneIcon"
                 android:layout_below="@+id/phoneTextView"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="8dp"
                 android:src="@drawable/ic_nimple_mobile" />
 
             <TextView
@@ -83,7 +83,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignTop="@+id/phoneWorkIcon"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="-2dp"
+                android:layout_marginTop="2dp"
                 android:layout_toRightOf="@+id/phoneWorkIcon"
                 android:text="@string/ncard_phone_mobile"
                 android:textAppearance="@style/NimpleTextDefault" />
@@ -94,7 +94,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/phoneWorkIcon"
                 android:layout_below="@+id/phoneWorkTextView"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="8dp"
                 android:src="@drawable/ic_nimple_email" />
 
             <TextView
@@ -103,7 +103,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/phoneWorkTextView"
                 android:layout_alignTop="@+id/mailIcon"
-                android:layout_marginTop="-2dp"
+                android:layout_marginTop="2dp"
                 android:text="@string/ncard_mail"
                 android:textAppearance="@style/NimpleTextDefault" />
 
@@ -113,7 +113,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/mailIcon"
                 android:layout_below="@+id/mailTextView"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="8dp"
                 android:src="@drawable/ic_nimple_company" />
 
             <TextView
@@ -122,7 +122,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/mailTextView"
                 android:layout_alignTop="@+id/companyIcon"
-                android:layout_marginTop="-2dp"
+                android:layout_marginTop="2dp"
                 android:text="@string/ncard_company"
                 android:textAppearance="@style/NimpleTextDefault" />
 
@@ -132,7 +132,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/companyIcon"
                 android:layout_below="@+id/companyTextView"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="8dp"
                 android:src="@drawable/ic_nimple_job" />
 
             <TextView
@@ -141,7 +141,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/companyTextView"
                 android:layout_alignTop="@+id/jobIcon"
-                android:layout_marginTop="-2dp"
+                android:layout_marginTop="2dp"
                 android:text="@string/ncard_job"
                 android:textAppearance="@style/NimpleTextDefault" />
 
@@ -152,7 +152,7 @@
                 android:layout_alignLeft="@+id/jobIcon"
                 android:layout_alignStart="@+id/jobIcon"
                 android:layout_below="@+id/jobTextView"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="8dp"
                 android:contentDescription="@string/ncard_website"
                 android:src="@drawable/ic_nimple_website" />
 
@@ -163,7 +163,7 @@
                 android:layout_alignLeft="@+id/jobTextView"
                 android:layout_alignStart="@+id/jobTextView"
                 android:layout_alignTop="@+id/websiteIcon"
-                android:layout_marginTop="-2dp"
+                android:layout_marginTop="2dp"
                 android:text="@string/ncard_website"
                 android:textAppearance="@style/NimpleTextDefault" />
 
@@ -174,7 +174,7 @@
                 android:layout_alignLeft="@+id/websiteIcon"
                 android:layout_alignStart="@+id/websiteIcon"
                 android:layout_below="@+id/websiteTextView"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="8dp"
                 android:contentDescription="@string/ncard_address"
                 android:src="@drawable/ic_nimple_address" />
 
@@ -185,7 +185,7 @@
                 android:layout_alignLeft="@+id/websiteTextView"
                 android:layout_alignStart="@+id/websiteTextView"
                 android:layout_alignTop="@+id/addressIcon"
-                android:layout_marginTop="-2dp"
+                android:layout_marginTop="3dp"
                 android:text="@string/ncard_address"
                 android:textAppearance="@style/NimpleTextDefault" />
 
