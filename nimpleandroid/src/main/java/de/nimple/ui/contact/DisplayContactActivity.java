@@ -154,7 +154,7 @@ public class DisplayContactActivity extends BaseActivity implements IExportExten
 		}
 	}
 
-	@OnClick({R.id.contact_add, R.id.contact_add_text})
+	@OnClick({R.id.contact_add_button})
 	public void showAddContact() {
 		Builder builder = new AlertDialog.Builder(this);
 		builder.setMessage(getString(R.string.save_contact_question));
@@ -177,7 +177,7 @@ public class DisplayContactActivity extends BaseActivity implements IExportExten
 		dialog.show();
 	}
 
-	@OnClick({R.id.contact_export_text, R.id.contact_export})
+	@OnClick({R.id.contact_export_button})
 	public void showExportContact() {
         MenuHelper.save(this.getExport(), getApplication().getApplicationContext());
 	}

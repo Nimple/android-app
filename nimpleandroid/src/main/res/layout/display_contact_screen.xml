@@ -35,16 +35,6 @@
                 android:textAppearance="@style/NimpleTextHeading"
                 android:textStyle="bold" />
 
-<!--            <ImageView
-                android:id="@+id/contact_add"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_alignBottom="@+id/contact_add_text"
-                android:adjustViewBounds="true"
-                android:padding="12dp"
-                android:src="@drawable/ic_nimple_addressbook" />-->
-
             <ImageView
                 android:id="@+id/phoneHomeIcon"
                 android:layout_width="wrap_content"
@@ -185,102 +175,64 @@
                 android:textAppearance="@style/NimpleTextDefault" />
 
             <LinearLayout
-                android:id="@+id/linearLayout-buttonAdd"
+                android:id="@+id/linearLayoutButtonAdd"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_horizontal"
-                android:paddingLeft="6dp"
-                android:paddingRight="6dp"
                 android:layout_below="@+id/addressTextView"
                 android:layout_marginTop="15dp"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:paddingLeft="6dp"
+                android:paddingRight="6dp"
                 android:weightSum="1">
 
-            <Button
-                android:layout_height="40dp"
-                android:id="@+id/contact_add_button"
-                android:drawableRight="@drawable/ic_nimple_addressbook"
-                android:text="@string/add_to_address_book"
-                android:textAppearance="@style/NimpleTextHeading"
-                android:textStyle="bold"
-                android:gravity="left|center_vertical"
-                android:background="#FAFAFA"
-                android:textColor="#666666"
-                android:layout_width="0dp"
-                android:layout_centerHorizontal="true"
-                android:paddingBottom="5dp"
-                android:paddingTop="5dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="10dp"
-                android:layout_weight="0.97">
-            </Button>
+                <Button
+                    android:id="@+id/contact_add_button"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="0.97"
+                    android:background="@drawable/button_rounded_corners"
+                    android:drawableRight="@drawable/ic_nimple_addressbook"
+                    android:gravity="left|center_vertical"
+                    android:paddingBottom="5dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="10dp"
+                    android:paddingTop="5dp"
+                    android:text="@string/add_to_address_book"
+                    android:textAppearance="@style/NimpleTextHeading"
+                    android:textColor="#666666"
+                    android:textStyle="bold"></Button>
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/linearLayoutButtonExport"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:layout_below="@+id/linearLayoutButtonAdd"
+                android:layout_marginTop="5dp"
                 android:gravity="center_horizontal"
+                android:orientation="horizontal"
                 android:paddingLeft="6dp"
                 android:paddingRight="6dp"
-                android:layout_marginTop="5dp"
-                android:layout_below="@+id/linearLayout-buttonAdd"
                 android:weightSum="1">
 
-             <Button
-                android:layout_height="40dp"
-                android:id="@+id/contact_export_button"
-                android:drawableRight="@drawable/ic_nimple_export"
-                android:text="@string/export_contact"
-                android:textAppearance="@style/NimpleTextHeading"
-                android:textStyle="bold"
-                android:gravity="left|center_vertical"
-                android:background="#FAFAFA"
-                android:textColor="#666666"
-                android:layout_width="0dp"
-                android:layout_centerHorizontal="true"
-                android:paddingLeft="20dp"
-                android:paddingRight="10dp"
-                android:layout_weight="0.97">
-            </Button>
+                <Button
+                    android:id="@+id/contact_export_button"
+                    android:layout_width="0dp"
+                    android:layout_height="40dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_weight="0.97"
+                    android:background="@drawable/button_rounded_corners"
+                    android:drawableRight="@drawable/ic_nimple_export"
+                    android:gravity="left|center_vertical"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="10dp"
+                    android:text="@string/export_contact"
+                    android:textAppearance="@style/NimpleTextHeading"
+                    android:textColor="#666666"
+                    android:textStyle="bold"></Button>
 
             </LinearLayout>
-
-           <!-- <TextView
-                android:id="@+id/contact_add_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/addressTextView"
-                android:layout_centerHorizontal="false"
-                android:layout_marginTop="6dp"
-                android:padding="15dp"
-                android:text="@string/add_to_address_book"
-                android:textAppearance="@style/NimpleTextButton" />-->
-
-            <!--<TextView
-                android:id="@+id/contact_export_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/contact_add_text"
-                android:layout_centerHorizontal="false"
-                android:layout_marginTop="6dp"
-                android:padding="15dp"
-                android:text="@string/export_contact"
-                android:textAppearance="@style/NimpleTextButton"/>-->
-
-           <!-- <ImageView
-                android:id="@+id/contact_export"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignBottom="@+id/contact_export_text"
-                android:layout_alignLeft="@+id/contact_add"
-                android:layout_alignParentRight="true"
-                android:layout_alignStart="@+id/contact_add"
-                android:layout_below="@+id/contact_add"
-                android:adjustViewBounds="true"
-                android:padding="12dp"
-                android:src="@drawable/ic_nimple_export"/>-->
         </RelativeLayout>
 
         <RelativeLayout
