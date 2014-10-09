@@ -132,9 +132,23 @@ public class NimpleCardFragment extends Fragment implements IExportExtender {
 
     @OnClick({R.id.ncard_add})
     public void addCard(){
-        NimpleCodeHelper.addCard(ctx);
-
-        Toast.makeText(ctx,"Nimple Card wurde hinzugefügt", Toast.LENGTH_SHORT).show();
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setMessage(getString(R.string.add_ncard_question));
+        builder.setCancelable(true);
+        builder.setPositiveButton(getString(R.string.button_ok), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                NimpleCodeHelper.addCard(ctx);
+            }
+        });
+        builder.setNegativeButton(getString(R.string.button_cancel), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     @OnClick({R.id.ncard_del})
