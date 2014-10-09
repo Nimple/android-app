@@ -155,6 +155,7 @@
     <string name="export_dia_cancel">Cancel</string>
     <!-- several cards -->
     <string name="nimpleCards_defaultName">NimpleCard</string>
+    <string name="del_ncard_question">Delete this card?</string>
     <string name="personal_input_mobile">Mobile number</string>
     <string name="personal_input_card">Cardname</string>
     <string name="form_error_card_invalid">Card name is invalid.</string>
