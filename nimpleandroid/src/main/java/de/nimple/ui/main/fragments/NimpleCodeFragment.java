@@ -103,6 +103,7 @@ public class NimpleCodeFragment extends Fragment implements IExportExtender {
         popupDialog.setAnchorView(getActivity().findViewById(R.id.tabs));
         popupDialog.setWidth(300);
         popupDialog.setHorizontalOffset(-10);
+        popupDialog.setVerticalOffset(65);
         popupDialog.setModal(true);
         for(int i = 0; i < adaper.getCount(); i++){
             if( ((NimpleCard)adaper.getItem(i)).getId() == NimpleCodeHelper.getCurrentId()){
