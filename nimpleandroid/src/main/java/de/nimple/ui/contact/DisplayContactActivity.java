@@ -179,7 +179,24 @@ public class DisplayContactActivity extends BaseActivity implements IExportExten
 
 	@OnClick({R.id.contact_export_button})
 	public void showExportContact() {
-        MenuHelper.save(this.getExport(), getApplication().getApplicationContext());
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(getString(R.string.export_contact));
+        builder.setCancelable(true);
+        builder.setPositiveButton(getString(R.string.button_ok), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                MenuHelper.save(getExport(), getApplication().getApplicationContext());
+                dialog.dismiss();
+            }
+        });
+        builder.setNegativeButton(getString(R.string.button_cancel), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
 	}
 
 	//@OnClick(R.id.contact_delete)
