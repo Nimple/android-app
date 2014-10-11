@@ -24,6 +24,7 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 import de.nimple.R;
+import de.nimple.events.NimpleCardChangedEvent;
 import de.nimple.events.NimpleCodeChangedEvent;
 import de.nimple.services.export.Export;
 import de.nimple.services.export.IExportExtender;
@@ -125,6 +126,7 @@ public class NimpleCardFragment extends Fragment implements IExportExtender {
                 NimpleCard cards = (NimpleCard) parent.getAdapter().getItem(position);
                 NimpleCodeHelper.setCurrentId(cards.getId());
                 refreshUi();
+                EventBus.getDefault().post(new NimpleCodeChangedEvent());
                 popupDialog.dismiss();
             }
         });
@@ -165,6 +167,7 @@ public class NimpleCardFragment extends Fragment implements IExportExtender {
                     ncode.delete(ncode.holder);
                     ncode.setCurrentId(0);
                     refreshUi();
+                    EventBus.getDefault().post(new NimpleCodeChangedEvent());
                     dialog.dismiss();
                 }
             });
@@ -188,8 +191,13 @@ public class NimpleCardFragment extends Fragment implements IExportExtender {
 	}
 
 	public void onEvent(NimpleCodeChangedEvent ev) {
-		refreshUi();
-	}
+        refreshUi();
+    }
+
+    public void onEvent(NimpleCardChangedEvent ev) {
+        NimpleCodeHelper ncode = new NimpleCodeHelper(ctx);
+        nCardName.setText(ncode.holder.cardName);
+    }
 
 	@OnClick(R.id.edit_nimple_card)
 	public void startEditNimpleCodeActivity() {
