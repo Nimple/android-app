@@ -20,6 +20,7 @@
             android:layout_marginLeft="30dp"
             android:layout_marginTop="10dp"
             android:hint="@string/personal_input_card"
+            android:maxLength="45"
             android:inputType="textPersonName|textCapSentences|textNoSuggestions"
             android:nextFocusDown="@+id/firstnameEditText"/>
 
