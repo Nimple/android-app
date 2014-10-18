@@ -14,11 +14,13 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_gravity="center"
-        android:layout_margin="10dp"
         android:background="@drawable/card_frame_selector"
         android:gravity="center"
         android:id="@+id/relativeLayout"
-        android:layout_below="@id/card_dropdown">
+        android:layout_below="@id/card_dropdown"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="16dp">
 
         <ImageView
             android:id="@+id/codeImageView"
@@ -37,7 +39,8 @@
         android:padding="10dp"
         android:paddingBottom="10dp"
         android:text="@string/ncode_footer"
-        android:textAppearance="@style/NimpleTextAnnotation" />
+        android:textAppearance="@style/NimpleTextAnnotation"
+        android:textSize="13dp" />
 
 
 
