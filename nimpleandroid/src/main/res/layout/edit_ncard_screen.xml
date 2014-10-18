@@ -9,27 +9,48 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
+        <EditText
+            android:id="@+id/cardNameEditText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/NimpleTextHeading"
+            android:textSize="15sp"
+            android:textColor="@color/grey_light"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="10dp"
+            android:hint="@string/personal_input_card"
+            android:background="#ffffff"
+            android:inputType="textPersonName|textCapSentences|textNoSuggestions"
+            android:nextFocusDown="@+id/firstnameEditText"/>
+
+        <View
+            android:id="@+id/cardNameDropShadow"
+            android:layout_width="match_parent"
+            android:layout_height="6dp"
+            android:layout_below="@+id/cardNameEditText"
+            android:layout_marginTop="10dp"
+            android:alpha="0.1"
+            android:background="@drawable/drop_shadow"/>
+
         <RelativeLayout
             android:id="@+id/edit_personal_fragment"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:focusable="true"
+            android:layout_below="@id/cardNameDropShadow"
             android:focusableInTouchMode="true"
             android:orientation="vertical"
             android:paddingBottom="14dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:paddingTop="10dp">
+            android:paddingTop="47dp">
 
             <TextView
                 android:id="@+id/checkboxInfoHint"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignEnd="@+id/cardNameEditText"
-                android:layout_alignLeft="@+id/cardNameEditText"
-                android:layout_alignRight="@+id/cardNameEditText"
-                android:layout_alignStart="@+id/cardNameEditText"
                 android:layout_marginLeft="6dp"
                 android:layout_marginRight="6dp"
                 android:layout_marginTop="4dp"
@@ -37,25 +58,12 @@
                 android:textColor="@color/nimple_color"
                 android:textSize="12sp"/>
 
-            <EditText
-                android:id="@+id/cardNameEditText"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/checkboxInfoHint"
-                android:layout_alignEnd="@+id/firstname_lastname_layout"
-                android:layout_alignLeft="@+id/firstname_lastname_layout"
-                android:layout_alignRight="@+id/firstname_lastname_layout"
-                android:layout_alignStart="@+id/firstname_lastname_layout"
-                android:layout_weight="0.5"
-                android:hint="@string/personal_input_card"
-                android:inputType="textPersonName|textCapSentences|textNoSuggestions"
-                android:nextFocusDown="@+id/firstnameEditText"/>
 
             <LinearLayout
                 android:id="@+id/firstname_lastname_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/cardNameEditText"
+                android:layout_below="@+id/checkboxInfoHint"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="4dp"
