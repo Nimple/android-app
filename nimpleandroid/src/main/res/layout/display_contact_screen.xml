@@ -21,14 +21,14 @@
             android:paddingBottom="6dp"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
-            android:paddingTop="8dp" >
+            android:paddingTop="8dp">
 
             <TextView
                 android:id="@+id/nameTextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:layout_marginBottom="4dp"
+                android:layout_marginBottom="16dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="10dp"
                 android:text="@string/ncard_name"
@@ -41,7 +41,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/nameTextView"
                 android:layout_alignTop="@+id/phoneHomeTextView"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="-5dp"
                 android:src="@drawable/ic_nimple_phone" />
 
             <TextView
@@ -60,7 +60,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/phoneHomeIcon"
                 android:layout_alignTop="@+id/phoneMobileTextView"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="-5dp"
                 android:src="@drawable/ic_nimple_mobile" />
 
             <TextView
@@ -69,7 +69,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/phoneHomeTextView"
                 android:layout_below="@+id/phoneHomeTextView"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="10dp"
                 android:text="@string/ncard_phone_mobile"
                 android:textAppearance="@style/NimpleTextDefault" />
 
@@ -79,7 +79,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/phoneMobileIcon"
                 android:layout_alignTop="@+id/mailTextView"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="-5dp"
                 android:src="@drawable/ic_nimple_email" />
 
             <TextView
@@ -88,7 +88,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/phoneMobileTextView"
                 android:layout_below="@+id/phoneMobileTextView"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="10dp"
                 android:text="@string/ncard_mail"
                 android:textAppearance="@style/NimpleTextDefault" />
 
@@ -98,7 +98,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/mailIcon"
                 android:layout_alignTop="@+id/companyTextView"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="-3dp"
                 android:src="@drawable/ic_nimple_company" />
 
             <TextView
@@ -107,7 +107,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/mailTextView"
                 android:layout_below="@+id/mailTextView"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="10dp"
                 android:text="@string/ncard_company"
                 android:textAppearance="@style/NimpleTextDefault" />
 
@@ -117,7 +117,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/companyIcon"
                 android:layout_alignTop="@+id/jobTextView"
-                android:layout_marginTop="2dp"
+                android:layout_marginTop="-3dp"
                 android:src="@drawable/ic_nimple_job" />
 
             <TextView
@@ -126,7 +126,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignLeft="@+id/companyTextView"
                 android:layout_below="@+id/companyTextView"
-                android:layout_marginTop="6dp"
+                android:layout_marginTop="10dp"
                 android:text="@string/ncard_job"
                 android:textAppearance="@style/NimpleTextDefault" />
 
@@ -148,7 +148,7 @@
                 android:layout_alignLeft="@+id/jobTextView"
                 android:layout_alignStart="@+id/jobTextView"
                 android:layout_alignTop="@+id/websiteIcon"
-                android:layout_marginTop="-2dp"
+                android:layout_marginTop="3dp"
                 android:text="@string/ncard_website"
                 android:textAppearance="@style/NimpleTextDefault" />
 
@@ -170,7 +170,7 @@
                 android:layout_alignLeft="@+id/websiteTextView"
                 android:layout_alignStart="@+id/websiteTextView"
                 android:layout_alignTop="@+id/addressIcon"
-                android:layout_marginTop="-2dp"
+                android:layout_marginTop="3dp"
                 android:text="@string/ncard_address"
                 android:textAppearance="@style/NimpleTextDefault" />
 
@@ -196,7 +196,7 @@
                     android:gravity="left|center_vertical"
                     android:paddingBottom="5dp"
                     android:paddingLeft="20dp"
-                    android:paddingRight="10dp"
+                    android:paddingRight="5dp"
                     android:paddingTop="5dp"
                     android:text="@string/add_to_address_book"
                     android:textAppearance="@style/NimpleTextHeading"
@@ -226,11 +226,13 @@
                     android:drawableRight="@drawable/ic_nimple_export"
                     android:gravity="left|center_vertical"
                     android:paddingLeft="20dp"
-                    android:paddingRight="10dp"
+                    android:paddingRight="5dp"
                     android:text="@string/export_contact"
                     android:textAppearance="@style/NimpleTextHeading"
                     android:textColor="#666666"
-                    android:textStyle="bold"></Button>
+                    android:textStyle="bold"
+                    android:layout_marginBottom="8dp"
+                    android:paddingTop="0dp"></Button>
 
             </LinearLayout>
         </RelativeLayout>
@@ -271,10 +273,11 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="fill_parent"
+            android:layout_height="match_parent"
             android:layout_margin="7dp"
             android:background="@drawable/card_frame_selector"
-            android:padding="8dp" >
+            android:padding="8dp"
+            android:gravity="center_vertical">
 
             <ImageView
                 android:id="@+id/facebookRoundIcon"
