@@ -39,6 +39,8 @@ public class MenuHelper {
             save(((IExportExtender)frag).getExport(),frag.getActivity().getApplicationContext());
         } else if(item.getItemId() == R.id.menu_export){
             export(frag);
+        } else if(item.getItemId() == R.id.menu_proVersion){
+            //TODO implement ProVersion Handling
         }
     }
 

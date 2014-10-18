@@ -104,10 +104,9 @@ public class NimpleCardFragment extends Fragment implements IExportExtender {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.card_fragment, menu);
-        if(!Config.isPro) {
-            menu.findItem(R.id.menu_export).setVisible(false);
-            menu.findItem(R.id.menu_save).setVisible(false);
-        }
+        menu.findItem(R.id.menu_export).setVisible(Config.isPro);
+        menu.findItem(R.id.menu_save).setVisible(Config.isPro);
+        menu.findItem(R.id.menu_proVersion).setVisible(!Config.isPro);
     }
 
     @Override
