@@ -23,23 +23,36 @@ public class DatabaseHelper extends DaoMaster.DevOpenHelper {
 
 	private void applyPatch(SQLiteDatabase db, int patchVersion) {
 		Lg.d("Applying patch for version " + patchVersion);
-		if (patchVersion == 2) {
-			// Patch(2)
-			db.execSQL("ALTER TABLE contacts ADD website TEXT");
+        switch(patchVersion)
+        {
+            case 2:
+                // Patch(2)
+                db.execSQL("ALTER TABLE contacts ADD website TEXT");
 
-			db.execSQL("ALTER TABLE contacts ADD street TEXT");
-			db.execSQL("ALTER TABLE contacts ADD postal TEXT");
-			db.execSQL("ALTER TABLE contacts ADD city TEXT");
+                db.execSQL("ALTER TABLE contacts ADD street TEXT");
+                db.execSQL("ALTER TABLE contacts ADD postal TEXT");
+                db.execSQL("ALTER TABLE contacts ADD city TEXT");
 
-			db.execSQL("UPDATE contacts SET website = '' WHERE website IS NULL");
+                db.execSQL("UPDATE contacts SET website = '' WHERE website IS NULL");
 
-			db.execSQL("UPDATE contacts SET street = '' WHERE street IS NULL");
-			db.execSQL("UPDATE contacts SET postal = '' WHERE postal IS NULL");
-			db.execSQL("UPDATE contacts SET city = '' WHERE city IS NULL");
-		}
-		if (patchVersion == 3) {
-			// Patch(3)
-			db.execSQL("ALTER TABLE contacts ADD telephoneWork TEXT");
-		}
+                db.execSQL("UPDATE contacts SET street = '' WHERE street IS NULL");
+                db.execSQL("UPDATE contacts SET postal = '' WHERE postal IS NULL");
+                db.execSQL("UPDATE contacts SET city = '' WHERE city IS NULL");
+                break;
+            case 3:
+                // Patch(3)
+                db.execSQL("ALTER TABLE contacts ADD telephoneWork TEXT");
+                break;
+            case 4:
+                db.execSQL("ALTER TABLE contacts RENAME contacts.old");
+                DaoMaster.createAllTables(db, false);
+                db.execSQL("INTO contacts (name, email,telephoneHome, telephoneMobile,website,street,postal,city,company," +
+                           "position, facebookId, facebookUrl,twitterId,twitterUrl, xingUrl,linkedUrl,xingUrl,hash,created,note) " +
+                           "SELECT name, email,telephone, telephoneWork,website,street,postal,city,company," +
+                           "position, facebookId, facebookUrl,twitterId,twitterUrl, xingUrl,linkedUrl,xingUrl,hash,created,note" +
+                           "FROM contacts.old");
+                db.execSQL("DROP TABLE contacts.old");
+                break;
+        }
 	}
 }

@@ -8,7 +8,7 @@ import de.greenrobot.daogenerator.Schema;
 
 public class Generator {
     public static void main(String args[]) throws IOException, Exception {
-        Schema schema = new Schema(3, "de.nimple.domain");
+        Schema schema = new Schema(4, "de.nimple.domain");
 
         defineContact(schema);
 
