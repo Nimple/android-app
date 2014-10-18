@@ -108,8 +108,6 @@
 
 	<!-- nimple-card fragement -->
 	<string name="ncard_name">Name</string>
-	<string name="ncard_phone_home">Phone number</string>
-    <string name="ncard_phone_mobile">Mobile number</string>
 	<string name="ncard_mail">Email address</string>
 	<string name="ncard_company">Company/University</string>
 	<string name="ncard_job">Job/Position</string>
@@ -134,6 +132,8 @@
 
 
     <!-- export -->
+    <string name="ncard_phone_home">Phone number</string>
+    <string name="ncard_phone_mobile">Mobile number</string>
     <string name="ab_export_contacts">Export Contacts</string>
     <string name="ab_export_code">Export Barcode</string>
     <string name="ab_export_card">Export Card</string>

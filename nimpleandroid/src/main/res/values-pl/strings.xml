@@ -122,4 +122,34 @@
 	<string name="contact_xing">Bez profil XING</string>
 	<string name="contact_linkedin">Bez profil LinkedIn</string>
 	<string name="button_delete">Usuń</string>
+
+    <!-- export -->
+    <string name="ncard_phone_home">Phone number</string>
+    <string name="ncard_phone_mobile">Mobile number</string>
+    <string name="ab_export_contacts">Export Contacts</string>
+    <string name="ab_export_code">Export Barcode</string>
+    <string name="ab_export_card">Export Card</string>
+    <string name="ab_export_err">Failed to save content</string>
+    <string name="ab_export_save">Saved content to folder "Downloads"</string>
+
+    <!-- share -->
+    <string name="ab_share_contacts">Share Contacts</string>
+    <string name="ab_share_contact">Share Contact</string>
+    <string name="ab_share_code">Share Barcode</string>
+    <string name="ab_share_card">Share Card</string>
+
+
+    <string name="ab_export">Export</string>
+    <string name="export_contact">Export this contact</string>
+    <string name="export_dia_header">Export File</string>
+    <string name="export_dia_card">Export to SD-Card</string>
+    <string name="export_dia_mail">Send as E-Mail</string>
+    <string name="export_dia_cancel">Cancel</string>
+    <!-- several cards -->
+    <string name="nimpleCards_defaultName">NimpleCard</string>
+    <string name="del_ncard_question">Delete this card?</string>
+    <string name="add_ncard_question">Add Card?</string>
+    <string name="personal_input_mobile">Mobile number</string>
+    <string name="personal_input_card">Cardname</string>
+    <string name="form_error_card_invalid">Card name is invalid.</string>
 </resources>

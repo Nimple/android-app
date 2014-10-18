@@ -4,6 +4,7 @@ import de.nimple.BuildConfig;
 
 final public class Config {
 	public static final String MIXPANEL_TOKEN;
+    public static final boolean isPro = true;
 
 	static {
 		if (BuildConfig.DEBUG) {

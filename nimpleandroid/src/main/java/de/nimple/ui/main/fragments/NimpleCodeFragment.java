@@ -5,8 +5,10 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,6 +19,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListPopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
@@ -28,6 +31,7 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 import de.nimple.R;
+import de.nimple.config.Config;
 import de.nimple.events.NimpleCardChangedEvent;
 import de.nimple.events.NimpleCodeChangedEvent;
 import de.nimple.services.export.Export;
@@ -60,6 +64,9 @@ public class NimpleCodeFragment extends Fragment implements IExportExtender {
     @InjectView(R.id.ncard_name)
     TextView nCardName;
 
+    @InjectView(R.id.card_dropdown)
+    LinearLayout ll;
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		ctx = getActivity().getApplicationContext();
@@ -70,7 +77,14 @@ public class NimpleCodeFragment extends Fragment implements IExportExtender {
         onBootstrap();
 		refreshUi();
         setHasOptionsMenu(true);
+        checkIsPro();
         return view;
+    }
+
+    private void checkIsPro(){
+        if(!Config.isPro){
+            ll.setVisibility(View.INVISIBLE);
+        }
     }
 
     private void onBootstrap(){
@@ -82,6 +96,10 @@ public class NimpleCodeFragment extends Fragment implements IExportExtender {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.code_fragment, menu);
+        if(!Config.isPro) {
+            menu.findItem(R.id.menu_export).setVisible(false);
+            menu.findItem(R.id.menu_save).setVisible(false);
+        }
     }
 
     @Override
@@ -90,7 +108,7 @@ public class NimpleCodeFragment extends Fragment implements IExportExtender {
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick({R.id.ncard_listShow})
+    @OnClick({R.id.ncard_listShow, R.id.ncard_name})
     public void showNCardList(){
         LayoutInflater layoutInflater
                 = (LayoutInflater)getActivity()
@@ -102,13 +120,19 @@ public class NimpleCodeFragment extends Fragment implements IExportExtender {
                 R.layout.cards_popup_row, R.id.textView, NimpleCodeHelper.getCards(getActivity()));
         popupDialog.setAdapter(adaper);
         popupDialog.setAnchorView(getActivity().findViewById(R.id.tabs));
-        popupDialog.setWidth(300);
+        Display display = getActivity().getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int width = size.x;
+        popupDialog.setWidth((int)(width * 0.8));
         popupDialog.setHorizontalOffset(-10);
-        popupDialog.setVerticalOffset(65);
+        final float scale = ctx.getResources().getDisplayMetrics().density;
+        int pixels = (int) (40 * scale + 0.5f);
+        popupDialog.setVerticalOffset(pixels);
         popupDialog.setModal(true);
         for(int i = 0; i < adaper.getCount(); i++){
             if( ((NimpleCard)adaper.getItem(i)).getId() == NimpleCodeHelper.getCurrentId()){
-               //TODO
+                //TODO
                 i = adaper.getCount();
             }
         }

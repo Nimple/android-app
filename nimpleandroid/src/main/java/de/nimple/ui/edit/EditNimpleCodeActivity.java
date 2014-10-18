@@ -26,6 +26,7 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 import de.nimple.R;
+import de.nimple.config.Config;
 import de.nimple.enums.SocialNetwork;
 import de.nimple.events.NimpleCodeChangedEvent;
 import de.nimple.events.SocialConnectedEvent;
@@ -42,6 +43,10 @@ import de.nimple.util.Lg;
 public class EditNimpleCodeActivity extends Activity implements ActionBarDoneCancel.ActionBarDoneCancelCallback {
 	@InjectView(R.id.cardNameEditText)
     public EditText cardName;
+
+    @InjectView(R.id.cardNameDropShadow)
+    View cardNameDropShadow;
+
 	// personal information
 	@InjectView(R.id.firstnameEditText)
 	public EditText firstname;
@@ -109,6 +114,7 @@ public class EditNimpleCodeActivity extends Activity implements ActionBarDoneCan
 	@Inject
 	NimpleCodeService nimpleCodeService;
 
+
 	public final static boolean isValidEmail(CharSequence target) {
 		if (target == null) {
 			return false;
@@ -127,7 +133,15 @@ public class EditNimpleCodeActivity extends Activity implements ActionBarDoneCan
 		EventBus.getDefault().register(this);
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         ButterKnife.inject(this);
+        checkIsPro();
 	}
+
+    private void checkIsPro(){
+        if(!Config.isPro) {
+            cardName.setVisibility(View.INVISIBLE);
+            cardNameDropShadow.setVisibility(View.INVISIBLE);
+        }
+    }
 
 	@Override
 	public void onDoneCallback() {

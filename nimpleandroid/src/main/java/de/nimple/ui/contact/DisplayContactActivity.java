@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -27,6 +28,7 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 import de.nimple.R;
+import de.nimple.config.Config;
 import de.nimple.dagger.BaseActivity;
 import de.nimple.domain.Contact;
 import de.nimple.events.ContactDeletedEvent;
@@ -91,6 +93,9 @@ public class DisplayContactActivity extends BaseActivity implements IExportExten
 	@InjectView(R.id.linkedinProfile)
 	TextView linkedinProfile;
 
+    @InjectView(R.id.contact_export_button)
+    Button btExport;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -111,7 +116,15 @@ public class DisplayContactActivity extends BaseActivity implements IExportExten
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
 		fillUi();
+
+        checkIsPro();
 	}
+
+    private void checkIsPro(){
+        if(!Config.isPro) {
+            btExport.setVisibility(View.INVISIBLE);
+        }
+    }
 
 	private void save() {
 		contact.setNote(notesText.getText().toString());
@@ -125,7 +138,11 @@ public class DisplayContactActivity extends BaseActivity implements IExportExten
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.display_contact, menu);
-		return super.onCreateOptionsMenu(menu);
+		boolean ret =  super.onCreateOptionsMenu(menu);
+        if(!Config.isPro) {
+            menu.findItem(R.id.menu_share).setVisible(false);
+        }
+        return ret;
 	}
 
 	@Override
