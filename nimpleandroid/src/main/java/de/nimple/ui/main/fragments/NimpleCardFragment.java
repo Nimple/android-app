@@ -5,7 +5,9 @@ import android.app.Fragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Point;
 import android.os.Bundle;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -98,7 +100,7 @@ public class NimpleCardFragment extends Fragment implements IExportExtender {
         return super.onOptionsItemSelected(item);
     }
 
-    @OnClick({R.id.ncard_listShow})
+    @OnClick({R.id.ncard_listShow, R.id.ncard_name})
     public void showNCardList(){
         LayoutInflater layoutInflater
                 = (LayoutInflater)getActivity()
@@ -110,9 +112,15 @@ public class NimpleCardFragment extends Fragment implements IExportExtender {
                 R.layout.cards_popup_row, R.id.textView, NimpleCodeHelper.getCards(getActivity()));
         popupDialog.setAdapter(adaper);
         popupDialog.setAnchorView(getActivity().findViewById(R.id.tabs));
-        popupDialog.setWidth(300);
+        Display display = getActivity().getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int width = size.x;
+        popupDialog.setWidth((int)(width * 0.8));
         popupDialog.setHorizontalOffset(-10);
-        popupDialog.setVerticalOffset(65);
+        final float scale = ctx.getResources().getDisplayMetrics().density;
+        int pixels = (int) (40 * scale + 0.5f);
+        popupDialog.setVerticalOffset(pixels);
         popupDialog.setModal(true);
         for(int i = 0; i < adaper.getCount(); i++){
            if( ((NimpleCard)adaper.getItem(i)).getId() == NimpleCodeHelper.getCurrentId()){
