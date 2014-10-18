@@ -166,7 +166,7 @@ public class NimpleCodeHelper implements NimpleCodeService {
 
     public static void initCardNameFunctionality(Context ctx){
         if(SharedPrefHelper.getString(NC_CARD_NAME, ctx).equals("")){
-            SharedPrefHelper.putString(NC_CARD_NAME , ctx.getString(R.string.nimpleCards_defaultName), ctx);
+            SharedPrefHelper.putString(NC_CARD_NAME , "1. " + ctx.getString(R.string.nimpleCards_defaultName), ctx);
             SharedPrefHelper.putInt(NC_CARD_ID, 0, ctx);
             SharedPrefHelper.putInt(NC_CARDS_GLOBALE_ID_RIDER , 1 , ctx);
             setCurrentId(0);
@@ -198,7 +198,7 @@ public class NimpleCodeHelper implements NimpleCodeService {
 
     public static void addCard(Context ctx){
         int id = SharedPrefHelper.getInt(NC_CARDS_GLOBALE_ID_RIDER, ctx);
-        SharedPrefHelper.putString(NC_CARD_NAME + id , ctx.getString(R.string.nimpleCards_defaultName) + "_" + id, ctx);
+        SharedPrefHelper.putString(NC_CARD_NAME + id , id + 1 + ". " + ctx.getString(R.string.nimpleCards_defaultName), ctx);
         SharedPrefHelper.putInt(NC_CARD_ID + id, id, ctx);
         SharedPrefHelper.putString(NC_VALUE_FIRSTNAME + id, SharedPrefHelper.getString(NC_VALUE_FIRSTNAME, ctx), ctx);
         SharedPrefHelper.putString(NC_VALUE_LASTNAME + id, SharedPrefHelper.getString(NC_VALUE_LASTNAME, ctx), ctx);
