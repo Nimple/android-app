@@ -19,8 +19,11 @@
         android:layout_marginStart="20dp"
         android:background="@drawable/card_frame_selector"
         android:gravity="center"
-        android:padding="10dp"
-        android:layout_below="@id/card_dropdown">
+        android:padding="8dp"
+        android:layout_below="@id/card_dropdown"
+        android:layout_marginTop="15dp"
+        android:layout_alignParentEnd="false"
+        android:layout_alignParentStart="false">
 
         <RelativeLayout
             android:id="@+id/ncard_layout"
@@ -201,39 +204,46 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/ncard_layout"
-            android:layout_marginLeft="10dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="15dp"
             android:orientation="horizontal"
-            android:paddingBottom="20dp"
-            android:paddingTop="20dp">
+            android:paddingBottom="0dp"
+            android:paddingTop="5dp"
+            android:layout_below="@+id/ncard_layout"
+            android:layout_alignParentEnd="false">
 
             <ImageView
                 android:id="@+id/facebookRoundIcon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_round_facebook" />
+                android:src="@drawable/ic_round_facebook"
+                android:baseline="-10dp"
+                android:layout_marginRight="10dp" />
 
             <ImageView
                 android:id="@+id/twitterRoundIcon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:src="@drawable/ic_round_twitter" />
+                android:src="@drawable/ic_round_twitter"
+                android:baseline="-10dp"
+                android:layout_marginRight="10dp" />
 
             <ImageView
                 android:id="@+id/xingRoundIcon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:src="@drawable/ic_round_xing" />
+                android:src="@drawable/ic_round_xing"
+                android:baseline="-10dp"
+                android:layout_marginRight="10dp" />
 
             <ImageView
                 android:id="@+id/linkedinRoundIcon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:src="@drawable/ic_round_linkedin" />
+                android:layout_marginLeft="3dp"
+                android:src="@drawable/ic_round_linkedin"
+                android:baseline="-10dp"
+                android:layout_marginRight="10dp" />
         </LinearLayout>
     </RelativeLayout>
 
