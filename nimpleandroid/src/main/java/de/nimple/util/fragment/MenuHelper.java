@@ -20,6 +20,7 @@ import de.nimple.services.export.ExportHelper;
 import de.nimple.services.export.IExportExtender;
 import de.nimple.ui.about.AboutNimpleActivity;
 import de.nimple.ui.main.MainActivity;
+import de.nimple.ui.pro.ProActivity;
 
 /**
  * Created by NoName on 20.09.2014.
@@ -40,7 +41,7 @@ public class MenuHelper {
         } else if(item.getItemId() == R.id.menu_export){
             export(frag);
         } else if(item.getItemId() == R.id.menu_proVersion){
-            //TODO implement ProVersion Handling
+            startProActivity(frag.getActivity().getApplicationContext());
         }
     }
 
@@ -112,5 +113,11 @@ public class MenuHelper {
         intent.putExtra(Intents.Scan.WIDTH, w);
         intent.putExtra(Intents.Scan.HEIGHT, h / 2);
         activity.startActivityForResult(intent, MainActivity.SCAN_REQUEST_CODE);
+    }
+
+    public static void startProActivity(Context ctx){
+        Intent intent = new Intent(ctx, ProActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        ctx.startActivity(intent);
     }
 }
