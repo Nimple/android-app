@@ -167,4 +167,6 @@
     <string name="pro_bt_buy">Buy</string>
     <string name="pro_copyright">Copyright</string>
     <string name="pro_title">Buy Pro</string>
+    <string name="pro_purchase_succesfull">Please restart that the purchase can take place</string>
+    <string name="pro_purchase_err">Purchase failed</string>
 </resources>

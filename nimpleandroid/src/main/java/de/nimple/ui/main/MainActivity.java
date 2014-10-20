@@ -22,6 +22,7 @@ import de.nimple.events.ContactAddedEvent;
 import de.nimple.events.DuplicatedContactEvent;
 import de.nimple.events.NimpleCodeScanFailedEvent;
 import de.nimple.events.NimpleCodeScannedEvent;
+import de.nimple.services.upgrade.ProVersionHelper;
 import de.nimple.ui.main.fragments.ContactListFragment;
 import de.nimple.ui.main.fragments.NimpleCardFragment;
 import de.nimple.ui.main.fragments.NimpleCodeFragment;
@@ -57,11 +58,16 @@ public class MainActivity extends BaseActivity {
 
 		//EventBus.getDefault().register(this);
 		EventBus.getDefault().post(new ApplicationStartedEvent());
+        //Checked Google every time the app starts till it was bought, could be optimized
+        if(!ProVersionHelper.getInstance(ctx).getIsPro()){
+            billing.loadOwnedPurchasesFromGoogle();
+        }
 	}
 
 	@Override
 	protected void onDestroy() {
-		EventBus.getDefault().unregister(this);
+		//EventBus.getDefault().unregister(this);
+
 		super.onDestroy();
 	}
 
@@ -79,7 +85,9 @@ public class MainActivity extends BaseActivity {
 		Toast.makeText(ctx, String.format(getString(R.string.contact_scan_duplicated), ev.getContact().getName()), Toast.LENGTH_LONG).show();
 	}
 
-	private class NimplePagerAdapter extends FragmentPagerAdapter {
+
+
+    private class NimplePagerAdapter extends FragmentPagerAdapter {
 		public NimplePagerAdapter(FragmentManager fm) {
 			super(fm);
 		}
@@ -131,5 +139,6 @@ public class MainActivity extends BaseActivity {
 				EventBus.getDefault().post(new NimpleCodeScannedEvent(data));
 			}
 		}
+
 	}
 }

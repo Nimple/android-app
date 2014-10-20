@@ -26,7 +26,6 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 import de.nimple.R;
-import de.nimple.config.Config;
 import de.nimple.enums.SocialNetwork;
 import de.nimple.events.NimpleCodeChangedEvent;
 import de.nimple.events.SocialConnectedEvent;
@@ -34,6 +33,7 @@ import de.nimple.events.SocialDisconnectedEvent;
 import de.nimple.services.nimplecode.Address;
 import de.nimple.services.nimplecode.NimpleCodeHelper;
 import de.nimple.services.nimplecode.NimpleCodeService;
+import de.nimple.services.upgrade.ProVersionHelper;
 import de.nimple.ui.edit.social.SocialLinkedinActivity;
 import de.nimple.ui.edit.social.SocialTwitterActivity;
 import de.nimple.ui.edit.social.SocialXingActivity;
@@ -137,7 +137,7 @@ public class EditNimpleCodeActivity extends Activity implements ActionBarDoneCan
 	}
 
     private void checkIsPro(){
-        if(!Config.isPro) {
+        if(!ProVersionHelper.getInstance(getApplicationContext()).getIsPro()) {
             cardName.setVisibility(View.INVISIBLE);
             cardNameDropShadow.setVisibility(View.INVISIBLE);
         }

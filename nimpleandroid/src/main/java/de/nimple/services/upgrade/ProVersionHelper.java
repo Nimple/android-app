@@ -10,8 +10,16 @@ import de.nimple.util.SharedPrefHelper;
 public class ProVersionHelper {
     private Context m_ctx;
     private boolean m_isPro = false;
+    private static ProVersionHelper m_proHelper = null;
 
-    public ProVersionHelper(Context ctx){
+    public static ProVersionHelper getInstance(Context ctx){
+        if(m_proHelper == null){
+            m_proHelper = new ProVersionHelper(ctx);
+        }
+        return m_proHelper;
+    }
+
+    private ProVersionHelper(Context ctx){
         if(ctx == null){
             throw new IllegalArgumentException();
         }
@@ -19,10 +27,6 @@ public class ProVersionHelper {
         load();
     }
 
-    public boolean checkIsPro(){
-        boolean ret = false;
-        return ret;
-    }
 
     public void save(){
         SharedPrefHelper.putBoolean(IS_PRO_VERSION,m_isPro,m_ctx);
@@ -38,6 +42,7 @@ public class ProVersionHelper {
 
     public void setIsPro(boolean isPro){
         m_isPro = isPro;
+        save();
     }
 
 

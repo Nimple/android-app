@@ -27,7 +27,6 @@ import butterknife.InjectView;
 import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 import de.nimple.R;
-import de.nimple.config.Config;
 import de.nimple.events.NimpleCardChangedEvent;
 import de.nimple.events.NimpleCodeChangedEvent;
 import de.nimple.services.export.Export;
@@ -35,6 +34,7 @@ import de.nimple.services.export.IExportExtender;
 import de.nimple.services.nimplecode.Address;
 import de.nimple.services.nimplecode.NimpleCodeHelper;
 import de.nimple.services.nimplecode.VCardHelper;
+import de.nimple.services.upgrade.ProVersionHelper;
 import de.nimple.ui.edit.EditNimpleCodeActivity;
 import de.nimple.util.NimpleCard;
 import de.nimple.util.fragment.MenuHelper;
@@ -95,7 +95,7 @@ public class NimpleCardFragment extends Fragment implements IExportExtender {
 	}
 
     private void checkIsPro(){
-        if(!Config.isPro){
+        if(!ProVersionHelper.getInstance(ctx).getIsPro()){
             ll.setVisibility(View.INVISIBLE);
         }
     }
@@ -104,9 +104,9 @@ public class NimpleCardFragment extends Fragment implements IExportExtender {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.card_fragment, menu);
-        menu.findItem(R.id.menu_export).setVisible(Config.isPro);
-        menu.findItem(R.id.menu_save).setVisible(Config.isPro);
-        menu.findItem(R.id.menu_proVersion).setVisible(!Config.isPro);
+        menu.findItem(R.id.menu_export).setVisible(ProVersionHelper.getInstance(ctx).getIsPro());
+        menu.findItem(R.id.menu_save).setVisible(ProVersionHelper.getInstance(ctx).getIsPro());
+        menu.findItem(R.id.menu_proVersion).setVisible(!ProVersionHelper.getInstance(ctx).getIsPro());
     }
 
     @Override

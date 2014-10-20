@@ -16,7 +16,6 @@ import javax.inject.Inject;
 import butterknife.InjectView;
 import de.greenrobot.event.EventBus;
 import de.nimple.R;
-import de.nimple.config.Config;
 import de.nimple.dagger.BaseFragment;
 import de.nimple.domain.Contact;
 import de.nimple.events.ContactAddedEvent;
@@ -26,6 +25,7 @@ import de.nimple.services.contacts.ContactsService;
 import de.nimple.services.export.Export;
 import de.nimple.services.export.IExportExtender;
 import de.nimple.services.nimplecode.VCardHelper;
+import de.nimple.services.upgrade.ProVersionHelper;
 import de.nimple.util.Lg;
 import de.nimple.util.SharedPrefHelper;
 import de.nimple.util.fragment.MenuHelper;
@@ -64,7 +64,7 @@ public class ContactListFragment extends BaseFragment implements IExportExtender
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.contacts_fragment, menu);
-        if(!Config.isPro) {
+        if(!ProVersionHelper.getInstance(ctx).getIsPro()) {
             menu.findItem(R.id.menu_export).setVisible(false);
             menu.findItem(R.id.menu_save).setVisible(false);
         }
