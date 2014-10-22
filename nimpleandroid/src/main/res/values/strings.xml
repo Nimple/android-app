@@ -163,8 +163,10 @@
 
     <!-- ProVersion -->
     <string name="ab_proVersion">Unlock ProVersion</string>
-    <string name="pro_features">Unbelievable pro features</string>
-    <string name="pro_bt_buy">Buy</string>
+    <string name="pro_features_text">Nimple Pro will give you incredible new useful features such as</string>
+    <string name="pro_feature_export">Export and share your nimple card, code and contacts, as well as single contacts</string>
+    <string name="pro_feature_cards">Maintain multiple nimple cards at once</string>
+    <string name="pro_bt_buy">Upgrade to Pro</string>
     <string name="pro_copyright">Copyright</string>
     <string name="pro_title">Buy Pro</string>
     <string name="pro_purchase_succesfull">Please restart that the purchase can take place</string>

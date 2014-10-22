@@ -21,7 +21,7 @@ public class ProActivity extends BaseActivity {
         ButterKnife.inject(this);
     }
 
-    @OnClick(R.id.pro_button)
+    @OnClick(R.id.nimple_button_buy_pro)
     public void purchaseProduct() {
         if(billing.purchase(Config.GOOGLE_PRODUCT_ID)) {
             Toast.makeText(ctx, ctx.getString(R.string.pro_purchase_succesfull),Toast.LENGTH_SHORT).show();
