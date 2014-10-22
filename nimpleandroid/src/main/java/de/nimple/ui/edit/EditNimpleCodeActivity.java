@@ -3,6 +3,7 @@ package de.nimple.ui.edit;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Layout;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
@@ -10,6 +11,7 @@ import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,6 +48,10 @@ public class EditNimpleCodeActivity extends Activity implements ActionBarDoneCan
 
     @InjectView(R.id.cardNameDropShadow)
     View cardNameDropShadow;
+    @InjectView(R.id.checkboxInfoHint)
+    TextView checkboxInfoHint;
+    @InjectView(R.id.edit_personal_fragment)
+    RelativeLayout editPersonalFragment;
 
 	// personal information
 	@InjectView(R.id.firstnameEditText)
@@ -138,8 +144,12 @@ public class EditNimpleCodeActivity extends Activity implements ActionBarDoneCan
 
     private void checkIsPro(){
         if(!ProVersionHelper.getInstance(getApplicationContext()).getIsPro()) {
-            cardName.setVisibility(View.INVISIBLE);
-            cardNameDropShadow.setVisibility(View.INVISIBLE);
+            cardNameDropShadow.setVisibility(View.GONE);
+            cardName.setVisibility(View.GONE);
+            editPersonalFragment.setPadding(editPersonalFragment.getPaddingLeft(),      //left,
+                                            0,                                          //top
+                                            editPersonalFragment.getPaddingRight(),     //right
+                                            editPersonalFragment.getPaddingBottom());   //bottom
         }
     }
 

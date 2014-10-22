@@ -113,7 +113,7 @@
                 android:id="@+id/nimple_button_buy_pro"
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="20dp"
-                android:textColor="#C0C0C0" />
+                android:textColor="#EEEEEE" />
         </LinearLayout>
 
     </LinearLayout>

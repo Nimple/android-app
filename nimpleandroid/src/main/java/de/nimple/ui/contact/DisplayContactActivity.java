@@ -122,7 +122,7 @@ public class DisplayContactActivity extends BaseActivity implements IExportExten
 
     private void checkIsPro(){
         if(!ProVersionHelper.getInstance(ctx).getIsPro()) {
-            btExport.setVisibility(View.INVISIBLE);
+            btExport.setVisibility(View.GONE);
         }
     }
 

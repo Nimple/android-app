@@ -83,7 +83,7 @@ public class NimpleCodeFragment extends Fragment implements IExportExtender {
 
     private void checkIsPro(){
         if(!ProVersionHelper.getInstance(ctx).getIsPro()){
-            ll.setVisibility(View.INVISIBLE);
+            ll.setVisibility(View.GONE);
         }
     }
 

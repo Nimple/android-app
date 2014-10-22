@@ -12,17 +12,19 @@
 
         <EditText
             android:id="@+id/cardNameEditText"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:textAppearance="@style/NimpleTextHeading"
             android:textSize="15sp"
             android:textColor="@color/grey_light"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="10dp"
             android:hint="@string/personal_input_card"
             android:maxLength="45"
             android:inputType="textPersonName|textCapSentences|textNoSuggestions"
-            android:nextFocusDown="@+id/firstnameEditText"/>
+            android:nextFocusDown="@+id/firstnameEditText"
+            android:layout_marginBottom="0dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp" />
 
         <View
             android:id="@+id/cardNameDropShadow"
@@ -53,7 +55,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="6dp"
                 android:layout_marginRight="6dp"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="20dp"
                 android:text="@string/checkbox_info_hint"
                 android:textColor="@color/nimple_color"
                 android:textSize="12sp"/>

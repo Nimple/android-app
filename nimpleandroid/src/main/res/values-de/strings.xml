@@ -32,7 +32,7 @@
 	<string name="social_title">Soziale Netze</string>
 
 	 <!-- Bootstrap -->
-	<string name="bootstrap_first_contact">Nimple App - Dein erster Kontakt</string>
+	<string name="bootstrap_first_contact">Dein erster Kontakt</string>
 	<string name="created_note">Erstellt mit nimple.de</string>
 
 	<!-- Hints -->

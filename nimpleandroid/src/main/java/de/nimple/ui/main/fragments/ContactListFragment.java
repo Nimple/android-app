@@ -93,7 +93,7 @@ public class ContactListFragment extends BaseFragment implements IExportExtender
 
 	private void onBootstrap() {
 		if (isInitial()) {
-			Contact c = new Contact(null, getString(R.string.bootstrap_first_contact), "feedback.android@nimple.de", "", "http://www.nimple.de", "", "", "", "",
+			Contact c = new Contact(null, getString(R.string.bootstrap_first_contact), "feedback.android@nimple.de", "", "www.nimple.de", "", "", "", "",
 					"Appstronauten GbR", "Nimple - Networking Simple", "286113114869395", "https://www.facebook.com/nimpleapp", "2444364654",
 					"https://twitter.com/Nimpleapp", "https://www.xing.com/companies/appstronautengbr", "https://www.linkedin.com/company/appstronauten-gbr",
 					"", System.currentTimeMillis(), "");

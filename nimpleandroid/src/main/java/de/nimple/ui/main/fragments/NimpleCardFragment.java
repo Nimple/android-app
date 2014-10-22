@@ -96,7 +96,7 @@ public class NimpleCardFragment extends Fragment implements IExportExtender {
 
     private void checkIsPro(){
         if(!ProVersionHelper.getInstance(ctx).getIsPro()){
-            ll.setVisibility(View.INVISIBLE);
+            ll.setVisibility(View.GONE);
         }
     }
 
