@@ -3,7 +3,6 @@ package de.nimple.ui.edit;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Layout;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
@@ -143,7 +142,7 @@ public class EditNimpleCodeActivity extends Activity implements ActionBarDoneCan
 	}
 
     private void checkIsPro(){
-        if(!ProVersionHelper.getInstance(getApplicationContext()).getIsPro()) {
+        if(!ProVersionHelper.getInstance(getApplicationContext()).IsPro()) {
             cardNameDropShadow.setVisibility(View.GONE);
             cardName.setVisibility(View.GONE);
             editPersonalFragment.setPadding(editPersonalFragment.getPaddingLeft(),      //left,

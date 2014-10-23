@@ -25,6 +25,7 @@ import de.nimple.services.contacts.ContactsService;
 import de.nimple.services.export.Export;
 import de.nimple.services.export.IExportExtender;
 import de.nimple.services.nimplecode.VCardHelper;
+import de.nimple.services.upgrade.ProObservable;
 import de.nimple.services.upgrade.ProVersionHelper;
 import de.nimple.util.Lg;
 import de.nimple.util.SharedPrefHelper;
@@ -64,10 +65,11 @@ public class ContactListFragment extends BaseFragment implements IExportExtender
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.contacts_fragment, menu);
-        if(!ProVersionHelper.getInstance(ctx).getIsPro()) {
-            menu.findItem(R.id.menu_export).setVisible(false);
-            menu.findItem(R.id.menu_save).setVisible(false);
-        }
+        ProVersionHelper proHelp = ProVersionHelper.getInstance(ctx);
+        proHelp.addObserver(menu.findItem(R.id.menu_export), ProObservable.State.PRO);
+        proHelp.addObserver(menu.findItem(R.id.menu_save), ProObservable.State.PRO);
+        proHelp.addObserver(menu.findItem(R.id.menu_proVersion), ProObservable.State.BASIC);
+        ProVersionHelper.getInstance(ctx).notifyObserver();
     }
 
     @Override

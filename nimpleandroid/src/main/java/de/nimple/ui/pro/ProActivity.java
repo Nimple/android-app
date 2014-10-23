@@ -1,7 +1,6 @@
 package de.nimple.ui.pro;
 
 import android.os.Bundle;
-import android.widget.Toast;
 
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -23,10 +22,7 @@ public class ProActivity extends BaseActivity {
 
     @OnClick(R.id.nimple_button_buy_pro)
     public void purchaseProduct() {
-        if(billing.purchase(Config.GOOGLE_PRODUCT_ID)) {
-            Toast.makeText(ctx, ctx.getString(R.string.pro_purchase_succesfull),Toast.LENGTH_SHORT).show();
-        }else{
-            Toast.makeText(ctx, ctx.getString(R.string.pro_purchase_err),Toast.LENGTH_SHORT).show();
-        }
+        billing.purchase(Config.GOOGLE_PRODUCT_ID);
+        finish();
     }
 }

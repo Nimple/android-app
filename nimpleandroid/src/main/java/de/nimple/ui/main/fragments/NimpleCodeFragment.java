@@ -38,6 +38,7 @@ import de.nimple.services.export.IExportExtender;
 import de.nimple.services.nimplecode.NimpleCodeHelper;
 import de.nimple.services.nimplecode.QRCodeCreator;
 import de.nimple.services.nimplecode.VCardHelper;
+import de.nimple.services.upgrade.ProObservable;
 import de.nimple.services.upgrade.ProVersionHelper;
 import de.nimple.util.DensityHelper;
 import de.nimple.util.NimpleCard;
@@ -46,10 +47,13 @@ import de.nimple.util.VersionResolver;
 import de.nimple.util.fragment.MenuHelper;
 
 public class NimpleCodeFragment extends Fragment implements IExportExtender {
-	public static final NimpleCodeFragment newInstance() {
+
+
+    public static final NimpleCodeFragment newInstance() {
 		return new NimpleCodeFragment();
 	}
 
+    private ProVersionHelper proHelp;
 	private Context ctx;
 	private View view;
 
@@ -65,7 +69,7 @@ public class NimpleCodeFragment extends Fragment implements IExportExtender {
     TextView nCardName;
 
     @InjectView(R.id.card_dropdown)
-    LinearLayout ll;
+    LinearLayout linearLayout;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -77,14 +81,10 @@ public class NimpleCodeFragment extends Fragment implements IExportExtender {
         onBootstrap();
 		refreshUi();
         setHasOptionsMenu(true);
-        checkIsPro();
+        proHelp = ProVersionHelper.getInstance(ctx);
+        proHelp.addObserver(linearLayout, ProObservable.State.PRO);
+        ProVersionHelper.getInstance(ctx).notifyObserver();
         return view;
-    }
-
-    private void checkIsPro(){
-        if(!ProVersionHelper.getInstance(ctx).getIsPro()){
-            ll.setVisibility(View.GONE);
-        }
     }
 
     private void onBootstrap(){
@@ -96,9 +96,10 @@ public class NimpleCodeFragment extends Fragment implements IExportExtender {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.code_fragment, menu);
-        menu.findItem(R.id.menu_export).setVisible(ProVersionHelper.getInstance(ctx).getIsPro());
-        menu.findItem(R.id.menu_save).setVisible(ProVersionHelper.getInstance(ctx).getIsPro());
-        menu.findItem(R.id.menu_proVersion).setVisible(!ProVersionHelper.getInstance(ctx).getIsPro());
+        proHelp.addObserver(menu.findItem(R.id.menu_export), ProObservable.State.PRO);
+        proHelp.addObserver(menu.findItem(R.id.menu_save), ProObservable.State.PRO);
+        proHelp.addObserver(menu.findItem(R.id.menu_proVersion), ProObservable.State.BASIC);
+        ProVersionHelper.getInstance(ctx).notifyObserver();
     }
 
     @Override

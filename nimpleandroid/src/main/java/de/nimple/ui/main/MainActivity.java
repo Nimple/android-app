@@ -59,7 +59,7 @@ public class MainActivity extends BaseActivity {
 		//EventBus.getDefault().register(this);
 		EventBus.getDefault().post(new ApplicationStartedEvent());
         //Checked Google every time the app starts till it was bought, could be optimized
-        if(!ProVersionHelper.getInstance(ctx).getIsPro()){
+        if(!ProVersionHelper.getInstance(ctx).IsPro()){
             billing.loadOwnedPurchasesFromGoogle();
         }
 	}
