@@ -96,6 +96,7 @@ public class NimpleCodeFragment extends Fragment implements IExportExtender {
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.code_fragment, menu);
+        proHelp = ProVersionHelper.getInstance(ctx);
         proHelp.addObserver(menu.findItem(R.id.menu_export), ProObservable.State.PRO);
         proHelp.addObserver(menu.findItem(R.id.menu_save), ProObservable.State.PRO);
         proHelp.addObserver(menu.findItem(R.id.menu_proVersion), ProObservable.State.BASIC);
