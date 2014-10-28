@@ -4,22 +4,12 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Point;
 import android.os.Bundle;
 import android.support.v13.app.FragmentPagerAdapter;
-import android.support.v4.app.ShareCompat;
 import android.support.v4.view.ViewPager;
-import android.view.Display;
-import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Toast;
 
-import com.google.zxing.client.android.Intents;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
@@ -32,14 +22,11 @@ import de.nimple.events.ContactAddedEvent;
 import de.nimple.events.DuplicatedContactEvent;
 import de.nimple.events.NimpleCodeScanFailedEvent;
 import de.nimple.events.NimpleCodeScannedEvent;
-import de.nimple.ui.about.AboutNimpleActivity;
-import de.nimple.ui.dialog.ExportDialog;
+import de.nimple.services.upgrade.ProVersionHelper;
 import de.nimple.ui.main.fragments.ContactListFragment;
 import de.nimple.ui.main.fragments.NimpleCardFragment;
 import de.nimple.ui.main.fragments.NimpleCodeFragment;
 import de.nimple.ui.parts.PagerSlidingTabStrip;
-import de.nimple.services.export.Export;
-import de.nimple.services.export.IExportExtender;
 import de.nimple.util.Lg;
 
 public class MainActivity extends BaseActivity {
@@ -51,7 +38,7 @@ public class MainActivity extends BaseActivity {
 	@InjectView(R.id.pager)
 	ViewPager pager;
 
-	private static final int SCAN_REQUEST_CODE = 0x0000c0de;
+	public static final int SCAN_REQUEST_CODE = 0x0000c0de;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -69,13 +56,18 @@ public class MainActivity extends BaseActivity {
 		tabs.setViewPager(pager);
 		pager.setCurrentItem(1);
 
-		EventBus.getDefault().register(this);
+		//EventBus.getDefault().register(this);
 		EventBus.getDefault().post(new ApplicationStartedEvent());
+        //Checked Google every time the app starts till it was bought, could be optimized
+        if(!ProVersionHelper.getInstance(ctx).IsPro()){
+            billing.loadOwnedPurchasesFromGoogle();
+        }
 	}
 
 	@Override
 	protected void onDestroy() {
-		EventBus.getDefault().unregister(this);
+		//EventBus.getDefault().unregister(this);
+
 		super.onDestroy();
 	}
 
@@ -93,79 +85,9 @@ public class MainActivity extends BaseActivity {
 		Toast.makeText(ctx, String.format(getString(R.string.contact_scan_duplicated), ev.getContact().getName()), Toast.LENGTH_LONG).show();
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuInflater inflater = getMenuInflater();
-		inflater.inflate(R.menu.main, menu);
-		return super.onCreateOptionsMenu(menu);
-	}
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		if (item.getItemId() == R.id.menu_add) {
-			startScanner();
-		} else if (item.getItemId() == R.id.menu_about) {
-			startAboutNimpleActivity();
-		} else if (item.getItemId() == R.id.menu_share) {
-			shareApp();
-		} else if (item.getItemId() == R.id.menu_feedback) {
-			sendFeedback();
-		} else if (item.getItemId() == R.id.menu_save) {
-			save();
-		}
 
-		return super.onOptionsItemSelected(item);
-	}
-
-	private void save() {
-		int id = pager.getCurrentItem();
-		Fragment frag = getFragmentManager().findFragmentByTag("android:switcher:" + R.id.pager + ":" + id);
-		final Export export = ((IExportExtender) frag).getExport();
-
-		LayoutInflater layoutInflater
-				= (LayoutInflater) ctx
-				.getSystemService(LAYOUT_INFLATER_SERVICE);
-		View popupView = layoutInflater.inflate(R.layout.popup_export, null);
-		ExportDialog exportDialog = new ExportDialog(popupView, ViewGroup.LayoutParams.WRAP_CONTENT,
-				ViewGroup.LayoutParams.WRAP_CONTENT, export, this);
-		Display display = getWindowManager().getDefaultDisplay();
-		Point size = new Point();
-		display.getSize(size);
-		exportDialog.showAsDropDown(tabs, 0, 0);
-	}
-
-	private void sendFeedback() {
-		ShareCompat.IntentBuilder intentBuilder = ShareCompat.IntentBuilder.from(this);
-		intentBuilder.setType("message/rfc822");
-		intentBuilder.addEmailTo(getString(R.string.feedback_email));
-		intentBuilder.setSubject(getString(R.string.feedback_subject));
-		intentBuilder.setText(getString(R.string.feedback_text));
-		intentBuilder.setChooserTitle(getString(R.string.feedback_chooser));
-
-		Intent intent = intentBuilder.getIntent();
-		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		startActivity(intent);
-	}
-
-	private void shareApp() {
-		ShareCompat.IntentBuilder intentBuilder = ShareCompat.IntentBuilder.from(this);
-		intentBuilder.setType("text/plain");
-		intentBuilder.setSubject(getString(R.string.share_app_subject));
-		intentBuilder.setText(getString(R.string.share_app_text));
-		intentBuilder.setChooserTitle(getString(R.string.share_app_chooser));
-
-		Intent intent = intentBuilder.getIntent();
-		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		startActivity(intent);
-	}
-
-	private void startAboutNimpleActivity() {
-		Intent intent = new Intent(ctx, AboutNimpleActivity.class);
-		intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-		ctx.startActivity(intent);
-	}
-
-	private class NimplePagerAdapter extends FragmentPagerAdapter {
+    private class NimplePagerAdapter extends FragmentPagerAdapter {
 		public NimplePagerAdapter(FragmentManager fm) {
 			super(fm);
 		}
@@ -204,19 +126,6 @@ public class MainActivity extends BaseActivity {
 		}
 	}
 
-	private void startScanner() {
-		Display display = getWindowManager().getDefaultDisplay();
-		int w = display.getWidth();
-		int h = display.getHeight();
-
-		Intent intent = new Intent(Intents.Scan.ACTION);
-		intent.setPackage("de.nimple");
-		intent.putExtra(Intents.Scan.FORMATS, "QR_CODE");
-		intent.putExtra(Intents.Scan.WIDTH, w);
-		intent.putExtra(Intents.Scan.HEIGHT, h / 2);
-		startActivityForResult(intent, SCAN_REQUEST_CODE);
-	}
-
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent intent) {
 		super.onActivityResult(requestCode, resultCode, intent);
@@ -230,5 +139,6 @@ public class MainActivity extends BaseActivity {
 				EventBus.getDefault().post(new NimpleCodeScannedEvent(data));
 			}
 		}
+
 	}
 }

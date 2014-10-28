@@ -26,8 +26,8 @@ public class ContactDao extends AbstractDao<Contact, Long> {
         public final static Property RowId = new Property(0, Long.class, "rowId", true, "rowId");
         public final static Property Name = new Property(1, String.class, "name", false, "name");
         public final static Property Email = new Property(2, String.class, "email", false, "email");
-        public final static Property Telephone = new Property(3, String.class, "telephone", false, "telephone");
-        public final static Property TelephoneWork = new Property(4, String.class, "telephoneWork", false, "telephoneWork");
+        public final static Property TelephoneHome = new Property(3, String.class, "telephoneHome", false, "telephoneHome");
+        public final static Property TelephoneMobile = new Property(4, String.class, "telephoneMobile", false, "telephoneMobile");
         public final static Property Website = new Property(5, String.class, "website", false, "website");
         public final static Property Street = new Property(6, String.class, "street", false, "street");
         public final static Property Postal = new Property(7, String.class, "postal", false, "postal");
@@ -61,8 +61,8 @@ public class ContactDao extends AbstractDao<Contact, Long> {
                 "'rowId' INTEGER PRIMARY KEY ," + // 0: rowId
                 "'name' TEXT," + // 1: name
                 "'email' TEXT," + // 2: email
-                "'telephone' TEXT," + // 3: telephone
-                "'telephoneWork' TEXT," + // 4: telephoneWork
+                "'telephoneHome' TEXT," + // 3: telephoneHome
+                "'telephoneMobile' TEXT," + // 4: telephoneMobile
                 "'website' TEXT," + // 5: website
                 "'street' TEXT," + // 6: street
                 "'postal' TEXT," + // 7: postal
@@ -106,14 +106,14 @@ public class ContactDao extends AbstractDao<Contact, Long> {
             stmt.bindString(3, email);
         }
  
-        String telephone = entity.getTelephone();
-        if (telephone != null) {
-            stmt.bindString(4, telephone);
+        String telephoneHome = entity.getTelephoneHome();
+        if (telephoneHome != null) {
+            stmt.bindString(4, telephoneHome);
         }
  
-        String telephoneWork = entity.getTelephoneWork();
-        if (telephoneWork != null) {
-            stmt.bindString(5, telephoneWork);
+        String telephoneMobile = entity.getTelephoneMobile();
+        if (telephoneMobile != null) {
+            stmt.bindString(5, telephoneMobile);
         }
  
         String website = entity.getWebsite();
@@ -205,8 +205,8 @@ public class ContactDao extends AbstractDao<Contact, Long> {
             cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0), // rowId
             cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1), // name
             cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2), // email
-            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // telephone
-            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // telephoneWork
+            cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3), // telephoneHome
+            cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4), // telephoneMobile
             cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5), // website
             cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6), // street
             cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7), // postal
@@ -232,8 +232,8 @@ public class ContactDao extends AbstractDao<Contact, Long> {
         entity.setRowId(cursor.isNull(offset + 0) ? null : cursor.getLong(offset + 0));
         entity.setName(cursor.isNull(offset + 1) ? null : cursor.getString(offset + 1));
         entity.setEmail(cursor.isNull(offset + 2) ? null : cursor.getString(offset + 2));
-        entity.setTelephone(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
-        entity.setTelephoneWork(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
+        entity.setTelephoneHome(cursor.isNull(offset + 3) ? null : cursor.getString(offset + 3));
+        entity.setTelephoneMobile(cursor.isNull(offset + 4) ? null : cursor.getString(offset + 4));
         entity.setWebsite(cursor.isNull(offset + 5) ? null : cursor.getString(offset + 5));
         entity.setStreet(cursor.isNull(offset + 6) ? null : cursor.getString(offset + 6));
         entity.setPostal(cursor.isNull(offset + 7) ? null : cursor.getString(offset + 7));

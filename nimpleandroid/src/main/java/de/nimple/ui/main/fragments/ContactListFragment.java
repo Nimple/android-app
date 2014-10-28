@@ -1,6 +1,9 @@
 package de.nimple.ui.main.fragments;
 
 import android.content.Context;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -22,8 +25,11 @@ import de.nimple.services.contacts.ContactsService;
 import de.nimple.services.export.Export;
 import de.nimple.services.export.IExportExtender;
 import de.nimple.services.nimplecode.VCardHelper;
+import de.nimple.services.upgrade.ProObservable;
+import de.nimple.services.upgrade.ProVersionHelper;
 import de.nimple.util.Lg;
 import de.nimple.util.SharedPrefHelper;
+import de.nimple.util.fragment.MenuHelper;
 
 public class ContactListFragment extends BaseFragment implements IExportExtender {
 	public static final ContactListFragment newInstance() {
@@ -45,16 +51,32 @@ public class ContactListFragment extends BaseFragment implements IExportExtender
 	@Override
 	public void onResume() {
 		super.onResume();
+        ctx = getActivity().getApplicationContext();
 		onBootstrap();
 		listOfContacts = contactsService.findAllContacts();
-
-		EventBus.getDefault().register(this);
 
 		contactsAdapter = new ContactsListAdapter(this.getActivity(), R.layout.single_contact, listOfContacts, getActivity().getLayoutInflater());
 		contactsList.setAdapter(contactsAdapter);
 
 		toggleInfoText();
 	}
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.contacts_fragment, menu);
+        ProVersionHelper proHelp = ProVersionHelper.getInstance(ctx);
+        proHelp.addObserver(menu.findItem(R.id.menu_export), ProObservable.State.PRO);
+        proHelp.addObserver(menu.findItem(R.id.menu_save), ProObservable.State.PRO);
+        proHelp.addObserver(menu.findItem(R.id.menu_proVersion), ProObservable.State.BASIC);
+        ProVersionHelper.getInstance(ctx).notifyObserver();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        MenuHelper.selectMenuItem(item, this);
+        return super.onOptionsItemSelected(item);
+    }
 
 	@Override
 	public void onPause() {
@@ -73,7 +95,7 @@ public class ContactListFragment extends BaseFragment implements IExportExtender
 
 	private void onBootstrap() {
 		if (isInitial()) {
-			Contact c = new Contact(null, getString(R.string.bootstrap_first_contact), "feedback.android@nimple.de", "", "http://www.nimple.de", "", "", "", "",
+			Contact c = new Contact(null, getString(R.string.bootstrap_first_contact), "feedback.android@nimple.de", "", "www.nimple.de", "", "", "", "",
 					"Appstronauten GbR", "Nimple - Networking Simple", "286113114869395", "https://www.facebook.com/nimpleapp", "2444364654",
 					"https://twitter.com/Nimpleapp", "https://www.xing.com/companies/appstronautengbr", "https://www.linkedin.com/company/appstronauten-gbr",
 					"", System.currentTimeMillis(), "");

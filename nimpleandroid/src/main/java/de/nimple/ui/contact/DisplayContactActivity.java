@@ -7,14 +7,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -34,26 +33,28 @@ import de.nimple.domain.Contact;
 import de.nimple.events.ContactDeletedEvent;
 import de.nimple.events.ContactTransferredEvent;
 import de.nimple.services.contacts.ContactsService;
-import de.nimple.ui.dialog.ExportDialog;
-import de.nimple.util.IntentHelper;
 import de.nimple.services.export.Export;
-import de.nimple.util.Lg;
+import de.nimple.services.export.IExportExtender;
 import de.nimple.services.nimplecode.VCardHelper;
+import de.nimple.services.upgrade.ProObservable;
+import de.nimple.services.upgrade.ProVersionHelper;
+import de.nimple.util.IntentHelper;
+import de.nimple.util.Lg;
+import de.nimple.util.fragment.MenuHelper;
 
-public class DisplayContactActivity extends BaseActivity {
+public class DisplayContactActivity extends BaseActivity implements IExportExtender {
 	@Inject
 	ContactsService contactsService;
-
 	private Context ctx;
 	private Contact contact;
 
 	// clickable intents
 	@InjectView(R.id.mailTextView)
 	TextView mailTextView;
-	@InjectView(R.id.phoneTextView)
-	TextView phoneTextView;
-	@InjectView(R.id.phoneWorkTextView)
-	TextView phoneWorkTextView;
+	@InjectView(R.id.phoneHomeTextView)
+	TextView phoneHomeTextView;
+	@InjectView(R.id.phoneMobileTextView)
+	TextView phoneMobileTextView;
 
 	// created / notes
 	@InjectView(R.id.contact_created)
@@ -93,13 +94,15 @@ public class DisplayContactActivity extends BaseActivity {
 	@InjectView(R.id.linkedinProfile)
 	TextView linkedinProfile;
 
+    @InjectView(R.id.contact_export_button)
+    Button btExport;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 		setContentView(R.layout.display_contact_screen);
 		setProgressBarIndeterminateVisibility(false);
-
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 
 		ButterKnife.inject(this);
@@ -109,22 +112,37 @@ public class DisplayContactActivity extends BaseActivity {
 		long contactId = getIntent().getLongExtra("CONTACT_ID", -1);
 		contact = contactsService.findContactById(contactId);
 
-		getActionBar().setTitle(contact.getName());
+		getActionBar().setTitle("");
 
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
 		fillUi();
+
+        checkIsPro();
 	}
+
+    private void checkIsPro(){
+        if(!ProVersionHelper.getInstance(ctx).IsPro()) {
+            btExport.setVisibility(View.GONE);
+        }
+    }
 
 	private void save() {
 		contact.setNote(notesText.getText().toString());
 		contactsService.update(contact);
 	}
 
+    public void share() {
+        MenuHelper.export(getExport(), this);
+    }
+
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.display_contact, menu);
-		return super.onCreateOptionsMenu(menu);
+		boolean ret =  super.onCreateOptionsMenu(menu);
+        ProVersionHelper.getInstance(ctx).addObserver(menu.findItem(R.id.menu_share), ProObservable.State.PRO);
+        ProVersionHelper.getInstance(ctx).notifyObserver();
+        return ret;
 	}
 
 	@Override
@@ -143,14 +161,17 @@ public class DisplayContactActivity extends BaseActivity {
 				finish();
 				return true;
 			case R.id.menu_del:
-				showDeleteContact();
-				return true;
+                showDeleteContact();
+                return true;
+            case R.id.menu_share:
+                share();
+                return true;
 			default:
 				return false;
 		}
 	}
 
-	@OnClick({R.id.contact_add, R.id.contact_add_text})
+	@OnClick({R.id.contact_add_button})
 	public void showAddContact() {
 		Builder builder = new AlertDialog.Builder(this);
 		builder.setMessage(getString(R.string.save_contact_question));
@@ -173,16 +194,26 @@ public class DisplayContactActivity extends BaseActivity {
 		dialog.show();
 	}
 
-	@OnClick({R.id.contact_export_text, R.id.contact_export})
+	@OnClick({R.id.contact_export_button})
 	public void showExportContact() {
-		LayoutInflater layoutInflater
-				= (LayoutInflater) ctx
-				.getSystemService(LAYOUT_INFLATER_SERVICE);
-		View popupView = layoutInflater.inflate(R.layout.popup_export, null);
-		Export<String> export = new Export<String>(VCardHelper.getCardFromContact(contact, ctx));
-		ExportDialog exportDialog = new ExportDialog(popupView, ViewGroup.LayoutParams.WRAP_CONTENT,
-				ViewGroup.LayoutParams.WRAP_CONTENT, export, this);
-		exportDialog.showAsDropDown(mailTextView);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(getString(R.string.export_contact));
+        builder.setCancelable(true);
+        builder.setPositiveButton(getString(R.string.button_ok), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                MenuHelper.save(getExport(), getApplication().getApplicationContext());
+                dialog.dismiss();
+            }
+        });
+        builder.setNegativeButton(getString(R.string.button_cancel), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
 	}
 
 	//@OnClick(R.id.contact_delete)
@@ -227,10 +258,10 @@ public class DisplayContactActivity extends BaseActivity {
 			mailTextView.setVisibility(View.INVISIBLE);
 		}
 
-		final String number = contact.getTelephone();
+		final String number = contact.getTelephoneHome();
 		if (number != null && number.length() != 0) {
-			phoneTextView.setText(number);
-			phoneTextView.setOnClickListener(new OnClickListener() {
+			phoneHomeTextView.setText(number);
+            phoneHomeTextView.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
 					if (contact.getCreated() == 0L) {
@@ -241,28 +272,28 @@ public class DisplayContactActivity extends BaseActivity {
 					}
 				}
 			});
-			phoneTextView.setVisibility(View.VISIBLE);
+            phoneHomeTextView.setVisibility(View.VISIBLE);
 		} else {
-			phoneTextView.setVisibility(View.INVISIBLE);
+            phoneHomeTextView.setVisibility(View.INVISIBLE);
 		}
 
-		final String numberWork = contact.getTelephoneWork();
-		if (numberWork != null && numberWork.length() != 0) {
-			phoneWorkTextView.setText(numberWork);
-			phoneWorkTextView.setOnClickListener(new OnClickListener() {
+		final String numberMobile = contact.getTelephoneMobile();
+		if (numberMobile != null && numberMobile.length() != 0) {
+            phoneMobileTextView.setText(numberMobile);
+			phoneMobileTextView.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
 					if (contact.getCreated() == 0L) {
-						Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(numberWork));
+						Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse(numberMobile));
 						startActivity(browserIntent);
 					} else {
 						IntentHelper.callContact(DisplayContactActivity.this, contact);
 					}
 				}
 			});
-			phoneWorkTextView.setVisibility(View.VISIBLE);
+            phoneMobileTextView.setVisibility(View.VISIBLE);
 		} else {
-			phoneWorkTextView.setVisibility(View.INVISIBLE);
+            phoneMobileTextView.setVisibility(View.INVISIBLE);
 		}
 
 		final String website = contact.getWebsite();
@@ -394,4 +425,9 @@ public class DisplayContactActivity extends BaseActivity {
 			linkedinImageView.setAlpha(30);
 		}
 	}
+
+    @Override
+    public Export getExport() {
+       return new Export<String>(VCardHelper.getCardFromContact(contact, ctx));
+    }
 }

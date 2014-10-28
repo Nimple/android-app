@@ -1,5 +1,6 @@
 package de.nimple.ui.edit;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -9,6 +10,7 @@ import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,11 +22,11 @@ import com.facebook.model.GraphUser;
 
 import javax.inject.Inject;
 
+import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 import de.nimple.R;
-import de.nimple.dagger.BaseActivity;
 import de.nimple.enums.SocialNetwork;
 import de.nimple.events.NimpleCodeChangedEvent;
 import de.nimple.events.SocialConnectedEvent;
@@ -32,13 +34,24 @@ import de.nimple.events.SocialDisconnectedEvent;
 import de.nimple.services.nimplecode.Address;
 import de.nimple.services.nimplecode.NimpleCodeHelper;
 import de.nimple.services.nimplecode.NimpleCodeService;
+import de.nimple.services.upgrade.ProVersionHelper;
 import de.nimple.ui.edit.social.SocialLinkedinActivity;
 import de.nimple.ui.edit.social.SocialTwitterActivity;
 import de.nimple.ui.edit.social.SocialXingActivity;
 import de.nimple.ui.parts.ActionBarDoneCancel;
 import de.nimple.util.Lg;
 
-public class EditNimpleCodeActivity extends BaseActivity implements ActionBarDoneCancel.ActionBarDoneCancelCallback {
+public class EditNimpleCodeActivity extends Activity implements ActionBarDoneCancel.ActionBarDoneCancelCallback {
+	@InjectView(R.id.cardNameEditText)
+    public EditText cardName;
+
+    @InjectView(R.id.cardNameDropShadow)
+    View cardNameDropShadow;
+    @InjectView(R.id.checkboxInfoHint)
+    TextView checkboxInfoHint;
+    @InjectView(R.id.edit_personal_fragment)
+    RelativeLayout editPersonalFragment;
+
 	// personal information
 	@InjectView(R.id.firstnameEditText)
 	public EditText firstname;
@@ -46,16 +59,16 @@ public class EditNimpleCodeActivity extends BaseActivity implements ActionBarDon
 	public EditText lastname;
 	@InjectView(R.id.mailEditText)
 	public EditText mail;
-	@InjectView(R.id.phoneEditText)
-	public EditText phone;
+	@InjectView(R.id.phoneHomeEditText)
+	public EditText phoneHome;
 	@InjectView(R.id.mailCheckbox)
 	public CheckBox mailCheck;
-	@InjectView(R.id.phoneCheckbox)
-	public CheckBox phoneCheck;
-	@InjectView(R.id.phoneWorkEditText)
-	public EditText phone_work;
-	@InjectView(R.id.phoneWorkCheckbox)
-	public CheckBox phoneWorkCheck;
+	@InjectView(R.id.phoneHomeCheckbox)
+	public CheckBox phoneHomeCheck;
+    @InjectView(R.id.phoneMobileEditText)
+    public EditText phone_mobile;
+    @InjectView(R.id.phoneMobileCheckbox)
+    public CheckBox phoneMobileCheck;
 	// business information
 	@InjectView(R.id.companyEditText)
 	public TextView company;
@@ -106,6 +119,7 @@ public class EditNimpleCodeActivity extends BaseActivity implements ActionBarDon
 	@Inject
 	NimpleCodeService nimpleCodeService;
 
+
 	public final static boolean isValidEmail(CharSequence target) {
 		if (target == null) {
 			return false;
@@ -123,7 +137,20 @@ public class EditNimpleCodeActivity extends BaseActivity implements ActionBarDon
 		ActionBarDoneCancel.apply(this, getActionBar());
 		EventBus.getDefault().register(this);
 		getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+        ButterKnife.inject(this);
+        checkIsPro();
 	}
+
+    private void checkIsPro(){
+        if(!ProVersionHelper.getInstance(getApplicationContext()).IsPro()) {
+            cardNameDropShadow.setVisibility(View.GONE);
+            cardName.setVisibility(View.GONE);
+            editPersonalFragment.setPadding(editPersonalFragment.getPaddingLeft(),      //left,
+                                            0,                                          //top
+                                            editPersonalFragment.getPaddingRight(),     //right
+                                            editPersonalFragment.getPaddingBottom());   //bottom
+        }
+    }
 
 	@Override
 	public void onDoneCallback() {
@@ -163,19 +190,20 @@ public class EditNimpleCodeActivity extends BaseActivity implements ActionBarDon
 		// set all views
 		NimpleCodeHelper ncode = new NimpleCodeHelper(this);
 
+        cardName.setText(ncode.holder.cardName);
 		firstname.setText(ncode.holder.firstname);
 		lastname.setText(ncode.holder.lastname);
 		mail.setText(ncode.holder.mail);
-		phone.setText(ncode.holder.phone);
-		phone_work.setText(ncode.holder.phone_work);
+		phoneHome.setText(ncode.holder.phone_home);
+        phone_mobile.setText(ncode.holder.phone_mobile);
 		website.setText(ncode.holder.websiteUrl);
 		addressStreet.setText(ncode.holder.address.getStreet());
 		addressPostal.setText(ncode.holder.address.getPostalCode());
 		addressCity.setText(ncode.holder.address.getLocality());
 
 		mailCheck.setChecked(ncode.holder.show.mail);
-		phoneCheck.setChecked(ncode.holder.show.phone);
-		phoneWorkCheck.setChecked(ncode.holder.show.phone_work);
+		phoneHomeCheck.setChecked(ncode.holder.show.phone_home);
+        phoneMobileCheck.setChecked(ncode.holder.show.phone_mobile);
 
 		company.setText(ncode.holder.company);
 		position.setText(ncode.holder.position);
@@ -241,23 +269,31 @@ public class EditNimpleCodeActivity extends BaseActivity implements ActionBarDon
 			hasErrors = true;
 		}
 
-		return hasErrors;
+        if (cardName.getText().length() == 0) {
+            cardName.setError(getText(R.string.form_error_card_invalid));
+            cardName.requestFocus();
+            hasErrors = true;
+        }
+
+
+        return hasErrors;
 	}
 
 	private void save() {
 		// read out all views and save them into sharedPreferences
 		NimpleCodeHelper ncode = new NimpleCodeHelper(this);
 
+        ncode.holder.cardName = cardName.getText().toString();
 		// EditPersonalFragment
 		ncode.holder.firstname = firstname.getText().toString();
 		ncode.holder.lastname = lastname.getText().toString();
 		ncode.holder.mail = mail.getText().toString();
 
-		ncode.holder.phone = phone.getText().toString();
-		ncode.holder.phone_work = phone_work.getText().toString();
+		ncode.holder.phone_home = phoneHome.getText().toString();
+        ncode.holder.phone_mobile = phone_mobile.getText().toString();
 		ncode.holder.show.mail = mailCheck.isChecked();
-		ncode.holder.show.phone = phoneCheck.isChecked();
-		ncode.holder.show.phone_work = phoneWorkCheck.isChecked();
+		ncode.holder.show.phone_home = phoneHomeCheck.isChecked();
+        ncode.holder.show.phone_mobile = phoneMobileCheck.isChecked();
 		ncode.holder.show.website = websiteCheck.isChecked();
 		ncode.holder.show.address = addressCheck.isChecked();
 		ncode.holder.websiteUrl = website.getText().toString();

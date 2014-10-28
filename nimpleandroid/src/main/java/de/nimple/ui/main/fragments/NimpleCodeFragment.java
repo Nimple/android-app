@@ -1,39 +1,59 @@
 package de.nimple.ui.main.fragments;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
+import android.graphics.Point;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.view.Display;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListPopupWindow;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
-import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import butterknife.OnClick;
 import de.greenrobot.event.EventBus;
 import de.nimple.R;
+import de.nimple.events.NimpleCardChangedEvent;
 import de.nimple.events.NimpleCodeChangedEvent;
-import de.nimple.util.DensityHelper;
-import de.nimple.util.SharedPrefHelper;
-import de.nimple.util.VersionResolver;
 import de.nimple.services.export.Export;
 import de.nimple.services.export.IExportExtender;
 import de.nimple.services.nimplecode.NimpleCodeHelper;
 import de.nimple.services.nimplecode.QRCodeCreator;
 import de.nimple.services.nimplecode.VCardHelper;
+import de.nimple.services.upgrade.ProObservable;
+import de.nimple.services.upgrade.ProVersionHelper;
+import de.nimple.util.DensityHelper;
+import de.nimple.util.NimpleCard;
+import de.nimple.util.SharedPrefHelper;
+import de.nimple.util.VersionResolver;
+import de.nimple.util.fragment.MenuHelper;
 
 public class NimpleCodeFragment extends Fragment implements IExportExtender {
-	public static final NimpleCodeFragment newInstance() {
+
+
+    public static final NimpleCodeFragment newInstance() {
 		return new NimpleCodeFragment();
 	}
 
+    private ProVersionHelper proHelp;
 	private Context ctx;
 	private View view;
 
@@ -45,8 +65,11 @@ public class NimpleCodeFragment extends Fragment implements IExportExtender {
 	@InjectView(R.id.arrow_up)
 	ImageView arrowUp;
 
-	@InjectView(R.id.spinner)
-	Spinner spinner;
+    @InjectView(R.id.ncard_name)
+    TextView nCardName;
+
+    @InjectView(R.id.card_dropdown)
+    LinearLayout linearLayout;
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -54,25 +77,129 @@ public class NimpleCodeFragment extends Fragment implements IExportExtender {
 		view = inflater.inflate(R.layout.main_ncode_fragment, container, false);
 		ButterKnife.inject(this, view);
 		EventBus.getDefault().register(this);
-		addSpinnerFunc();
+		//addSpinnerFunc();
+        onBootstrap();
 		refreshUi();
-		return view;
-	}
+        setHasOptionsMenu(true);
+        proHelp = ProVersionHelper.getInstance(ctx);
+        proHelp.addObserver(linearLayout, ProObservable.State.PRO);
+        ProVersionHelper.getInstance(ctx).notifyObserver();
+        return view;
+    }
 
-	private void addSpinnerFunc() {
-		spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-			@Override
-			public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-				NimpleCodeHelper.setCurrentId(position);
-				refreshUi();
-			}
+    private void onBootstrap(){
+        //is necassary for compatibility
+        NimpleCodeHelper.initCardNameFunctionality(ctx);
+    }
 
-			@Override
-			public void onNothingSelected(AdapterView<?> parent) {
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        super.onCreateOptionsMenu(menu, inflater);
+        inflater.inflate(R.menu.code_fragment, menu);
+        proHelp = ProVersionHelper.getInstance(ctx);
+        proHelp.addObserver(menu.findItem(R.id.menu_export), ProObservable.State.PRO);
+        proHelp.addObserver(menu.findItem(R.id.menu_save), ProObservable.State.PRO);
+        proHelp.addObserver(menu.findItem(R.id.menu_proVersion), ProObservable.State.BASIC);
+        ProVersionHelper.getInstance(ctx).notifyObserver();
+    }
 
-			}
-		});
-	}
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        MenuHelper.selectMenuItem(item, this);
+        return super.onOptionsItemSelected(item);
+    }
+
+    @OnClick({R.id.ncard_listShow, R.id.ncard_name})
+    public void showNCardList(){
+        LayoutInflater layoutInflater
+                = (LayoutInflater)getActivity()
+                .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View popupView = layoutInflater.inflate(R.layout.cards_popup_row, null);
+        final ListPopupWindow popupDialog = new ListPopupWindow(getActivity(),null);
+        ArrayAdapter<NimpleCard> adaper = new ArrayAdapter<NimpleCard>(
+                getActivity(),
+                R.layout.cards_popup_row, R.id.textView, NimpleCodeHelper.getCards(getActivity()));
+        popupDialog.setAdapter(adaper);
+        popupDialog.setAnchorView(getActivity().findViewById(R.id.tabs));
+        Display display = getActivity().getWindowManager().getDefaultDisplay();
+        Point size = new Point();
+        display.getSize(size);
+        int width = size.x;
+        popupDialog.setWidth((int)(width * 0.8));
+        popupDialog.setHorizontalOffset(-10);
+        final float scale = ctx.getResources().getDisplayMetrics().density;
+        int pixels = (int) (40 * scale + 0.5f);
+        popupDialog.setVerticalOffset(pixels);
+        popupDialog.setModal(true);
+        for(int i = 0; i < adaper.getCount(); i++){
+            if( ((NimpleCard)adaper.getItem(i)).getId() == NimpleCodeHelper.getCurrentId()){
+                //TODO
+                i = adaper.getCount();
+            }
+        }
+        popupDialog.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                NimpleCard cards = (NimpleCard) parent.getAdapter().getItem(position);
+                NimpleCodeHelper.setCurrentId(cards.getId());
+                refreshUi();
+                EventBus.getDefault().post(new NimpleCodeChangedEvent());
+                popupDialog.dismiss();
+            }
+        });
+        popupDialog.show();
+    }
+
+    @OnClick({R.id.ncard_add})
+    public void addCard(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setMessage(getString(R.string.add_ncard_question));
+        builder.setCancelable(true);
+        builder.setPositiveButton(getString(R.string.button_ok), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                NimpleCodeHelper.addCard(ctx);
+            }
+        });
+        builder.setNegativeButton(getString(R.string.button_cancel), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    @OnClick({R.id.ncard_del})
+    public void delCard(){
+        final NimpleCodeHelper ncode = new NimpleCodeHelper(ctx);
+        if(ncode.holder.id != 0) {
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            builder.setMessage(getString(R.string.del_ncard_question));
+            builder.setCancelable(true);
+            builder.setPositiveButton(getString(R.string.button_ok), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    ncode.delete(ncode.holder);
+                    ncode.setCurrentId(0);
+                    refreshUi();
+                    EventBus.getDefault().post(new NimpleCodeChangedEvent());
+                    dialog.dismiss();
+                }
+            });
+            builder.setNegativeButton(getString(R.string.button_cancel), new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    dialog.dismiss();
+                }
+            });
+            AlertDialog dialog = builder.create();
+            dialog.show();
+        }else{
+            Toast.makeText(ctx, "Die letzte Nimple Karte kann nicht gelöscht werden", Toast.LENGTH_SHORT).show();
+        }
+    }
 
 	@Override
 	public void onDestroyView() {
@@ -83,6 +210,11 @@ public class NimpleCodeFragment extends Fragment implements IExportExtender {
 	public void onEvent(NimpleCodeChangedEvent ev) {
 		refreshUi();
 	}
+
+    public void onEvent(NimpleCardChangedEvent ev) {
+        NimpleCodeHelper ncode = new NimpleCodeHelper(ctx);
+        nCardName.setText(ncode.holder.cardName);
+    }
 
 	private void refreshUi() {
 		// if nimple code exists create and show qr code
@@ -97,6 +229,8 @@ public class NimpleCodeFragment extends Fragment implements IExportExtender {
 			bitmap.setDensity(DisplayMetrics.DENSITY_HIGH);
 
 			imgQRCode.setImageBitmap(bitmap);
+            NimpleCodeHelper ncode = new NimpleCodeHelper(ctx);
+            nCardName.setText(ncode.holder.cardName);
 		}
 
 		// if nimple code does NOT exist show "fill out nimple code text and button"

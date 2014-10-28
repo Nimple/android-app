@@ -41,6 +41,4 @@
             android:background="@drawable/drop_shadow"/>
 
     </RelativeLayout>
-
-
 </LinearLayout>

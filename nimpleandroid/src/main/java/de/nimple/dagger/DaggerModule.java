@@ -17,6 +17,7 @@ import de.nimple.services.nimplecode.NimpleCodeService;
 import de.nimple.ui.contact.DisplayContactActivity;
 import de.nimple.ui.main.MainActivity;
 import de.nimple.ui.main.fragments.ContactListFragment;
+import de.nimple.ui.pro.ProActivity;
 
 /**
  * Modules which uses injection are declared here.
@@ -25,6 +26,7 @@ import de.nimple.ui.main.fragments.ContactListFragment;
 		AnalyticsController.class,
 		DataSyncController.class,
 		MainActivity.class,
+        ProActivity.class,
 		ContactListFragment.class,
 		DisplayContactActivity.class
 }, library = true, complete = false)

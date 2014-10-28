@@ -8,7 +8,7 @@ import de.greenrobot.daogenerator.Schema;
 
 public class Generator {
     public static void main(String args[]) throws IOException, Exception {
-        Schema schema = new Schema(3, "de.nimple.domain");
+        Schema schema = new Schema(4, "de.nimple.domain");
 
         defineContact(schema);
 
@@ -23,8 +23,8 @@ public class Generator {
 
         contact.addStringProperty("name").columnName("name");
         contact.addStringProperty("email").columnName("email");
-        contact.addStringProperty("telephone").columnName("telephone");
-        contact.addStringProperty("telephoneWork").columnName("telephoneWork");
+        contact.addStringProperty("telephoneHome").columnName("telephoneHome");
+        contact.addStringProperty("telephoneMobile").columnName("telephoneMobile");
         contact.addStringProperty("website").columnName("website");
 
         contact.addStringProperty("street").columnName("street");

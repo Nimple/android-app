@@ -1,13 +1,39 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="#ffffff"
-            android:clipToPadding="false"
-            android:fillViewport="false">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:clipToPadding="false"
+    android:fillViewport="false">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+
+        <EditText
+            android:id="@+id/cardNameEditText"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/NimpleTextHeading"
+            android:textSize="15sp"
+            android:textColor="@color/grey_light"
+            android:hint="@string/personal_input_card"
+            android:maxLength="45"
+            android:inputType="textPersonName|textCapSentences|textNoSuggestions"
+            android:nextFocusDown="@+id/firstnameEditText"
+            android:layout_marginBottom="0dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp" />
+
+        <View
+            android:id="@+id/cardNameDropShadow"
+            android:layout_width="match_parent"
+            android:layout_height="6dp"
+            android:layout_below="@+id/cardNameEditText"
+            android:layout_marginTop="10dp"
+            android:alpha="0.1"
+            android:background="@drawable/drop_shadow"/>
 
         <RelativeLayout
             android:id="@+id/edit_personal_fragment"
@@ -15,27 +41,25 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:focusable="true"
+            android:layout_below="@id/cardNameDropShadow"
             android:focusableInTouchMode="true"
             android:orientation="vertical"
             android:paddingBottom="14dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"
-            android:paddingTop="10dp">
+            android:paddingTop="47dp">
 
             <TextView
                 android:id="@+id/checkboxInfoHint"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignEnd="@+id/firstname_lastname_layout"
-                android:layout_alignLeft="@+id/firstname_lastname_layout"
-                android:layout_alignRight="@+id/firstname_lastname_layout"
-                android:layout_alignStart="@+id/firstname_lastname_layout"
                 android:layout_marginLeft="6dp"
                 android:layout_marginRight="6dp"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="20dp"
                 android:text="@string/checkbox_info_hint"
                 android:textColor="@color/nimple_color"
                 android:textSize="12sp"/>
+
 
             <LinearLayout
                 android:id="@+id/firstname_lastname_layout"
@@ -66,45 +90,43 @@
             </LinearLayout>
 
             <CheckBox
-                android:id="@+id/phoneCheckbox"
+                android:id="@+id/phoneHomeCheckbox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/phoneEditText"
+                android:layout_alignTop="@+id/phoneHomeEditText"
                 android:layout_marginLeft="10dp"
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="4dp"/>
 
             <EditText
-                android:id="@+id/phoneEditText"
+                android:id="@+id/phoneHomeEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/firstname_lastname_layout"
                 android:layout_marginLeft="4dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="5dp"
-                android:layout_toRightOf="@+id/phoneCheckbox"
+                android:layout_toRightOf="@+id/phoneHomeCheckbox"
                 android:hint="@string/personal_input_phone"
                 android:inputType="phone"/>
 
             <CheckBox
-                android:id="@+id/phoneWorkCheckbox"
+                android:id="@+id/phoneMobileCheckbox"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignTop="@+id/phoneWorkEditText"
+                android:layout_alignTop="@+id/phoneMobileEditText"
                 android:layout_marginLeft="10dp"
-                android:layout_marginStart="10dp"
                 android:layout_marginTop="4dp"/>
 
             <EditText
-                android:id="@+id/phoneWorkEditText"
+                android:id="@+id/phoneMobileEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/firstname_lastname_layout"
-                android:layout_marginLeft="4dp"
-                android:layout_marginRight="10dp"
+                android:layout_alignLeft="@+id/phoneHomeEditText"
+                android:layout_alignRight="@id/phoneHomeEditText"
+                android:layout_below="@+id/phoneHomeEditText"
                 android:layout_marginTop="5dp"
-                android:layout_toRightOf="@+id/phoneWorkCheckbox"
-                android:hint="@string/personal_input_phone"
+                android:hint="@string/personal_input_mobile"
                 android:inputType="phone"/>
 
             <CheckBox
@@ -119,9 +141,9 @@
                 android:id="@+id/mailEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/phoneEditText"
-                android:layout_alignRight="@id/phoneEditText"
-                android:layout_below="@+id/phoneEditText"
+                android:layout_alignLeft="@+id/phoneMobileEditText"
+                android:layout_alignRight="@id/phoneMobileEditText"
+                android:layout_below="@+id/phoneMobileEditText"
                 android:layout_marginTop="5dp"
                 android:hint="@string/personal_input_mail"
                 android:inputType="textEmailAddress"/>

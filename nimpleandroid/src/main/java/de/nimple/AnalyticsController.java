@@ -60,7 +60,8 @@ public class AnalyticsController {
 			isFlyerContact = true;
 		}
 
-		props.put("has phone number", c.getTelephone().length() != 0);
+		props.put("has phone number", c.getTelephoneHome().length() != 0);
+        props.put("has phone number", c.getTelephoneMobile().length() != 0);
 		props.put("has mail address", c.getEmail().length() != 0);
 		props.put("has company", c.getCompany().length() != 0);
 		props.put("has job title", c.getPosition().length() != 0);
@@ -85,7 +86,8 @@ public class AnalyticsController {
 
 		JSONObject props = new JSONObject();
 
-		props.put("has phone number", nimpleCode.phone.length() != 0);
+		props.put("has phone number", nimpleCode.phone_home.length() != 0);
+        props.put("has mobile number", nimpleCode.phone_mobile.length() != 0);
 		props.put("has mail address", nimpleCode.mail.length() != 0);
 		props.put("has company", nimpleCode.company.length() != 0);
 		props.put("has job title", nimpleCode.position.length() != 0);
