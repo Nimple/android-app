@@ -152,4 +152,16 @@
     <string name="personal_input_mobile">Mobile number</string>
     <string name="personal_input_card">Cardname</string>
     <string name="form_error_card_invalid">Card name is invalid.</string>
+
+    <!-- ProVersion -->
+    <string name="ab_proVersion">Pro-Version aktivieren</string>
+    <string name="pro_features_text">Nimple Pro ermöglicht dir folgende wichtige Funktionen</string>
+    <string name="pro_feature_export">Exportiere und speichere deine Nimple Karte, Code und Kontakte auf deinem Smartphone</string>
+    <string name="pro_feature_share">Teile und versende deine Nimple Karte, Code und Kontakte per E-Mail oder anderen Medien</string>
+    <string name="pro_feature_cards">Erstelle mehrere Nimple Karten und Codes (z.B. eine geschäftliche, eine private und eine für die Universität)</string>
+    <string name="pro_bt_buy">Upgrade zur Pro-Version</string>
+    <string name="pro_copyright">Copyright</string>
+    <string name="pro_title">Kaufe Pro-Version</string>
+    <string name="pro_purchase_succesfull">Bitte starte die Nimple App neu, sodass der Kauf durchgeführt werden kann.</string>
+    <string name="pro_purchase_err">Kauf der Pro-Version ist fehlgeschlagen.</string>
 </resources>
