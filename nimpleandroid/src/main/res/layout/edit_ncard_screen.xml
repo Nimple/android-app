@@ -248,7 +248,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="0.3"
                     android:hint="@string/ncard_edit_address_postal"
-                    android:inputType="number"
+                    android:inputType="text"
                     android:nextFocusDown="@+id/addressCityEditText"/>
 
                 <EditText
