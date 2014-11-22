@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <color name="nimple_color">#F50077</color>
     <!-- Telekom -->
     <color name="telekom_base">#F50077</color>
     <color name="telekom_base_dark">#CB2379</color>
