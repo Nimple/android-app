@@ -40,13 +40,13 @@
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@string/pro_features_text"
+                    android:layout_height="match_parent"
+                    android:text="@string/pro_congrats"
                     android:id="@+id/textView3"
                     android:layout_gravity="center_horizontal"
                     android:autoText="false"
-                    android:gravity="center_horizontal"
-                    android:textSize="12dp"
+                    android:gravity="center|center_horizontal"
+                    android:textSize="20dp"
                     android:textStyle="bold"
                     android:paddingLeft="20dp"
                     android:paddingTop="10dp"
@@ -61,24 +61,6 @@
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp">
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/icon_addCards"
-                        android:src="@drawable/ic_action_add_card_dark"
-                        android:layout_gravity="center_vertical"
-                        android:paddingLeft="20dp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/pro_feature_cards"
-                        android:id="@+id/text_addCards"
-                        android:textSize="12dp"
-                        android:layout_gravity="center_vertical"
-                        android:paddingLeft="15dp"
-                        android:paddingTop="5dp"
-                        android:paddingRight="20dp" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -88,25 +70,6 @@
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp"
                     android:layout_gravity="center_horizontal">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/icon_export"
-                        android:src="@drawable/ic_action_export_dark"
-                        android:layout_gravity="center_vertical"
-                        android:paddingLeft="20dp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/pro_feature_export"
-                        android:id="@+id/text_export"
-                        android:textSize="12dp"
-                        android:layout_gravity="center_vertical"
-                        android:paddingLeft="15dp"
-                        android:paddingRight="20dp"
-                        android:paddingTop="5dp" />
 
                 </LinearLayout>
 
@@ -118,24 +81,6 @@
                     android:paddingTop="10dp"
                     android:paddingBottom="10dp">
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:id="@+id/icon_sahreCards"
-                        android:src="@drawable/ic_action_share_card_dark"
-                        android:layout_gravity="center_vertical"
-                        android:paddingLeft="20dp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/pro_feature_share"
-                        android:id="@+id/text_shareCards"
-                        android:textSize="12dp"
-                        android:layout_gravity="center_vertical"
-                        android:paddingLeft="15dp"
-                        android:paddingRight="20dp"
-                        android:paddingTop="5dp" />
                 </LinearLayout>
 
             </LinearLayout>
@@ -151,7 +96,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/nimple_color"
-                    android:text="@string/pro_bt_buy"
+                    android:text="@string/pro_restart"
                     android:id="@+id/nimple_button_buy_pro"
                     android:layout_gravity="center_horizontal"
                     android:layout_margin="20dp"

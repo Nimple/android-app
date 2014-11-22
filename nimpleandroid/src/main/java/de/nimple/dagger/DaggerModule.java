@@ -17,6 +17,7 @@ import de.nimple.services.nimplecode.NimpleCodeService;
 import de.nimple.ui.contact.DisplayContactActivity;
 import de.nimple.ui.main.MainActivity;
 import de.nimple.ui.main.fragments.ContactListFragment;
+import de.nimple.ui.pro.ProActivatedActivity;
 import de.nimple.ui.pro.ProActivity;
 
 /**
@@ -27,6 +28,7 @@ import de.nimple.ui.pro.ProActivity;
 		DataSyncController.class,
 		MainActivity.class,
         ProActivity.class,
+        ProActivatedActivity.class,
 		ContactListFragment.class,
 		DisplayContactActivity.class
 }, library = true, complete = false)

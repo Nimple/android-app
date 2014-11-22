@@ -70,15 +70,16 @@
             android:paddingBottom="0dp"
             android:paddingLeft="10dp"
             android:gravity="right"
-            android:layout_margin="10dp"
+            android:layout_margin="6dp"
             android:paddingTop="0dp"
-            android:focusable="false">
+            android:focusable="false"
+            android:paddingRight="10dp">
 
             <ImageView
                 android:id="@+id/contact_facebook"
                 android:layout_width="30dp"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_round_facebook"/>
+                android:src="@drawable/ic_round_facebook" />
 
             <ImageView
                 android:id="@+id/contact_twitter"

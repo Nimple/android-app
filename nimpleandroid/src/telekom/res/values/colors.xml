@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Telekom -->
+    <color name="telekom_base">#F50077</color>
+    <color name="telekom_base_dark">#CB2379</color>
+    <color name="telekom_text_light">#EDEDED</color>
+    <color name="telekom_text_light_desaturated">#F6DFEA</color>
+    <color name="telekom_text_dark">#333</color>
+    <color name="telekom_text_dark_desaturated">#999</color>
+    <color name="telekom_tabbar_indicator">#FFF</color>
+</resources>
