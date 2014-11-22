@@ -124,34 +124,35 @@
 	<string name="button_delete">Löschen</string>
 
     <!-- export -->
-    <string name="ncard_phone_home">Phone number</string>
-    <string name="ncard_phone_mobile">Mobile number</string>
-    <string name="ab_export_contacts">Export Contacts</string>
-    <string name="ab_export_code">Export Barcode</string>
-    <string name="ab_export_card">Export Card</string>
-    <string name="ab_export_err">Failed to save content</string>
-    <string name="ab_export_save">Saved content to folder "Downloads"</string>
+    <string name="ncard_phone_home">Telefonnummer</string>
+    <string name="ncard_phone_mobile">Handynummer</string>
+    <string name="ab_export_contacts">Kontakte exportieren</string>
+    <string name="ab_export_code">Code exportieren</string>
+    <string name="ab_export_card">Karte exportieren</string>
+    <string name="ab_export_err">Fehler beim Speichern.</string>
+    <string name="ab_export_save">Gespeichert im Ordner "Downloads".</string>
 
     <!-- share -->
-    <string name="ab_share_contacts">Share Contacts</string>
-    <string name="ab_share_contact">Share Contact</string>
-    <string name="ab_share_code">Share Barcode</string>
-    <string name="ab_share_card">Share Card</string>
+    <string name="ab_share_contacts">Kontakte teilen</string>
+    <string name="ab_share_contact">Kontakt teilen</string>
+    <string name="ab_share_code">Code teilen</string>
+    <string name="ab_share_card">Karte teilen</string>
 
 
     <string name="ab_export">Export</string>
-    <string name="export_contact">Export this contact</string>
-    <string name="export_dia_header">Export File</string>
-    <string name="export_dia_card">Export to SD-Card</string>
-    <string name="export_dia_mail">Send as E-Mail</string>
-    <string name="export_dia_cancel">Cancel</string>
+    <string name="export_contact">Diesen Kontakt exportieren</string>
+    <string name="export_dia_header">Datei exportieren</string>
+    <string name="export_dia_card">Auf SD-Card exportieren</string>
+    <string name="export_dia_mail">Als E-Mail versenden</string>
+    <string name="export_dia_cancel">Abbrechen</string>
     <!-- several cards -->
-    <string name="nimpleCards_defaultName">NimpleCard</string>
-    <string name="del_ncard_question">Delete this card?</string>
-    <string name="add_ncard_question">Add Card?</string>
-    <string name="personal_input_mobile">Mobile number</string>
-    <string name="personal_input_card">Cardname</string>
-    <string name="form_error_card_invalid">Card name is invalid.</string>
+
+    <string name="nimpleCards_defaultName">Nimple Karte</string>
+    <string name="del_ncard_question">Diese Nimple Karte löschen?</string>
+    <string name="add_ncard_question">Weitere Karte hinzufügen?</string>
+    <string name="personal_input_mobile">Handynummer</string>
+    <string name="personal_input_card">Name der Karte</string>
+    <string name="form_error_card_invalid">Name der Karte ist nicht gültig.</string>
 
     <!-- ProVersion -->
     <string name="ab_proVersion">Pro-Version aktivieren</string>
@@ -164,4 +165,7 @@
     <string name="pro_title">Kaufe Pro-Version</string>
     <string name="pro_purchase_succesfull">Bitte starte die Nimple App neu, sodass der Kauf durchgeführt werden kann.</string>
     <string name="pro_purchase_err">Kauf der Pro-Version ist fehlgeschlagen.</string>
+    <string name="pro_congrats">Glückwunsch, du hast Nimple Pro erworben!</string>
+    <string name="pro_restart">Nimple neustarten</string>
+
 </resources>
