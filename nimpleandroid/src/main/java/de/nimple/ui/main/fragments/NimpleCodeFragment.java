@@ -152,7 +152,8 @@ public class NimpleCodeFragment extends Fragment implements IExportExtender {
 
     @OnClick({R.id.ncard_add})
     public void addCard(){
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        NimpleCodeHelper.addCard(ctx);
+       /* AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage(getString(R.string.add_ncard_question));
         builder.setCancelable(true);
         builder.setPositiveButton(getString(R.string.button_ok), new DialogInterface.OnClickListener() {
@@ -168,18 +169,14 @@ public class NimpleCodeFragment extends Fragment implements IExportExtender {
             }
         });
         AlertDialog dialog = builder.create();
-        dialog.show();
+        dialog.show();*/
     }
 
     @OnClick({R.id.ncard_del})
     public void delCard(){
         final NimpleCodeHelper ncode = new NimpleCodeHelper(ctx);
         if(ncode.holder.id != 0) {
-            ncode.delete(ncode.holder);
-            ncode.setCurrentId(0);
-            refreshUi();
-            EventBus.getDefault().post(new NimpleCodeChangedEvent());
-            /*AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+            AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
             builder.setMessage(getString(R.string.del_ncard_question));
             builder.setCancelable(true);
             builder.setPositiveButton(getString(R.string.button_ok), new DialogInterface.OnClickListener() {
@@ -199,7 +196,7 @@ public class NimpleCodeFragment extends Fragment implements IExportExtender {
                 }
             });
             AlertDialog dialog = builder.create();
-            dialog.show();*/
+            dialog.show();
         }else{
             Toast.makeText(ctx, "Die letzte Nimple Karte kann nicht gelöscht werden", Toast.LENGTH_SHORT).show();
         }
