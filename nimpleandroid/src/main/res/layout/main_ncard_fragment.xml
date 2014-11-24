@@ -276,7 +276,7 @@
             android:textSize="13dp"
             android:layout_gravity="bottom"
             android:paddingBottom="10dp"
-            android:gravity="bottom" />
+            android:gravity="center" />
     </LinearLayout>
 
 </RelativeLayout>
