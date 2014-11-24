@@ -196,7 +196,7 @@ public class NimpleCodeHelper implements NimpleCodeService {
         return cards;
     }
 
-    public static void addCard(Context ctx){
+    public static int addCard(Context ctx){
         int id = SharedPrefHelper.getInt(NC_CARDS_GLOBALE_ID_RIDER, ctx);
         SharedPrefHelper.putString(NC_CARD_NAME + id , id + 1 + ". " + ctx.getString(R.string.nimpleCards_defaultName), ctx);
         SharedPrefHelper.putInt(NC_CARD_ID + id, id, ctx);
@@ -204,6 +204,7 @@ public class NimpleCodeHelper implements NimpleCodeService {
         SharedPrefHelper.putString(NC_VALUE_LASTNAME + id, SharedPrefHelper.getString(NC_VALUE_LASTNAME, ctx), ctx);
         id++;
         SharedPrefHelper.putInt(NC_CARDS_GLOBALE_ID_RIDER , id , ctx);
+        return --id;
     }
 
     public static void setCurrentId(int  id){

@@ -152,7 +152,11 @@ public class NimpleCodeFragment extends Fragment implements IExportExtender {
 
     @OnClick({R.id.ncard_add})
     public void addCard(){
-        NimpleCodeHelper.addCard(ctx);
+        int id = NimpleCodeHelper.addCard(ctx);
+        final NimpleCodeHelper ncode = new NimpleCodeHelper(ctx);
+        ncode.setCurrentId(id);
+        refreshUi();
+        EventBus.getDefault().post(new NimpleCodeChangedEvent());
        /* AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage(getString(R.string.add_ncard_question));
         builder.setCancelable(true);
