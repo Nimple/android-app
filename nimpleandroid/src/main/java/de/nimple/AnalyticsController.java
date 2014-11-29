@@ -7,6 +7,8 @@ import com.mixpanel.android.mpmetrics.MixpanelAPI;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.Locale;
+
 import javax.inject.Inject;
 import javax.inject.Named;
 
@@ -15,12 +17,13 @@ import de.nimple.config.Config;
 import de.nimple.config.Constants;
 import de.nimple.dagger.DaggerApplication;
 import de.nimple.domain.Contact;
+import de.nimple.dto.NimpleCode;
 import de.nimple.events.ApplicationStartedEvent;
 import de.nimple.events.ContactAddedEvent;
 import de.nimple.events.ContactTransferredEvent;
 import de.nimple.events.NimpleCodeChangedEvent;
+import de.nimple.services.contacts.ContactsService;
 import de.nimple.services.nimplecode.NimpleCodeHelper;
-import de.nimple.dto.NimpleCode;
 
 /**
  * Created by bjohn on 25/09/14.
@@ -29,6 +32,9 @@ public class AnalyticsController {
 	@Inject
 	@Named("App")
 	Context ctx;
+
+    @Inject
+    ContactsService contactsService;
 
 	@Inject
 	EventBus eventBus;
@@ -46,9 +52,25 @@ public class AnalyticsController {
 		mixpanel.flush();
 	}
 
-	public void onEvent(ApplicationStartedEvent ev) {
-		JSONObject props = new JSONObject();
-		mixpanel.track("app started", props);
+    public void onEvent(ApplicationStartedEvent ev) throws JSONException {
+        JSONObject props = new JSONObject();
+        NimpleCode c = (new NimpleCodeHelper(ctx)).holder;
+        props.put("has phone number", c.phone_home != null && c.phone_home.length() != 0);
+        props.put("has phone number", c.phone_mobile != null && c.phone_mobile.length() != 0);
+        props.put("has mail adress", c.mail != null && c.mail.length() != 0);
+        props.put("has company", c.company != null && c.company.length() != 0);
+        props.put("has job title", c.position != null && c.position.length() != 0);
+        props.put("has website", c.websiteUrl != null && c.websiteUrl.length() != 0);
+        props.put("has address", c.address != null && c.address.hasAddress());
+        props.put("has facebook", c.facebookId != null && c.facebookId.length() != 0);
+        props.put("has twitter", c.twitterId != null && c.position.length() != 0);
+        props.put("has xing", c.xingUrl != null && c.xingUrl.length() != 0);
+        props.put("has linkedin", c.linkedinUrl != null && c.linkedinUrl.length() != 0);
+        props.put("amount of own cards", NimpleCodeHelper.getCards(ctx).size());
+        props.put("amount of contacts", contactsService.findAllContacts().size());
+        props.put("app language", Locale.getDefault());
+
+        mixpanel.track("app started", props);
 	}
 
 	public void onEvent(ContactAddedEvent ev) throws JSONException {
