@@ -33,6 +33,7 @@ import de.greenrobot.event.EventBus;
 import de.nimple.R;
 import de.nimple.events.NimpleCardChangedEvent;
 import de.nimple.events.NimpleCodeChangedEvent;
+import de.nimple.events.SharedEvent;
 import de.nimple.services.export.Export;
 import de.nimple.services.export.IExportExtender;
 import de.nimple.services.nimplecode.NimpleCodeHelper;
@@ -283,6 +284,7 @@ public class NimpleCodeFragment extends Fragment implements IExportExtender {
 
 	@Override
 	public Export getExport() {
+        EventBus.getDefault().post(new SharedEvent(SharedEvent.Type.Code));
 		return new Export<Bitmap>(QRCodeCreator.generateQrCode(VCardHelper.getCardFromSharedPrefs(ctx)));
 	}
 }

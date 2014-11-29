@@ -20,6 +20,7 @@ import de.nimple.dagger.BaseFragment;
 import de.nimple.domain.Contact;
 import de.nimple.events.ContactAddedEvent;
 import de.nimple.events.ContactDeletedEvent;
+import de.nimple.events.SharedEvent;
 import de.nimple.exceptions.DuplicatedContactException;
 import de.nimple.services.contacts.ContactsService;
 import de.nimple.services.export.Export;
@@ -135,6 +136,7 @@ public class ContactListFragment extends BaseFragment implements IExportExtender
 
 	@Override
 	public Export getExport() {
+        EventBus.getDefault().post(new SharedEvent(SharedEvent.Type.Contacts));
 		StringBuilder sb = new StringBuilder();
 		for (Contact con : listOfContacts) {
 			sb.append(VCardHelper.getCardFromContact(con, ctx));

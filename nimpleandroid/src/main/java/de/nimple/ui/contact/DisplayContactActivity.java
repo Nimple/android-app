@@ -32,6 +32,7 @@ import de.nimple.dagger.BaseActivity;
 import de.nimple.domain.Contact;
 import de.nimple.events.ContactDeletedEvent;
 import de.nimple.events.ContactTransferredEvent;
+import de.nimple.events.SharedEvent;
 import de.nimple.services.contacts.ContactsService;
 import de.nimple.services.export.Export;
 import de.nimple.services.export.IExportExtender;
@@ -428,6 +429,7 @@ public class DisplayContactActivity extends BaseActivity implements IExportExten
 
     @Override
     public Export getExport() {
+       EventBus.getDefault().post(new SharedEvent(SharedEvent.Type.Contact));
        return new Export<String>(VCardHelper.getCardFromContact(contact, ctx));
     }
 }

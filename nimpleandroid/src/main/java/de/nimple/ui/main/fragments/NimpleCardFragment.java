@@ -29,6 +29,7 @@ import de.greenrobot.event.EventBus;
 import de.nimple.R;
 import de.nimple.events.NimpleCardChangedEvent;
 import de.nimple.events.NimpleCodeChangedEvent;
+import de.nimple.events.SharedEvent;
 import de.nimple.services.export.Export;
 import de.nimple.services.export.IExportExtender;
 import de.nimple.services.nimplecode.Address;
@@ -295,6 +296,7 @@ public class NimpleCardFragment extends Fragment implements IExportExtender {
 
 	@Override
 	public Export getExport() {
+        EventBus.getDefault().post(new SharedEvent(SharedEvent.Type.Card));
 		return new Export<String>(VCardHelper.getCardFromSharedPrefs(ctx));
 	}
 }

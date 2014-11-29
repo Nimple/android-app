@@ -14,6 +14,7 @@ import butterknife.ButterKnife;
 import de.greenrobot.event.EventBus;
 import de.nimple.config.Config;
 import de.nimple.events.NoOpEvent;
+import de.nimple.events.PurchasedEvent;
 import de.nimple.services.upgrade.ProVersionHelper;
 import de.nimple.ui.pro.ProActivatedActivity;
 import de.nimple.util.Lg;
@@ -76,6 +77,7 @@ public abstract class BaseActivity extends Activity  implements BillingProcessor
         Intent intent = new Intent(ctx, ProActivatedActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         ctx.startActivity(intent);
+        EventBus.getDefault().post(new PurchasedEvent());
         finish();
     }
 

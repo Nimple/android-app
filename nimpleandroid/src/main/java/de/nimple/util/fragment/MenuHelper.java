@@ -33,7 +33,7 @@ public class MenuHelper {
         } else if (item.getItemId() == R.id.menu_about) {
             startAboutNimpleActivity(frag.getActivity().getApplicationContext());
         } else if (item.getItemId() == R.id.menu_share) {
-            shareApp(frag.getActivity(),null);
+            shareApp(frag.getActivity(), null);
         } else if (item.getItemId() == R.id.menu_feedback) {
             sendFeedback(frag.getActivity());
         } else if (item.getItemId() == R.id.menu_save) {

@@ -22,6 +22,8 @@ import de.nimple.events.ApplicationStartedEvent;
 import de.nimple.events.ContactAddedEvent;
 import de.nimple.events.ContactTransferredEvent;
 import de.nimple.events.NimpleCodeChangedEvent;
+import de.nimple.events.PurchasedEvent;
+import de.nimple.events.SharedEvent;
 import de.nimple.services.contacts.ContactsService;
 import de.nimple.services.nimplecode.NimpleCodeHelper;
 
@@ -99,9 +101,33 @@ public class AnalyticsController {
 	}
 
 	public void onEvent(ContactTransferredEvent ev) {
-		JSONObject props = new JSONObject();
-		mixpanel.track("contact saved in adress book", props);
-	}
+        JSONObject props = new JSONObject();
+        mixpanel.track("contact saved in adress book", props);
+    }
+
+    public void onEvent(PurchasedEvent ev) {
+        JSONObject props = new JSONObject();
+        mixpanel.track("is Android purchase", props);
+    }
+
+    public void onEvent(SharedEvent ev) {
+        JSONObject props = new JSONObject();
+        switch(ev.getType()){
+            case Card:
+                mixpanel.track("Card shared", props);
+                break;
+            case Code:
+                mixpanel.track("Code shared", props);
+                break;
+            case Contact:
+                mixpanel.track("One Contact shared", props);
+                break;
+            case Contacts:
+                mixpanel.track("Contacts shared", props);
+                break;
+
+        }
+    }
 
 	public void onEvent(NimpleCodeChangedEvent ev) throws JSONException {
 		NimpleCode nimpleCode = new NimpleCodeHelper(ctx).holder;
@@ -119,6 +145,7 @@ public class AnalyticsController {
 		props.put("has website", nimpleCode.websiteUrl.length() != 0);
 		props.put("has address", nimpleCode.address.hasAddress());
 		props.put("has linkedin", nimpleCode.linkedinUrl.length() != 0);
+        props.put("amount of own cards", NimpleCodeHelper.getCards(ctx).size());
 
 		mixpanel.track("nimple code edited", props);
 	}
