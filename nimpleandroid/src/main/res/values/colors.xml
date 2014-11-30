@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
     <!-- Nimple Default -->
     <color name="nimple_color">#8f0034</color>
     <color name="grey_light">#C0C0C0</color>

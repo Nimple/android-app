@@ -21,7 +21,7 @@ android {
 
 
     productFlavors {
-        orignal {
+        original {
             packageName "de.nimple"
         }
         telekom {

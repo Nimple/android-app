@@ -173,6 +173,14 @@ public class NimpleCodeHelper implements NimpleCodeService {
         }
     }
 
+    public static void update(Context ctx){
+        //Only if the app was updated this value is set.
+        if(!SharedPrefHelper.getString(NC_VALUE_PHONE_OLD, ctx).equals("")) {
+            SharedPrefHelper.putString(NC_VALUE_PHONE_MOBILE, SharedPrefHelper.getString(NC_VALUE_PHONE_OLD, ctx), ctx);
+            SharedPrefHelper.remove(NC_VALUE_PHONE_OLD, ctx);
+        }
+    }
+
     public static List<NimpleCard> getCards(Context ctx){
         List<NimpleCard> cards = new ArrayList<NimpleCard>();
         int rider = SharedPrefHelper.getInt(NC_CARDS_GLOBALE_ID_RIDER, ctx);
@@ -221,6 +229,9 @@ public class NimpleCodeHelper implements NimpleCodeService {
     private static final String NC_CARDS_GLOBALE_ID_RIDER = "nimple_cards_id";
     private static final String NC_CARD_NAME = "nimple_card_name";
     private static final String NC_CARD_ID = "nimple_card_id";
+    //Update logic
+    private static final String NC_VALUE_PHONE_OLD = "nimple_code_phone";
+    private static final String NC_VALUE_PHONE_MOBILE = "nimple_code_phone_mobile";
 
 	private final String NC_INIT = "nimple_code_init";
 
@@ -228,7 +239,6 @@ public class NimpleCodeHelper implements NimpleCodeService {
 	private static final String NC_VALUE_LASTNAME = "nimple_code_lastname";
 	private final String NC_VALUE_MAIL = "nimple_code_mail";
 	private final String NC_VALUE_PHONE_HOME = "nimple_code_phone_home";
-    private final String NC_VALUE_PHONE_MOBILE = "nimple_code_phone_mobile";
 	private final String NC_VALUE_ADDRESS = "nimple_code_address";
 	private final String NC_VALUE_POSITION = "nimple_code_position";
 	private final String NC_VALUE_COMPANY = "nimple_code_company";

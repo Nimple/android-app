@@ -91,6 +91,7 @@ public class NimpleCodeFragment extends Fragment implements IExportExtender {
     private void onBootstrap(){
         //is necassary for compatibility
         NimpleCodeHelper.initCardNameFunctionality(ctx);
+        NimpleCodeHelper.update(ctx);
     }
 
     @Override
