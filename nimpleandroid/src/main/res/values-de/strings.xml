@@ -167,5 +167,6 @@
     <string name="pro_purchase_err">Kauf der Pro-Version ist fehlgeschlagen.</string>
     <string name="pro_congrats">Glückwunsch, du hast Nimple Pro erworben!</string>
     <string name="pro_restart">Nimple neustarten</string>
+    <string name="pro_activated_title">Glückwunsch</string>
 
 </resources>
