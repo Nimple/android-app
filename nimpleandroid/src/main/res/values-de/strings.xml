@@ -106,7 +106,7 @@
 	<string name="ncard_job">Job/Position</string>
 	<string name="ncard_website">Webseite</string>
 	<string name="ncard_address">Adresse</string>
-	<string name="ncard_footer">Deine Karte wird per Scannen des Codes übertragen</string>
+	<string name="ncard_footer">Deine Karte wird per Code-Scannen übertragen</string>
 
 	<!-- nimple-code fragement -->
 	<string name="ncode_footer">Dein Code kann mit jedem Barcode-Reader oder Nimple eingescannt werden</string>
