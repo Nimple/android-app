@@ -142,7 +142,7 @@
     <string name="ab_export">Export</string>
     <string name="export_contact">Diesen Kontakt exportieren</string>
     <string name="export_dia_header">Datei exportieren</string>
-    <string name="export_dia_card">Auf SD-Card exportieren</string>
+    <string name="export_dia_card">Auf Speicherkarte exportieren</string>
     <string name="export_dia_mail">Als E-Mail versenden</string>
     <string name="export_dia_cancel">Abbrechen</string>
     <!-- several cards -->

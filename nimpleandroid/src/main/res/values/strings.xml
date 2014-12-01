@@ -150,9 +150,9 @@
 
     <string name="ab_export">Export</string>
     <string name="export_contact">Export this contact</string>
-    <string name="export_dia_header">Export File</string>
-    <string name="export_dia_card">Export to SD-Card</string>
-    <string name="export_dia_mail">Send as E-Mail</string>
+    <string name="export_dia_header">Export file</string>
+    <string name="export_dia_card">Export to memory card</string>
+    <string name="export_dia_mail">Send as email</string>
     <string name="export_dia_cancel">Cancel</string>
     <!-- several cards -->
     <string name="nimpleCards_defaultName">Nimple Card</string>

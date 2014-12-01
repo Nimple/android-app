@@ -124,47 +124,47 @@
 	<string name="button_delete">Usuń</string>
 
     <!-- export -->
-    <string name="ncard_phone_home">Phone number</string>
-    <string name="ncard_phone_mobile">Mobile number</string>
-    <string name="ab_export_contacts">Export Contacts</string>
-    <string name="ab_export_code">Export Barcode</string>
-    <string name="ab_export_card">Export Card</string>
-    <string name="ab_export_err">Failed to save content</string>
-    <string name="ab_export_save">Saved content to folder "Downloads"</string>
+    <string name="ncard_phone_home">Numer telefonu</string>
+    <string name="ncard_phone_mobile">Numer telefonu komórkowego</string>
+    <string name="ab_export_contacts">Eksport kontakty</string>
+    <string name="ab_export_code">Eksport kod</string>
+    <string name="ab_export_card">Eksport karta</string>
+    <string name="ab_export_err">Nie udało się zapisać</string>
+    <string name="ab_export_save">Zapisane zawartość do folderu "Downloads"</string>
 
     <!-- share -->
-    <string name="ab_share_contacts">Share Contacts</string>
-    <string name="ab_share_contact">Share Contact</string>
-    <string name="ab_share_code">Share Barcode</string>
-    <string name="ab_share_card">Share Card</string>
+    <string name="ab_share_contacts">wysyłać kontakty</string>
+    <string name="ab_share_contact">Wysłać kontakt</string>
+    <string name="ab_share_code">Wyślij kod</string>
+    <string name="ab_share_card">Wyślij kartkę</string>
 
 
-    <string name="ab_export">Export</string>
-    <string name="export_contact">Export this contact</string>
-    <string name="export_dia_header">Export File</string>
-    <string name="export_dia_card">Export to SD-Card</string>
-    <string name="export_dia_mail">Send as E-Mail</string>
-    <string name="export_dia_cancel">Cancel</string>
+    <string name="ab_export">Eksport</string>
+    <string name="export_contact">Wyeksportować ten kontakt</string>
+    <string name="export_dia_header">Plik eksportu</string>
+    <string name="export_dia_card">Eksport do karty pamięci</string>
+    <string name="export_dia_mail">Wyślij jako e-mail</string>
+    <string name="export_dia_cancel">Anuluj</string>
     <!-- several cards -->
-    <string name="nimpleCards_defaultName">NimpleCard</string>
-    <string name="del_ncard_question">Delete this card?</string>
-    <string name="add_ncard_question">Add Card?</string>
-    <string name="personal_input_mobile">Mobile number</string>
-    <string name="personal_input_card">Cardname</string>
-    <string name="form_error_card_invalid">Card name is invalid.</string>
+    <string name="nimpleCards_defaultName">Nimple Karta</string>
+    <string name="del_ncard_question">Usuń tą kartę?</string>
+    <string name="add_ncard_question">Dodaj kartę?</string>
+    <string name="personal_input_mobile">Numer telefonu komórkowego</string>
+    <string name="personal_input_card">Nazwa karty</string>
+    <string name="form_error_card_invalid">Nazwa karty jest nieprawidłowy.</string>
 
 	<!-- ProVersion -->
-    <string name="ab_proVersion">Unlock ProVersion</string>
-    <string name="pro_features_text">Nimple Pro will give you incredible new useful features such as</string>
-    <string name="pro_feature_export">Export and save your nimple card, code and contact/s</string>
-    <string name="pro_feature_share">Share and send your nimple card, code and contact/s via mail or any other medium</string>
-    <string name="pro_feature_cards">Create multiple nimple cards and codes (e.g. one for business, one for private and one for university)</string>
-    <string name="pro_bt_buy">Upgrade to Pro</string>
-    <string name="pro_copyright">Copyright</string>
-    <string name="pro_title">Buy Pro</string>
-    <string name="pro_purchase_succesfull">Please restart the Nimple app that the purchase can take place</string>
-    <string name="pro_purchase_err">Purchase failed.</string>
-    <string name="pro_congrats">Glückwunsch, du hast Nimple Pro erworben!</string>
-    <string name="pro_restart">Nimple neustarten</string>
+    <string name="ab_proVersion">Odblokuj wersji Pro</string>
+    <string name="pro_features_text">Nowa wersja oferuje nowe funkcje</string>
+    <string name="pro_feature_export">Eksport i zapisać kartę, kod i kontakty</string>
+    <string name="pro_feature_share">Wyślij kartę, kod i kontakty</string>
+    <string name="pro_feature_cards">Tworzenie wielu kart i kodów (np. jeden z firmy, jeden dla prywatnych i jeden dla uczelni)</string>
+    <string name="pro_bt_buy">Uaktualnienie do Pro</string>
+    <string name="pro_copyright">Prawo autorskie</string>
+    <string name="pro_title">Kupić pro</string>
+    <string name="pro_purchase_succesfull">Proszę ponownie uruchomić Nimple do sfinalizowania zakupu</string>
+    <string name="pro_purchase_err">Zakup nie przeprowadzono.</string>
+    <string name="pro_congrats">Gratulacja, Nimple pro został kupiony!</string>
+    <string name="pro_restart">Ponowne uruchamianie</string>
     <string name="pro_activated_title">Gratulacje</string>
 </resources>
