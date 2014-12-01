@@ -145,6 +145,7 @@
     <string name="export_dia_card">Esporta su scheda di memoria</string>
     <string name="export_dia_mail">Invia e-mail</string>
     <string name="export_dia_cancel">Annulla</string>
+
     <!-- several cards -->
     <string name="nimpleCards_defaultName">Nimple Biglietto</string>
     <string name="del_ncard_question">Elimina questo biglietto?</string>

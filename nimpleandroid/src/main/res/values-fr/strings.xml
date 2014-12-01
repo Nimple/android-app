@@ -145,6 +145,7 @@
     <string name="export_dia_card">Exporter à carte SD</string>
     <string name="export_dia_mail">Envoyer un mail</string>
     <string name="export_dia_cancel">Annuler</string>
+
     <!-- several cards -->
     <string name="nimpleCards_defaultName">Nimple Carte</string>
     <string name="del_ncard_question">Supprimer cette carte?</string>
