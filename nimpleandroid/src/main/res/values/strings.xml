@@ -163,7 +163,7 @@
     <string name="form_error_card_invalid">Card name is invalid.</string>
 
     <!-- ProVersion -->
-    <string name="ab_proVersion">Unlock ProVersion</string>
+    <string name="ab_proVersion">Unlock Pro version</string>
     <string name="pro_features_text">Nimple Pro will give you incredible new useful features such as</string>
     <string name="pro_feature_export">Export and save your nimple card, code and contact/s</string>
     <string name="pro_feature_share">Share and send your nimple card, code and contact/s via mail or any other medium</string>
@@ -172,7 +172,7 @@
     <string name="pro_copyright">Copyright</string>
     <string name="pro_title">Buy Pro</string>
     <string name="pro_activated_title">Congratualations</string>
-    <string name="pro_purchase_succesfull">Please restart the Nimple app that the purchase can take place</string>
+    <string name="pro_purchase_succesfull">Please restart the Nimple app to finalize the purchase.</string>
     <string name="pro_purchase_err">Purchase failed.</string>
     <string name="pro_congrats">Congratualtion, Nimple Pro was purchased!</string>
     <string name="pro_restart">Restart Nimple</string>

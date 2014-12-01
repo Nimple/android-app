@@ -163,10 +163,9 @@
     <string name="pro_bt_buy">Upgrade zur Pro-Version</string>
     <string name="pro_copyright">Copyright</string>
     <string name="pro_title">Kaufe Pro-Version</string>
-    <string name="pro_purchase_succesfull">Bitte starte die Nimple App neu, sodass der Kauf durchgeführt werden kann.</string>
+    <string name="pro_purchase_succesfull">Bitte starte die Nimple App neu, um den Kauf abzuschließen.</string>
     <string name="pro_purchase_err">Kauf der Pro-Version ist fehlgeschlagen.</string>
     <string name="pro_congrats">Glückwunsch, du hast Nimple Pro erworben!</string>
     <string name="pro_restart">Nimple neustarten</string>
     <string name="pro_activated_title">Glückwunsch</string>
-
 </resources>
