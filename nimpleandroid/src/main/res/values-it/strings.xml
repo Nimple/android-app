@@ -124,11 +124,11 @@
 	<string name="button_delete">Elimina</string>
 
     <!-- export -->
-    <string name="ncard_phone_home">Phone number</string>
-    <string name="ncard_phone_mobile">Mobile number</string>
-    <string name="ab_export_contacts">Export Contacts</string>
-    <string name="ab_export_code">Export Barcode</string>
-    <string name="ab_export_card">Export Card</string>
+    <string name="ncard_phone_home">Numero di telefono</string>
+    <string name="ncard_phone_mobile">Numero di cellulare</string>
+    <string name="ab_export_contacts">Esporta Contatti</string>
+    <string name="ab_export_code">Esporta Codice</string>
+    <string name="ab_export_card">Esporta Biglietto</string>
     <string name="ab_export_err">Failed to save content</string>
     <string name="ab_export_save">Saved content to folder "Downloads"</string>
 
