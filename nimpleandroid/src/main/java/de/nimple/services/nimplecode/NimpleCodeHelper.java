@@ -206,7 +206,7 @@ public class NimpleCodeHelper implements NimpleCodeService {
 
     public static int addCard(Context ctx){
         int id = SharedPrefHelper.getInt(NC_CARDS_GLOBALE_ID_RIDER, ctx);
-        String cardName =  "Neue Nimple Karte " + (id + 1);
+        String cardName =  (id + 1) + ". Nimple Karte";
         SharedPrefHelper.putString(NC_CARD_NAME + id , cardName, ctx);
         SharedPrefHelper.putInt(NC_CARD_ID + id, id, ctx);
         SharedPrefHelper.putString(NC_VALUE_FIRSTNAME + id, SharedPrefHelper.getString(NC_VALUE_FIRSTNAME, ctx), ctx);
