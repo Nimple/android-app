@@ -146,7 +146,7 @@
     <string name="export_dia_mail">Envoyer un mail</string>
     <string name="export_dia_cancel">Annuler</string>
     <!-- several cards -->
-    <string name="nimpleCards_defaultName">Carte</string>
+    <string name="nimpleCards_defaultName">Nimple Carte</string>
     <string name="del_ncard_question">Supprimer cette carte?</string>
     <string name="add_ncard_question">Ajouter une carte?</string>
     <string name="personal_input_mobile">Numéro de portable</string>
