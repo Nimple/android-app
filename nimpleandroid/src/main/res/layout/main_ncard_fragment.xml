@@ -249,7 +249,6 @@
                 android:id="@+id/linkedinRoundIcon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="3dp"
                 android:src="@drawable/ic_round_linkedin"
                 android:baseline="0dp"
                 android:layout_marginRight="4dp" />
