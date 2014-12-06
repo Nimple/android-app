@@ -10,16 +10,16 @@
         android:id="@+id/tabs"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:background="#8f0034"
+        android:background="@color/nimple_color"
         android:fontFamily="sans-serif-light"
-        android:textColor="#d05173"
+        android:textColor="@color/nimple_text_light_desaturated"
         android:textSize="14sp"
         app:pstsDividerColor="@color/transparent"
-        app:pstsIndicatorColor="#ea005b"
+        app:pstsIndicatorColor="@color/nimple_tabbar_indicator"
         app:pstsIndicatorHeight="3dp"
         app:pstsShouldExpand="true"
         app:pstsTextAllCaps="false"
-        app:pstsUnderlineColor="#e41a4f"
+        app:pstsUnderlineColor="@color/nimple_text_dark"
         app:pstsUnderlineHeight="0dp"/>
 
     <RelativeLayout

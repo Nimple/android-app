@@ -7,7 +7,8 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="3dp" >
+        android:layout_marginTop="5dp"
+        android:id="@+id/relativeLayout">
 
         <ImageView
             android:id="@+id/arrow_up"
@@ -41,10 +42,10 @@
         android:id="@+id/launcher_icon_layout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="110dp"
         android:gravity="center"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:layout_below="@+id/relativeLayout"
+        android:layout_centerHorizontal="true">
 
         <ImageView
             android:id="@+id/nimple_icon"
@@ -78,7 +79,7 @@
         android:layout_alignParentLeft="true"
         android:layout_below="@id/launcher_icon_layout"
         android:layout_marginLeft="20dp"
-        android:layout_marginTop="26dp"
+        android:layout_marginTop="56dp"
         android:orientation="vertical" >
 
         <TextView
@@ -102,14 +103,8 @@
         android:layout_marginRight="20dp"
         android:layout_marginTop="4dp"
         android:gravity="right"
-        android:orientation="vertical" >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="right"
-            android:text="@string/swype_right_hint"
-            android:textAppearance="@style/NimpleTextDefault" />
+        android:orientation="vertical"
+        android:id="@+id/linearLayout2">
 
         <ImageView
             android:layout_width="wrap_content"
@@ -117,5 +112,15 @@
             android:layout_marginTop="8dp"
             android:src="@drawable/ic_swype_left" />
     </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="right"
+        android:text="@string/swype_right_hint"
+        android:textAppearance="@style/NimpleTextDefault"
+        android:layout_alignBottom="@+id/swype_right_layout"
+        android:layout_alignRight="@+id/linearLayout2"
+        android:layout_alignEnd="@+id/linearLayout2" />
 
 </RelativeLayout>

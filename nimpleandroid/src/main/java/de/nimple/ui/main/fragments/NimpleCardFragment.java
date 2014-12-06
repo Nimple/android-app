@@ -29,6 +29,7 @@ import de.greenrobot.event.EventBus;
 import de.nimple.R;
 import de.nimple.events.NimpleCardChangedEvent;
 import de.nimple.events.NimpleCodeChangedEvent;
+import de.nimple.events.SharedEvent;
 import de.nimple.services.export.Export;
 import de.nimple.services.export.IExportExtender;
 import de.nimple.services.nimplecode.Address;
@@ -159,10 +160,15 @@ public class NimpleCardFragment extends Fragment implements IExportExtender {
 
     @OnClick({R.id.ncard_add})
     public void addCard(){
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        int id = NimpleCodeHelper.addCard(ctx);
+        final NimpleCodeHelper ncode = new NimpleCodeHelper(ctx);
+        ncode.setCurrentId(id);
+        refreshUi();
+        EventBus.getDefault().post(new NimpleCodeChangedEvent());
+        /*AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setMessage(getString(R.string.add_ncard_question));
         builder.setCancelable(true);
-        builder.setPositiveButton(getString(R.string.button_ok), new DialogInterface.OnClickListener() {
+       builder.setPositiveButton(getString(R.string.button_ok), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 NimpleCodeHelper.addCard(ctx);
@@ -175,7 +181,7 @@ public class NimpleCardFragment extends Fragment implements IExportExtender {
             }
         });
         AlertDialog dialog = builder.create();
-        dialog.show();
+        dialog.show();*/
     }
 
     @OnClick({R.id.ncard_del})
@@ -290,6 +296,7 @@ public class NimpleCardFragment extends Fragment implements IExportExtender {
 
 	@Override
 	public Export getExport() {
+        EventBus.getDefault().post(new SharedEvent(SharedEvent.Type.Card));
 		return new Export<String>(VCardHelper.getCardFromSharedPrefs(ctx));
 	}
 }

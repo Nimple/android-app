@@ -45,6 +45,10 @@
             android:label="@string/pro_title"
             android:screenOrientation="portrait" />
         <activity
+            android:name="de.nimple.ui.pro.ProActivatedActivity"
+            android:label="@string/pro_activated_title"
+            android:screenOrientation="portrait" />
+        <activity
             android:name="de.nimple.ui.about.AboutNimpleActivity"
             android:label="@string/about_title"
             android:screenOrientation="portrait" />

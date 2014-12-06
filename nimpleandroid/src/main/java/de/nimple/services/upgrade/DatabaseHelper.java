@@ -44,14 +44,15 @@ public class DatabaseHelper extends DaoMaster.DevOpenHelper {
                 db.execSQL("ALTER TABLE contacts ADD telephoneWork TEXT");
                 break;
             case 4:
-                db.execSQL("ALTER TABLE contacts RENAME contacts.old");
+                db.execSQL("ALTER TABLE contacts RENAME TO contactsold");
                 DaoMaster.createAllTables(db, false);
-                db.execSQL("INTO contacts (name, email,telephoneHome, telephoneMobile,website,street,postal,city,company," +
-                           "position, facebookId, facebookUrl,twitterId,twitterUrl, xingUrl,linkedUrl,xingUrl,hash,created,note) " +
-                           "SELECT name, email,telephone, telephoneWork,website,street,postal,city,company," +
-                           "position, facebookId, facebookUrl,twitterId,twitterUrl, xingUrl,linkedUrl,xingUrl,hash,created,note" +
-                           "FROM contacts.old");
-                db.execSQL("DROP TABLE contacts.old");
+
+                db.execSQL("INSERT INTO contacts (name, email,telephoneHome, telephoneMobile,website,street,postal,city,company," +
+                           "position, facebookId, facebookUrl,twitterId,twitterUrl, xingUrl,linkedinUrl,xingUrl,hash,created,note) " +
+                           "SELECT name, email,telephoneWork,telephone,website,street,postal,city,company," +
+                           "position, facebookId, facebookUrl,twitterId,twitterUrl, xingUrl,linkedinUrl,xingUrl,hash,created,note " +
+                           "FROM contactsold");
+                db.execSQL("DROP TABLE contactsold");
                 break;
         }
 	}
