@@ -1,7 +1,5 @@
 package de.nimple.ui.main.fragments;
 
-import java.util.List;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -14,7 +12,9 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import java.util.List;
+
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import de.greenrobot.event.EventBus;
@@ -104,14 +104,6 @@ public class ContactsListAdapter extends ArrayAdapter<Contact> {
 			holder.emailField.setVisibility(View.VISIBLE);
 		} else {
 			holder.emailField.setVisibility(View.GONE);
-		}
-
-		final String numberHome = c.getTelephoneHome();
-		if (numberHome != null && numberHome.length() != 0) {
-			holder.numberField.setText(numberHome);
-			holder.numberField.setVisibility(View.VISIBLE);
-		} else {
-			holder.numberField.setVisibility(View.GONE);
 		}
 
         final String numberMobile = c.getTelephoneMobile();

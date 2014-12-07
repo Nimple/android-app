@@ -33,14 +33,14 @@ public class MenuHelper {
         } else if (item.getItemId() == R.id.menu_about) {
             startAboutNimpleActivity(frag.getActivity().getApplicationContext());
         } else if (item.getItemId() == R.id.menu_share) {
-            shareApp(frag.getActivity(),null);
+            shareApp(frag.getActivity(), null);
         } else if (item.getItemId() == R.id.menu_feedback) {
             sendFeedback(frag.getActivity());
         } else if (item.getItemId() == R.id.menu_save) {
             save(((IExportExtender)frag).getExport(),frag.getActivity().getApplicationContext());
         } else if(item.getItemId() == R.id.menu_export){
             export(frag);
-        } else if(item.getItemId() == R.id.menu_proVersion){
+        } else if(item.getItemId() == R.id.menu_proVersion || item.getItemId() == R.id.menu_proVersion2){
             startProActivity(frag.getActivity().getApplicationContext());
         }
     }
