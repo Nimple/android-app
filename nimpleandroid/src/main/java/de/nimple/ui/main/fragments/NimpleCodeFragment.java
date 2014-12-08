@@ -102,6 +102,7 @@ public class NimpleCodeFragment extends Fragment implements IExportExtender {
         proHelp.addObserver(menu.findItem(R.id.menu_export), ProObservable.State.PRO);
         proHelp.addObserver(menu.findItem(R.id.menu_save), ProObservable.State.PRO);
         proHelp.addObserver(menu.findItem(R.id.menu_proVersion), ProObservable.State.BASIC);
+        proHelp.addObserver(menu.findItem(R.id.menu_proVersion2), ProObservable.State.BASIC);
         ProVersionHelper.getInstance(ctx).notifyObserver();
     }
 
