@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.anjlab.android.iab.v3.BillingProcessor;
 import com.anjlab.android.iab.v3.TransactionDetails;
@@ -12,6 +13,7 @@ import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import de.greenrobot.event.EventBus;
+import de.nimple.R;
 import de.nimple.config.Config;
 import de.nimple.events.NoOpEvent;
 import de.nimple.events.PurchasedEvent;
@@ -86,7 +88,7 @@ public abstract class BaseActivity extends Activity  implements BillingProcessor
         /*
          * Called then some error occured. See Constants class for more details
          */
-        //Toast.makeText(ctx, ctx.getString(R.string.pro_purchase_err),Toast.LENGTH_SHORT).show();
+        Toast.makeText(ctx, ctx.getString(R.string.pro_purchase_err), Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -95,6 +97,6 @@ public abstract class BaseActivity extends Activity  implements BillingProcessor
          * Called then purchase history was restored and the list of all owned PRODUCT ID's
          * was loaded from Google Play
          */
-       // ProVersionHelper.getInstance(ctx).setPro(billing.isPurchased(Config.GOOGLE_PRODUCT_ID));
+        ProVersionHelper.getInstance(ctx).setPro(billing.isPurchased(Config.GOOGLE_PRODUCT_ID));
     }
 }
