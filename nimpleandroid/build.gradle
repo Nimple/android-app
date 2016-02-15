@@ -19,7 +19,6 @@ android {
         }
     }
 
-
     productFlavors {
         original {
             applicationId "de.nimple"
@@ -49,6 +48,7 @@ dependencies {
     compile 'com.android.support:support-v4:23.1.1'
     compile 'com.android.support:support-v13:23.1.1'
     compile 'com.anjlab.android.iab.v3:library:1.0.17'
+    compile 'com.myappfree.sdk:appvalidator:1.0.5'
     compile project(':nimplefacebook')
     compile project(':nimplezxing')
 }
